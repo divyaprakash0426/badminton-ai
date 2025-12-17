@@ -11,6 +11,7 @@ ENV/
 # --- Large Dataset Files ---
 # Ignoring the large zip and potential local data extractions
 VideoBadminton_Dataset.zip
+*.zip
 data/
 videos/
 
@@ -20,6 +21,11 @@ videos/
 *.onnx
 *.engine
 ckpts/
+
+# --- TrackNet V3 Specific ---
+engine/tracknet_v3/ckpts/
+engine/tracknet_v3/*.zip
+engine/tracknet_v3/__pycache__/
 
 # --- IDE and OS Metadata ---
 .vscode/

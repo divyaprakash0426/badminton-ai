@@ -1,0 +1,34 @@
+.aider*
+
+# --- Python Specific ---
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+
+# --- Large Dataset Files ---
+# Ignoring the large zip and potential local data extractions
+VideoBadminton_Dataset.zip
+data/
+videos/
+
+# --- Model Checkpoints and Weights ---
+# These are large binary files that should be hosted elsewhere (e.g., HuggingFace or S3)
+*.pt
+*.onnx
+*.engine
+ckpts/
+
+# --- IDE and OS Metadata ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- Logs and Build Artifacts ---
+logs/
+build/
+dist/
+*.log

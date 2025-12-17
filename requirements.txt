@@ -1,0 +1,16 @@
+ultralytics
+streamlit==1.40.0
+opencv-python
+pandas
+shapely
+google-generativeai
+matplotlib
+supervision
+parse
+torch
+torchvision
+pytorchvideo
+av
+einops
+scikit-learn
+tqdm

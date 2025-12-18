@@ -101,6 +101,7 @@ class ParallelVideoProcessor:
         player_present_frames = set()
         camera_cut_frames = []
         prev_gray = None
+        prev_hist = None
         
         frame_idx = start_frame
         play_area_poly = self.geometry.get_play_area_polygon(margin=1.5)
@@ -124,15 +125,17 @@ class ParallelVideoProcessor:
                 batch_grays.append(gray)
                 
                 # Camera cut detection (inline for speed)
-                if prev_gray is not None:
-                    hist_prev = cv2.calcHist([prev_gray], [0], None, [256], [0, 256])
-                    hist_curr = cv2.calcHist([gray], [0], None, [256], [0, 256])
-                    cv2.normalize(hist_prev, hist_prev)
-                    cv2.normalize(hist_curr, hist_curr)
-                    corr = cv2.compareHist(hist_prev, hist_curr, cv2.HISTCMP_CORREL)
+                # Optimization: Cache current histogram to avoid recalculation in next iteration
+                hist_curr = cv2.calcHist([gray], [0], None, [256], [0, 256])
+                cv2.normalize(hist_curr, hist_curr)
+
+                if prev_gray is not None and prev_hist is not None:
+                    corr = cv2.compareHist(prev_hist, hist_curr, cv2.HISTCMP_CORREL)
                     if corr < 0.7:
                         camera_cut_frames.append(frame_idx)
+
                 prev_gray = gray
+                prev_hist = hist_curr
                 frame_idx += 1
             
             if not batch_frames:

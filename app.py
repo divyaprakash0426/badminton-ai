@@ -611,3 +611,18 @@ if uploaded_file:
                         for item in curr_insights.get('my_improvements', []):
                             st.write(f"- {item}")
 
+else:
+    # 🎨 Palette: Empty State / Welcome Guide
+    st.markdown("""
+### 👋 Welcome to your AI Badminton Coach!
+
+This tool analyzes your badminton singles matches to provide tactical insights and performance metrics.
+
+#### 🚀 How to get started:
+
+1. **📂 Upload Video**: Use the sidebar to upload a match video (MP4, MOV, etc.).
+2. **📐 Calibrate Court**: Drag the 4 green corners to match the singles court lines.
+3. **🧠 Get Insights**: Let the AI track players/shuttle and generate tactical advice.
+
+**💡 Tip:** For best results, use a video with a fixed camera angle from the back of the court.
+    """)

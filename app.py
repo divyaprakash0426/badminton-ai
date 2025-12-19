@@ -55,7 +55,11 @@ st.sidebar.divider()
 st.sidebar.markdown("### 🤖 AI Coach")
 gemini_api_key = st.sidebar.text_input("Gemini API Key", type="password", help="Required for Tab 3 AI features.")
 
-uploaded_file = st.sidebar.file_uploader("Upload Video", type=["mp4", "mov", "avi", "webm", "mkv"])
+uploaded_file = st.sidebar.file_uploader(
+    "Upload Video",
+    type=["mp4", "mov", "avi", "webm", "mkv"],
+    help="Limit 200MB. Supported formats: MP4, MOV, AVI, WebM, MKV"
+)
 
 # --- main ---
 if uploaded_file:
@@ -635,16 +639,29 @@ if uploaded_file:
 
 else:
     # 🎨 Palette: Empty State / Welcome Guide
-    st.markdown("""
-### 👋 Welcome to your AI Badminton Coach!
+    st.markdown("## 👋 Welcome to your AI Badminton Coach")
 
-This tool analyzes your badminton singles matches to provide tactical insights and performance metrics.
+    st.markdown(
+        """
+        This tool analyzes your badminton singles matches to provide
+        tactical insights and performance metrics using computer vision.
+        """
+    )
 
-#### 🚀 How to get started:
+    with st.container(border=True):
+        st.subheader("🚀 How to get started")
 
-1. **📂 Upload Video**: Use the sidebar to upload a match video (MP4, MOV, etc.).
-2. **📐 Calibrate Court**: Drag the 4 green corners to match the singles court lines.
-3. **🧠 Get Insights**: Let the AI track players/shuttle and generate tactical advice.
+        c1, c2, c3 = st.columns(3)
+        with c1:
+            st.markdown("### 1. Upload 📂")
+            st.write("Use the sidebar to upload a match video (MP4, MOV, etc.).")
 
-**💡 Tip:** For best results, use a video with a fixed camera angle from the back of the court.
-    """)
+        with c2:
+            st.markdown("### 2. Calibrate 📐")
+            st.write("Drag the 4 green corners to match the singles court lines.")
+
+        with c3:
+            st.markdown("### 3. Analyze 🧠")
+            st.write("Let the AI track players & shuttle to generate tactical advice.")
+
+    st.info("💡 **Pro Tip:** For best results, use a video with a fixed camera angle from the back of the court.")

@@ -111,7 +111,6 @@ class ParallelVideoProcessor:
             # Read batch of frames ONCE
             batch_frames = []
             batch_indices = []
-            batch_grays = []
             
             for _ in range(self.batch_size):
                 ret, frame = cap.read()
@@ -120,21 +119,23 @@ class ParallelVideoProcessor:
                 batch_frames.append(frame)
                 batch_indices.append(frame_idx)
                 
-                # Camera cut detection (quick grayscale conversion)
-                gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-                batch_grays.append(gray)
+                # Camera cut detection
+                # Optimization 1: Downsample frame for faster processing (4x downscale = 16x fewer pixels)
+                # Optimization 2: Removed unused batch_grays list to save memory
+                # Note: resize with INTER_NEAREST is faster than slicing for subsequent cvtColor
+                small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25, interpolation=cv2.INTER_NEAREST)
+                gray = cv2.cvtColor(small_frame, cv2.COLOR_BGR2GRAY)
                 
                 # Camera cut detection (inline for speed)
                 # Optimization: Cache current histogram to avoid recalculation in next iteration
                 hist_curr = cv2.calcHist([gray], [0], None, [256], [0, 256])
                 cv2.normalize(hist_curr, hist_curr)
 
-                if prev_gray is not None and prev_hist is not None:
+                if prev_hist is not None:
                     corr = cv2.compareHist(prev_hist, hist_curr, cv2.HISTCMP_CORREL)
                     if corr < 0.7:
                         camera_cut_frames.append(frame_idx)
 
-                prev_gray = gray
                 prev_hist = hist_curr
                 frame_idx += 1
             

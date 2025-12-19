@@ -3,6 +3,7 @@ import tempfile
 import cv2
 import numpy as np
 import os
+import subprocess
 from concurrent.futures import ThreadPoolExecutor
 from PIL import Image
 from project_utils.video import VideoProcessor
@@ -69,8 +70,11 @@ if uploaded_file:
     if original_suffix in ['.webm', '.mkv']:
         st.info("Transcoding WebM/MKV to H.264 for compatibility...")
         transcoded_path = tempfile.NamedTemporaryFile(delete=False, suffix='.mp4').name
-        transcode_cmd = f"ffmpeg -y -i {video_path} -c:v libx264 -preset fast -crf 23 -c:a aac {transcoded_path} 2>/dev/null"
-        result = os.system(transcode_cmd)
+        transcode_cmd = [
+            "ffmpeg", "-y", "-i", video_path, "-c:v", "libx264", "-preset", "fast",
+            "-crf", "23", "-c:a", "aac", transcoded_path
+        ]
+        result = subprocess.run(transcode_cmd, stderr=subprocess.DEVNULL).returncode
         if result == 0 and os.path.exists(transcoded_path) and os.path.getsize(transcoded_path) > 0:
             video_path = transcoded_path
             st.success("Transcoding complete!")
@@ -279,10 +283,14 @@ if uploaded_file:
                     
                     # Check if transcoding is needed (H.264 written directly skips this)
                     # Use ffprobe to check codec
-                    import subprocess
-                    probe_cmd = f"ffprobe -v error -select_streams v:0 -show_entries stream=codec_name -of default=noprint_wrappers=1:nokey=1 {tfile_out.name}"
+                    probe_cmd = [
+                        "ffprobe", "-v", "error", "-select_streams", "v:0",
+                        "-show_entries", "stream=codec_name",
+                        "-of", "default=noprint_wrappers=1:nokey=1",
+                        tfile_out.name
+                    ]
                     try:
-                        codec = subprocess.check_output(probe_cmd.split(), stderr=subprocess.DEVNULL).decode().strip()
+                        codec = subprocess.check_output(probe_cmd, stderr=subprocess.DEVNULL).decode().strip()
                     except:
                         codec = "unknown"
                     
@@ -294,11 +302,19 @@ if uploaded_file:
                         # Need to transcode (mp4v fallback)
                         st.info(f"⚡ Quick transcoding ({codec} → H.264 NVENC)...")
                         converted_file = tempfile.NamedTemporaryFile(delete=False, suffix='.mp4').name
-                        ffmpeg_nvenc = f"ffmpeg -y -hwaccel cuda -i {tfile_out.name} -c:v h264_nvenc -preset p4 -pix_fmt yuv420p {converted_file}"
-                        ffmpeg_cpu = f"ffmpeg -y -i {tfile_out.name} -c:v libx264 -preset ultrafast -pix_fmt yuv420p {converted_file}"
-                        result = os.system(ffmpeg_nvenc)
+
+                        cmd_nvenc = [
+                            "ffmpeg", "-y", "-hwaccel", "cuda", "-i", tfile_out.name,
+                            "-c:v", "h264_nvenc", "-preset", "p4", "-pix_fmt", "yuv420p", converted_file
+                        ]
+                        cmd_cpu = [
+                            "ffmpeg", "-y", "-i", tfile_out.name,
+                            "-c:v", "libx264", "-preset", "ultrafast", "-pix_fmt", "yuv420p", converted_file
+                        ]
+
+                        result = subprocess.run(cmd_nvenc).returncode
                         if result != 0:
-                            os.system(ffmpeg_cpu)
+                            subprocess.run(cmd_cpu)
                     
                     # Run Analysis Engine Here (Before saving state)
                     analysis_report = analysis.analyze_rally(
@@ -419,8 +435,11 @@ if uploaded_file:
                                         
                                         # Only extract if not already done
                                         if not os.path.exists(clip_path):
-                                            ffmpeg_extract = f"ffmpeg -y -ss {start_time:.2f} -i {converted_file} -t {duration:.2f} -c copy {clip_path} 2>/dev/null"
-                                            os.system(ffmpeg_extract)
+                                            ffmpeg_extract = [
+                                                "ffmpeg", "-y", "-ss", f"{start_time:.2f}", "-i", converted_file,
+                                                "-t", f"{duration:.2f}", "-c", "copy", clip_path
+                                            ]
+                                            subprocess.run(ffmpeg_extract, stderr=subprocess.DEVNULL)
                                         
                                         # Display clip if it exists
                                         if os.path.exists(clip_path) and os.path.getsize(clip_path) > 0:
@@ -563,8 +582,11 @@ if uploaded_file:
                         # Clip extraction (Lazy)
                         clip_path = os.path.join(clips_dir, f"rally_{i+1}.mp4")
                         if not os.path.exists(clip_path):
-                            ffmpeg_extract = f"ffmpeg -y -ss {start_time:.2f} -i {converted_file} -t {duration:.2f} -c copy {clip_path} 2>/dev/null"
-                            os.system(ffmpeg_extract)
+                            ffmpeg_extract = [
+                                "ffmpeg", "-y", "-ss", f"{start_time:.2f}", "-i", converted_file,
+                                "-t", f"{duration:.2f}", "-c", "copy", clip_path
+                            ]
+                            subprocess.run(ffmpeg_extract, stderr=subprocess.DEVNULL)
                         
                         if os.path.exists(clip_path) and os.path.getsize(clip_path) > 0:
                             st.video(clip_path)

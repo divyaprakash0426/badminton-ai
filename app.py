@@ -28,7 +28,7 @@ def load_tracknet_tracker():
     """Load TrackNet + InpaintNet (cached across reruns)."""
     return TrackNetTracker()
 
-st.set_page_config(page_title="Badminton Singles Analytics", layout="wide")
+st.set_page_config(page_title="Badminton Singles Analytics", page_icon="🏸", layout="wide")
 
 st.title("🏸 Badminton Singles Analytics Engine")
 
@@ -360,7 +360,7 @@ if uploaded_file:
                         st.divider()
                         st.subheader("2. Analysis Results")
                         
-                        tab1, tab2, tab3 = st.tabs(["Video Overlay", "Tactical Analysis", "AI Coach"])
+                        tab1, tab2, tab3 = st.tabs(["🎥 Video Overlay", "📊 Tactical Analysis", "🤖 AI Coach"])
                         
                         with tab1:
                             st.video(converted_file)
@@ -503,7 +503,9 @@ if uploaded_file:
 
     with col2:
         st.subheader("Video Info")
-        st.json(info)
+        st.markdown(f"**Resolution:** {info['width']}x{info['height']}")
+        st.markdown(f"**FPS:** {info['fps']:.2f}")
+        st.markdown(f"**Duration:** {info['frame_count']/info['fps']:.1f}s")
         
     # --- RESULTS (Rendered from Session State) ---
     if st.session_state.get('analysis_results'):
@@ -515,7 +517,7 @@ if uploaded_file:
         st.divider()
         st.subheader("2. Analysis Results")
         
-        tab1, tab2, tab3 = st.tabs(["Video Overlay", "Tactical Analysis", "AI Coach"])
+        tab1, tab2, tab3 = st.tabs(["🎥 Video Overlay", "📊 Tactical Analysis", "🤖 AI Coach"])
         
         with tab1:
             st.video(converted_file)

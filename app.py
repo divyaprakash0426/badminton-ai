@@ -14,6 +14,7 @@ from engine.geometry import GeometryEngine
 from engine.analysis import AnalysisEngine
 from engine.gemini_coach import GeminiCoach
 from streamlit_drawable_canvas import st_canvas
+from project_utils.security import save_uploaded_file_securely
 
 # --- MONKEYPATCH REMOVED (Downgraded Streamlit) ---
 
@@ -63,13 +64,14 @@ uploaded_file = st.sidebar.file_uploader(
 
 # --- main ---
 if uploaded_file:
-    # Save uploaded file to temp
-    original_suffix = os.path.splitext(uploaded_file.name)[1].lower()
-    tfile = tempfile.NamedTemporaryFile(delete=False, suffix=original_suffix)
-    tfile.write(uploaded_file.read())
-    tfile.close()
-    video_path = tfile.name
-    
+    # Save uploaded file to temp (Securely in chunks)
+    video_path = save_uploaded_file_securely(uploaded_file)
+    if not video_path:
+        st.error("Error saving file. It might exceed the size limit.")
+        st.stop()
+
+    original_suffix = os.path.splitext(video_path)[1].lower()
+
     # Pre-transcode WebM/MKV files (often use AV1 codec not supported by OpenCV)
     if original_suffix in ['.webm', '.mkv']:
         st.info("Transcoding WebM/MKV to H.264 for compatibility...")

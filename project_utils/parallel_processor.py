@@ -120,10 +120,10 @@ class ParallelVideoProcessor:
                 batch_indices.append(frame_idx)
                 
                 # Camera cut detection
-                # Optimization 1: Downsample frame for faster processing (4x downscale = 16x fewer pixels)
+                # Optimization 1: Downsample frame to fixed 64x64 for faster processing (~30x fewer pixels than 0.25 scale)
                 # Optimization 2: Removed unused batch_grays list to save memory
                 # Note: resize with INTER_NEAREST is faster than slicing for subsequent cvtColor
-                small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25, interpolation=cv2.INTER_NEAREST)
+                small_frame = cv2.resize(frame, (64, 64), interpolation=cv2.INTER_NEAREST)
                 gray = cv2.cvtColor(small_frame, cv2.COLOR_BGR2GRAY)
                 
                 # Camera cut detection (inline for speed)

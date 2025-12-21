@@ -3,6 +3,7 @@ import numpy as np
 import os
 import torch
 from ultralytics import YOLO
+from concurrent.futures import ThreadPoolExecutor
 
 # Try to import TrackNet dependencies, handle failure gracefully
 import sys
@@ -195,6 +196,7 @@ class TrackNetTracker:
         self.seq_len = 3
         self.inpaint_seq_len = 16  # Default from TrackNetV3
         self.buffer = []
+        self.executor = ThreadPoolExecutor(max_workers=4)
         
         if not TRACKNET_AVAILABLE:
             print("TrackNet dependencies missing.")
@@ -260,14 +262,13 @@ class TrackNetTracker:
     def preprocess_frame(self, frame):
         """
         Preprocess a single frame for TrackNet.
-        Returns: (preprocessed_tensor, original_dims)
+        Returns: preprocessed_tensor
         """
-        h_orig, w_orig = frame.shape[:2]
         resized = cv2.resize(frame, (WIDTH, HEIGHT))
         img_rgb = cv2.cvtColor(resized, cv2.COLOR_BGR2RGB)
         img_norm = img_rgb.astype(np.float32) / 255.0
         img_t = np.transpose(img_norm, (2, 0, 1))  # (3, H, W)
-        return img_t, (h_orig, w_orig)
+        return img_t
     
     def preprocess_batch(self, frames):
         """
@@ -282,17 +283,11 @@ class TrackNetTracker:
         Returns:
             List of preprocessed tensors (3, H, W)
         """
-        from concurrent.futures import ThreadPoolExecutor
-        
         if not frames:
             return []
         
-        # Use 4 workers - optimal for CPU-bound image preprocessing
-        with ThreadPoolExecutor(max_workers=4) as executor:
-            results = list(executor.map(self.preprocess_frame, frames))
-        
-        # Extract just the tensor (ignore dims since batch should be uniform)
-        return [r[0] for r in results]
+        # Use persistent executor
+        return list(self.executor.map(self.preprocess_frame, frames))
     
     def track(self, frame):
         """
@@ -600,4 +595,9 @@ class TrackNetTracker:
         
         print(f"InpaintNet: {len(shuttle_history)} -> {len(enhanced_history)} detections (filled {len(enhanced_history) - len(shuttle_history)} gaps)")
         return enhanced_history
+
+    def __del__(self):
+        """Cleanup resources."""
+        if hasattr(self, 'executor'):
+            self.executor.shutdown(wait=False)
 

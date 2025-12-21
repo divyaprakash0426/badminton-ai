@@ -99,6 +99,12 @@ if uploaded_file:
         st.markdown("**Select Calibration Frame** (Skip intros)")
         start_frame_idx = st.slider("Frame Index", 0, info['frame_count']-1, 0)
         
+        # Palette: Show timestamp for better UX
+        timestamp = start_frame_idx / info['fps']
+        minutes = int(timestamp // 60)
+        seconds = int(timestamp % 60)
+        st.caption(f"⏱️ Video Time: {minutes:02d}:{seconds:02d}")
+
         # Get specific frame
         frame_for_calib = vp.get_frame(video_path, start_frame_idx)
         
@@ -225,7 +231,7 @@ if uploaded_file:
             
             if len(final_corners) == 4:
                 st.success("4 Corners Connected!")
-                if st.button("Confirm Calibration & Process"):
+                if st.button("✅ Confirm Calibration & Process", type="primary", use_container_width=True):
                     st.session_state.corners = final_corners
                     st.info("Processing FULL video... This may take a while.")
                     

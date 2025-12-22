@@ -104,7 +104,9 @@ class ParallelVideoProcessor:
         prev_hist = None
         
         frame_idx = start_frame
-        play_area_poly = self.geometry.get_play_area_polygon(margin=1.5)
+        # Optimization: Pre-convert polygon to numpy array for fast cv2.pointPolygonTest
+        play_area_poly_list = self.geometry.get_play_area_polygon(margin=1.5)
+        play_area_poly = np.array(play_area_poly_list, dtype=np.int32).reshape((-1, 1, 2))
         
         # Main processing loop - single pass through video
         while cap.isOpened():

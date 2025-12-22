@@ -233,61 +233,66 @@ if uploaded_file:
                 st.success("4 Corners Connected!")
                 if st.button("✅ Confirm Calibration & Process", type="primary", use_container_width=True):
                     st.session_state.corners = final_corners
-                    st.info("Processing FULL video... This may take a while.")
                     
-                    # --- PROCESSING PIPELINE (cached models) ---
-                    tracker = load_yolo_tracker()
-                    shuttle_tracker = load_tracknet_tracker()
-                    geometry = GeometryEngine()
-                    
-                    # Basic sorter to ensure TL, TR, BL, BR order roughly
-                    # Sort by Y (Top vs Bottom), then by X (Left vs Right)
-                    sorted_corners = sorted(final_corners, key=lambda p: p[1]) # Top 2, Bottom 2
-                    top_corners = sorted(sorted_corners[:2], key=lambda p: p[0]) # TL, TR
-                    bottom_corners = sorted(sorted_corners[2:], key=lambda p: p[0]) # BL, BR
-                    
-                    # Order: TL, TR, BL, BR for GeometryEngine logic (check implementation?)
-                    # Standard usually TL, TR, BR, BL or TL, TR, BL, BR.
-                    # Let's assume TL, TR, BL, BR based on previous slider code logic
-                    final_input_corners = [top_corners[0], top_corners[1], bottom_corners[0], bottom_corners[1]]
-                    
-                    geometry.calculate_homography(final_input_corners)
-                    analysis = AnalysisEngine(fps=info['fps'])
-                    
-                    # Create a temporary output file
-                    tfile_out = tempfile.NamedTemporaryFile(delete=False, suffix='.mp4')
-                    
-                    # Open video with GPU decoding if available
-                    cap = GPUVideoReader(video_path, use_gpu=True)
-                    
-                    # Seek to start frame
-                    if start_frame_idx > 0:
-                        cap.seek(start_frame_idx)
-                    
-                    # Setup Async Output Writer with H.264 codec (no transcoding needed)
-                    out = create_h264_writer(tfile_out.name, info['fps'], (width, height), queue_size=64)
-                    
-                    frame_idx = start_frame_idx
-                    max_frames = info['frame_count']
-                    
-                    progress_bar = st.progress(0)
-                    
-                    # Data Collection
-                    # --- PARALLEL PROCESSING PIPELINE ---
-                    st.info("🚀 Single-pass processing: TrackNet + YOLO running in parallel...")
-                    
-                    player_history, shuttle_history, player_present_frames, camera_cut_frames = \
-                        process_video_concurrent(
-                            video_path=video_path,
-                            tracker=tracker,
-                            shuttle_tracker=shuttle_tracker,
-                            geometry=geometry,
-                            output_writer=out,
-                            start_frame=start_frame_idx,
-                            max_frames=max_frames,
-                            progress_bar=progress_bar,
-                            batch_size=16  # Increased from 8 for better GPU utilization
-                        )
+                    # Palette: Use st.status for better feedback
+                    with st.status("Processing video...", expanded=True) as status:
+                        st.write("🚀 Initializing tracking models...")
+
+                        # --- PROCESSING PIPELINE (cached models) ---
+                        tracker = load_yolo_tracker()
+                        shuttle_tracker = load_tracknet_tracker()
+                        geometry = GeometryEngine()
+
+                        # Basic sorter to ensure TL, TR, BL, BR order roughly
+                        # Sort by Y (Top vs Bottom), then by X (Left vs Right)
+                        sorted_corners = sorted(final_corners, key=lambda p: p[1]) # Top 2, Bottom 2
+                        top_corners = sorted(sorted_corners[:2], key=lambda p: p[0]) # TL, TR
+                        bottom_corners = sorted(sorted_corners[2:], key=lambda p: p[0]) # BL, BR
+
+                        # Order: TL, TR, BL, BR for GeometryEngine logic (check implementation?)
+                        # Standard usually TL, TR, BR, BL or TL, TR, BL, BR.
+                        # Let's assume TL, TR, BL, BR based on previous slider code logic
+                        final_input_corners = [top_corners[0], top_corners[1], bottom_corners[0], bottom_corners[1]]
+
+                        geometry.calculate_homography(final_input_corners)
+                        analysis = AnalysisEngine(fps=info['fps'])
+
+                        # Create a temporary output file
+                        tfile_out = tempfile.NamedTemporaryFile(delete=False, suffix='.mp4')
+
+                        # Open video with GPU decoding if available
+                        cap = GPUVideoReader(video_path, use_gpu=True)
+
+                        # Seek to start frame
+                        if start_frame_idx > 0:
+                            cap.seek(start_frame_idx)
+
+                        # Setup Async Output Writer with H.264 codec (no transcoding needed)
+                        out = create_h264_writer(tfile_out.name, info['fps'], (width, height), queue_size=64)
+
+                        frame_idx = start_frame_idx
+                        max_frames = info['frame_count']
+
+                        progress_bar = st.progress(0)
+
+                        # Data Collection
+                        # --- PARALLEL PROCESSING PIPELINE ---
+                        st.write("⚡ Running TrackNet + YOLO in parallel...")
+
+                        player_history, shuttle_history, player_present_frames, camera_cut_frames = \
+                            process_video_concurrent(
+                                video_path=video_path,
+                                tracker=tracker,
+                                shuttle_tracker=shuttle_tracker,
+                                geometry=geometry,
+                                output_writer=out,
+                                start_frame=start_frame_idx,
+                                max_frames=max_frames,
+                                progress_bar=progress_bar,
+                                batch_size=16  # Increased from 8 for better GPU utilization
+                            )
+
+                        status.update(label="✅ Processing Complete!", state="complete", expanded=False)
                     
                     st.success(f"✅ Processing complete: {len(shuttle_history)} shuttle detections, {len(player_history)} player frames")
                     

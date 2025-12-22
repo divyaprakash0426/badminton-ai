@@ -76,10 +76,13 @@ class GeometryEngine:
         Uses OpenCV's pointPolygonTest.
         
         point_px: (x, y) tuple in pixels
-        polygon_px: List of (x, y) tuples representing the polygon
+        polygon_px: List of (x, y) tuples representing the polygon OR numpy array (N, 1, 2)
         """
         # cv2.pointPolygonTest requires contour to be float32/int32 array (N, 1, 2)
-        contour = np.array(polygon_px, dtype=np.int32).reshape((-1, 1, 2))
+        if isinstance(polygon_px, np.ndarray):
+            contour = polygon_px
+        else:
+            contour = np.array(polygon_px, dtype=np.int32).reshape((-1, 1, 2))
         
         # Measure distance. >= 0 means inside or on edge.
         result = cv2.pointPolygonTest(contour, point_px, False)

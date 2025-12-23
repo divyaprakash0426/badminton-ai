@@ -97,7 +97,13 @@ if uploaded_file:
         
         # Frame Selector for Calibration
         st.markdown("**Select Calibration Frame** (Skip intros)")
-        start_frame_idx = st.slider("Frame Index", 0, info['frame_count']-1, 0)
+        start_frame_idx = st.slider(
+            "Frame Index",
+            0,
+            info['frame_count']-1,
+            0,
+            help="Select a frame where the court boundaries are clearly visible for calibration."
+        )
         
         # Palette: Show timestamp for better UX
         timestamp = start_frame_idx / info['fps']
@@ -128,6 +134,10 @@ if uploaded_file:
                     (int(canvas_width * 0.8), int(canvas_height * 0.8)), # BR
                     (int(canvas_width * 0.2), int(canvas_height * 0.8))  # BL
                 ]
+
+            # Palette: Initialize canvas version for reset capability
+            if 'canvas_version' not in st.session_state:
+                st.session_state.canvas_version = 0
 
             # Prepare Background Image with Lines connecting the CURRENT corners
             # We draw on a copy of the resized frame
@@ -173,7 +183,7 @@ if uploaded_file:
                 width=canvas_width,
                 drawing_mode="transform", # Allow dragging
                 initial_drawing=initial_drawing,
-                key="calibration_canvas_v2", # New key to force reload if needed
+                key=f"calibration_canvas_{st.session_state.canvas_version}", # Dynamic key for reset
             )
             
             current_corners_canvas = []
@@ -229,70 +239,91 @@ if uploaded_file:
             
             st.write(f"Points Detected: {len(final_corners)} / 4")
             
-            if len(final_corners) == 4:
-                st.success("4 Corners Connected!")
-                if st.button("✅ Confirm Calibration & Process", type="primary", use_container_width=True):
-                    st.session_state.corners = final_corners
-                    
-                    # Palette: Use st.status for better feedback
-                    with st.status("Processing video...", expanded=True) as status:
-                        st.write("🚀 Initializing tracking models...")
+            # Palette: Action buttons (Reset & Confirm)
+            col_reset, col_confirm = st.columns([1, 2])
 
-                        # --- PROCESSING PIPELINE (cached models) ---
-                        tracker = load_yolo_tracker()
-                        shuttle_tracker = load_tracknet_tracker()
-                        geometry = GeometryEngine()
+            with col_reset:
+                if st.button("↺ Reset Corners", help="Reset corners to default positions", use_container_width=True):
+                    # Reset to defaults (20%, 80% inset)
+                    st.session_state['calibration_corners'] = [
+                        (int(canvas_width * 0.2), int(canvas_height * 0.2)), # TL
+                        (int(canvas_width * 0.8), int(canvas_height * 0.2)), # TR
+                        (int(canvas_width * 0.8), int(canvas_height * 0.8)), # BR
+                        (int(canvas_width * 0.2), int(canvas_height * 0.8))  # BL
+                    ]
+                    st.session_state.canvas_version += 1
+                    st.rerun()
 
-                        # Basic sorter to ensure TL, TR, BL, BR order roughly
-                        # Sort by Y (Top vs Bottom), then by X (Left vs Right)
-                        sorted_corners = sorted(final_corners, key=lambda p: p[1]) # Top 2, Bottom 2
-                        top_corners = sorted(sorted_corners[:2], key=lambda p: p[0]) # TL, TR
-                        bottom_corners = sorted(sorted_corners[2:], key=lambda p: p[0]) # BL, BR
+            should_process = False
+            with col_confirm:
+                if len(final_corners) == 4:
+                    # Only show confirm if we have 4 points
+                    if st.button("✅ Confirm Calibration", type="primary", use_container_width=True):
+                        st.session_state.corners = final_corners
+                        should_process = True
 
-                        # Order: TL, TR, BL, BR for GeometryEngine logic (check implementation?)
-                        # Standard usually TL, TR, BR, BL or TL, TR, BL, BR.
-                        # Let's assume TL, TR, BL, BR based on previous slider code logic
-                        final_input_corners = [top_corners[0], top_corners[1], bottom_corners[0], bottom_corners[1]]
+            # Check if processing was confirmed (using flag or direct button if not nested)
+            # We use a local variable `should_process` so it only runs on the click event interaction.
 
-                        geometry.calculate_homography(final_input_corners)
-                        analysis = AnalysisEngine(fps=info['fps'])
+            if should_process:
+                with st.status("Processing video...", expanded=True) as status:
+                    st.write("🚀 Initializing tracking models...")
 
-                        # Create a temporary output file
-                        tfile_out = tempfile.NamedTemporaryFile(delete=False, suffix='.mp4')
+                    # --- PROCESSING PIPELINE (cached models) ---
+                    tracker = load_yolo_tracker()
+                    shuttle_tracker = load_tracknet_tracker()
+                    geometry = GeometryEngine()
 
-                        # Open video with GPU decoding if available
-                        cap = GPUVideoReader(video_path, use_gpu=True)
+                    # Basic sorter to ensure TL, TR, BL, BR order roughly
+                    # Sort by Y (Top vs Bottom), then by X (Left vs Right)
+                    sorted_corners = sorted(final_corners, key=lambda p: p[1]) # Top 2, Bottom 2
+                    top_corners = sorted(sorted_corners[:2], key=lambda p: p[0]) # TL, TR
+                    bottom_corners = sorted(sorted_corners[2:], key=lambda p: p[0]) # BL, BR
 
-                        # Seek to start frame
-                        if start_frame_idx > 0:
-                            cap.seek(start_frame_idx)
+                    # Order: TL, TR, BL, BR for GeometryEngine logic (check implementation?)
+                    # Standard usually TL, TR, BR, BL or TL, TR, BL, BR.
+                    # Let's assume TL, TR, BL, BR based on previous slider code logic
+                    final_input_corners = [top_corners[0], top_corners[1], bottom_corners[0], bottom_corners[1]]
 
-                        # Setup Async Output Writer with H.264 codec (no transcoding needed)
-                        out = create_h264_writer(tfile_out.name, info['fps'], (width, height), queue_size=64)
+                    geometry.calculate_homography(final_input_corners)
+                    analysis = AnalysisEngine(fps=info['fps'])
 
-                        frame_idx = start_frame_idx
-                        max_frames = info['frame_count']
+                    # Create a temporary output file
+                    tfile_out = tempfile.NamedTemporaryFile(delete=False, suffix='.mp4')
 
-                        progress_bar = st.progress(0)
+                    # Open video with GPU decoding if available
+                    cap = GPUVideoReader(video_path, use_gpu=True)
 
-                        # Data Collection
-                        # --- PARALLEL PROCESSING PIPELINE ---
-                        st.write("⚡ Running TrackNet + YOLO in parallel...")
+                    # Seek to start frame
+                    if start_frame_idx > 0:
+                        cap.seek(start_frame_idx)
 
-                        player_history, shuttle_history, player_present_frames, camera_cut_frames = \
-                            process_video_concurrent(
-                                video_path=video_path,
-                                tracker=tracker,
-                                shuttle_tracker=shuttle_tracker,
-                                geometry=geometry,
-                                output_writer=out,
-                                start_frame=start_frame_idx,
-                                max_frames=max_frames,
-                                progress_bar=progress_bar,
-                                batch_size=16  # Increased from 8 for better GPU utilization
-                            )
+                    # Setup Async Output Writer with H.264 codec (no transcoding needed)
+                    out = create_h264_writer(tfile_out.name, info['fps'], (width, height), queue_size=64)
 
-                        status.update(label="✅ Processing Complete!", state="complete", expanded=False)
+                    frame_idx = start_frame_idx
+                    max_frames = info['frame_count']
+
+                    progress_bar = st.progress(0)
+
+                    # Data Collection
+                    # --- PARALLEL PROCESSING PIPELINE ---
+                    st.write("⚡ Running TrackNet + YOLO in parallel...")
+
+                    player_history, shuttle_history, player_present_frames, camera_cut_frames = \
+                        process_video_concurrent(
+                            video_path=video_path,
+                            tracker=tracker,
+                            shuttle_tracker=shuttle_tracker,
+                            geometry=geometry,
+                            output_writer=out,
+                            start_frame=start_frame_idx,
+                            max_frames=max_frames,
+                            progress_bar=progress_bar,
+                            batch_size=16  # Increased from 8 for better GPU utilization
+                        )
+
+                    status.update(label="✅ Processing Complete!", state="complete", expanded=False)
                     
                     st.success(f"✅ Processing complete: {len(shuttle_history)} shuttle detections, {len(player_history)} player frames")
                     

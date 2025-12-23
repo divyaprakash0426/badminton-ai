@@ -30,20 +30,24 @@ except ImportError as e:
 
 def predict_location(heatmap):
     """ Get coordinates from the heatmap (Ported from TrackNetV3/test.py). """
-    if np.amax(heatmap) == 0:
+    # Optimization: Skip np.amax check and copy. heatmap should be uint8.
+    (cnts, _) = cv2.findContours(heatmap, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+    if not cnts:
         return 0, 0, 0, 0
-    else:
-        (cnts, _) = cv2.findContours(heatmap.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        rects = [cv2.boundingRect(ctr) for ctr in cnts]
-        max_area_idx = 0
-        max_area = rects[0][2] * rects[0][3]
-        for i in range(1, len(rects)):
-            area = rects[i][2] * rects[i][3]
-            if area > max_area:
-                max_area_idx = i
-                max_area = area
-        x, y, w, h = rects[max_area_idx]
-        return x, y, w, h
+
+    # Find max area rect efficiently
+    max_area = 0
+    best_rect = (0, 0, 0, 0)
+
+    for ctr in cnts:
+        rect = cv2.boundingRect(ctr)
+        area = rect[2] * rect[3]
+        if area > max_area:
+            max_area = area
+            best_rect = rect
+
+    return best_rect
 
 
 class YOLOTracker:
@@ -324,9 +328,10 @@ class TrackNetTracker:
                 y_pred = self.model(input_tensor)
                 last_map = y_pred[0, -1, :, :].cpu().numpy()
                 ret, last_map_binary = cv2.threshold(last_map, 0.5, 1, cv2.THRESH_BINARY)
-                last_map_img = to_img(last_map_binary)
+                # Optimization: Pass binary image (0/1) directly to avoid 255 mult
+                last_map_int = last_map_binary.astype(np.uint8)
                 
-                x, y, w, h = predict_location(last_map_img)
+                x, y, w, h = predict_location(last_map_int)
                 
                 if x == 0 and y == 0 and w == 0 and h == 0:
                      return None
@@ -407,9 +412,10 @@ class TrackNetTracker:
                 # Convert to float32 for OpenCV compatibility (FP16 not supported by cv2.threshold)
                 last_map = y_pred[batch_idx, -1, :, :].cpu().float().numpy()
                 ret, last_map_binary = cv2.threshold(last_map, 0.5, 1, cv2.THRESH_BINARY)
-                last_map_img = to_img(last_map_binary)
+                # Optimization: Pass binary image (0/1) directly to avoid 255 mult
+                last_map_int = last_map_binary.astype(np.uint8)
                 
-                x, y, w, h = predict_location(last_map_img)
+                x, y, w, h = predict_location(last_map_int)
                 
                 if x == 0 and y == 0 and w == 0 and h == 0:
                     results[output_idx] = None

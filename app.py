@@ -2,6 +2,7 @@ import streamlit as st
 import tempfile
 import cv2
 import numpy as np
+import pandas as pd
 import os
 import subprocess
 from concurrent.futures import ThreadPoolExecutor
@@ -430,7 +431,15 @@ if uploaded_file:
                             # Shot Distribution
                             if 'shot_distribution' in analysis_report:
                                 st.write("#### Shot Distribution")
-                                st.json(analysis_report['shot_distribution'])
+                                # Palette: Use bar chart instead of JSON
+                                shot_counts = analysis_report['shot_distribution']
+                                if shot_counts:
+                                    # Convert to DataFrame for better chart labeling
+                                    df_shots = pd.DataFrame(list(shot_counts.items()), columns=['Shot Type', 'Count'])
+                                    df_shots = df_shots.set_index('Shot Type')
+                                    st.bar_chart(df_shots)
+                                else:
+                                    st.info("No shots detected.")
                             
                             # Rally Breakdown with Video Clips
                             st.write("#### Detailed Rallies")
@@ -584,7 +593,15 @@ if uploaded_file:
             # Shot Distribution
             if 'shot_distribution' in analysis_report:
                 st.write("#### Shot Distribution")
-                st.json(analysis_report['shot_distribution'])
+                # Palette: Use bar chart instead of JSON
+                shot_counts = analysis_report['shot_distribution']
+                if shot_counts:
+                    # Convert to DataFrame for better chart labeling
+                    df_shots = pd.DataFrame(list(shot_counts.items()), columns=['Shot Type', 'Count'])
+                    df_shots = df_shots.set_index('Shot Type')
+                    st.bar_chart(df_shots)
+                else:
+                    st.info("No shots detected.")
             
             # Rally Breakdown with Video Clips
             st.write("#### Detailed Rallies")

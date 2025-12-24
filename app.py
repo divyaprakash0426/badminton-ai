@@ -65,9 +65,12 @@ uploaded_file = st.sidebar.file_uploader(
 # --- main ---
 if uploaded_file:
     # Save uploaded file to temp (Securely in chunks)
-    video_path = save_uploaded_file_securely(uploaded_file)
+    video_path = save_uploaded_file_securely(
+        uploaded_file,
+        allowed_extensions=["mp4", "mov", "avi", "webm", "mkv"]
+    )
     if not video_path:
-        st.error("Error saving file. It might exceed the size limit.")
+        st.error("Error saving file. It might exceed the size limit or have an invalid extension.")
         st.stop()
 
     original_suffix = os.path.splitext(video_path)[1].lower()

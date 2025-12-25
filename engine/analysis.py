@@ -183,10 +183,10 @@ class AnalysisEngine:
             # format: (x, y) tuple
             def calc_vel(col_name):
                 # Calculate displacement magnitude between frames
-                x = df[col_name].apply(lambda t: t[0])
-                y = df[col_name].apply(lambda t: t[1])
-                dx = x.diff()
-                dy = y.diff()
+                # Optimization: Vectorized coordinate extraction
+                coords = pd.DataFrame(df[col_name].tolist(), columns=['x', 'y'], index=df.index)
+                dx = coords['x'].diff()
+                dy = coords['y'].diff()
                 dist = np.sqrt(dx**2 + dy**2)
                 dt = df['frame'].diff().fillna(1).replace(0, 1)
                 return (dist / dt).fillna(0)
@@ -220,8 +220,11 @@ class AnalysisEngine:
         # --- 0. Filter Spurious Detections (Teleportation Filter) ---
         # Remove detections that appear as unrealistic jumps (false positives on player bodies)
         if len(df) > 2:
-            df['x'] = df['pos'].apply(lambda p: p[0])
-            df['y'] = df['pos'].apply(lambda p: p[1])
+            # Optimization: Vectorized coordinate extraction (faster than apply)
+            coords = pd.DataFrame(df['pos'].tolist(), columns=['x', 'y'], index=df.index)
+            df['x'] = coords['x']
+            df['y'] = coords['y']
+
             df['dx'] = df['x'].diff().abs()
             df['dy'] = df['y'].diff().abs()
             df['dist'] = np.sqrt(df['dx']**2 + df['dy']**2)
@@ -294,8 +297,10 @@ class AnalysisEngine:
             # Filter out pre-serve noise/holding where shuttle matches player movement or jitters
             # Calculate preliminary velocity
             temp_df = rally_df.copy()
-            temp_df['dx'] = temp_df['pos'].apply(lambda x: x[0]).diff()
-            temp_df['dy'] = temp_df['pos'].apply(lambda x: x[1]).diff()
+            # Optimization: Vectorized coordinate extraction
+            temp_coords = pd.DataFrame(temp_df['pos'].tolist(), columns=['x', 'y'], index=temp_df.index)
+            temp_df['dx'] = temp_coords['x'].diff()
+            temp_df['dy'] = temp_coords['y'].diff()
             temp_df['speed'] = np.sqrt(temp_df['dx']**2 + temp_df['dy']**2)
             
             # Find first "significant movement"
@@ -353,8 +358,10 @@ class AnalysisEngine:
                 
             # Calculate velocity & direction for this rally
             rally_df = rally_df.copy()
-            rally_df['dx'] = rally_df['pos'].apply(lambda x: x[0]).diff()
-            rally_df['dy'] = rally_df['pos'].apply(lambda x: x[1]).diff()
+            # Optimization: Vectorized coordinate extraction
+            rally_coords = pd.DataFrame(rally_df['pos'].tolist(), columns=['x', 'y'], index=rally_df.index)
+            rally_df['dx'] = rally_coords['x'].diff()
+            rally_df['dy'] = rally_coords['y'].diff()
             rally_df['dt'] = rally_df['frame'].diff() / self.fps
             rally_df = rally_df.dropna()
             

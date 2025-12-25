@@ -4,6 +4,7 @@ import cv2
 import numpy as np
 import pandas as pd
 import os
+import shutil
 import subprocess
 from concurrent.futures import ThreadPoolExecutor
 from PIL import Image
@@ -379,10 +380,23 @@ if uploaded_file:
                         video_path=video_path
                     )
 
+                    # CLEANUP OLD ARTIFACTS
+                    if st.session_state.get('analysis_results'):
+                        old_results = st.session_state['analysis_results']
+                        if 'clips_dir' in old_results and os.path.exists(old_results['clips_dir']):
+                            try:
+                                shutil.rmtree(old_results['clips_dir'])
+                            except Exception as e:
+                                print(f"Warning: Failed to cleanup old clips dir: {e}")
+
+                    # Create NEW persistent clips_dir for this analysis session
+                    clips_dir = tempfile.mkdtemp(prefix="rally_clips_")
+
                     st.session_state['analysis_results'] = {
                         'analysis_report': analysis_report,
                         'converted_file': converted_file,
-                        'info': info
+                        'info': info,
+                        'clips_dir': clips_dir
                     }
                     
                     # --- AUTO-RUN AI IF KEY PRESENT ---
@@ -447,7 +461,15 @@ if uploaded_file:
                             # Rally Breakdown with Video Clips
                             st.write("#### Detailed Rallies")
                             if 'rallies' in analysis_report:
-                                clips_dir = tempfile.mkdtemp(prefix="rally_clips_")
+                                # Use persistent clips_dir to prevent resource exhaustion on reruns
+                                clips_dir = results.get('clips_dir')
+                                if not clips_dir or not os.path.exists(clips_dir):
+                                    clips_dir = tempfile.mkdtemp(prefix="rally_clips_")
+                                    # We can't easily update st.session_state['analysis_results']['clips_dir'] here
+                                    # if 'results' is a copy, but 'results' points to the dict object in session_state.
+                                    # So modifying it should persist if results was retrieved directly.
+                                    if st.session_state.get('analysis_results'):
+                                         st.session_state['analysis_results']['clips_dir'] = clips_dir
                                 
                                 for i, rally in enumerate(analysis_report['rallies']):
                                     shot_count = rally.get('shot_count', len(rally.get('shots', [])))

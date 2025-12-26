@@ -1,6 +1,7 @@
-# Sentinel's Journal
-
-## 2025-12-19 - Command Injection Prevention
-**Vulnerability:** Detected usage of `os.system` with formatted strings constructed from file paths in `app.py`.
-**Learning:** Even when inputs seem safe (e.g., from `tempfile`), using `os.system` creates a risk of command injection if the inputs are ever influenced by user data or if the file paths contain shell metacharacters. It is "Bad Security Code".
-**Prevention:** Always use `subprocess.run` with a list of arguments instead of `os.system` or `subprocess.run` with `shell=True`. This prevents the shell from interpreting the arguments, mitigating command injection risks.
+## 2024-05-23 - Duplicate Code & Resource Exhaustion (DoS)
+**Vulnerability:** Detected a large block of duplicate code in `app.py`. The "live" version (executed on reruns) contained a flaw where it unconditionally created a new `tempfile.mkdtemp` directory on every interaction, leading to potential disk space exhaustion (DoS). The "dead" version (unreachable after `st.rerun()`) actually contained the correct logic to reuse the directory.
+**Learning:** Copy-paste errors can lead to zombie code that hides the "correct" implementation while the active code remains vulnerable. Streamlit's execution model (reruns) makes resource management critical; always check if a resource already exists in `st.session_state` before creating a new one.
+**Prevention:**
+1. Avoid large blocks of duplicate code; refactor into functions.
+2. When using `tempfile` in Streamlit, always cache the directory path in `st.session_state` and check for its existence before creating a new one.
+3. Remove dead code immediately to prevent confusion.

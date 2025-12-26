@@ -4,6 +4,7 @@ import cv2
 import numpy as np
 import pandas as pd
 import os
+import shutil
 import subprocess
 from concurrent.futures import ThreadPoolExecutor
 from PIL import Image
@@ -55,7 +56,7 @@ if not torch.cuda.is_available():
 # API Keys
 st.sidebar.divider()
 st.sidebar.markdown("### 🤖 AI Coach")
-gemini_api_key = st.sidebar.text_input("Gemini API Key", type="password", help="Required for Tab 3 AI features.")
+gemini_api_key = st.sidebar.text_input("Gemini API Key", type="password", help="Required for Tab 3 AI features. Get yours at https://aistudio.google.com/app/apikey")
 
 uploaded_file = st.sidebar.file_uploader(
     "Upload Video",
@@ -379,10 +380,23 @@ if uploaded_file:
                         video_path=video_path
                     )
 
+                    # CLEANUP OLD ARTIFACTS
+                    if st.session_state.get('analysis_results'):
+                        old_results = st.session_state['analysis_results']
+                        if 'clips_dir' in old_results and os.path.exists(old_results['clips_dir']):
+                            try:
+                                shutil.rmtree(old_results['clips_dir'])
+                            except Exception as e:
+                                print(f"Warning: Failed to cleanup old clips dir: {e}")
+
+                    # Create NEW persistent clips_dir for this analysis session
+                    clips_dir = tempfile.mkdtemp(prefix="rally_clips_")
+
                     st.session_state['analysis_results'] = {
                         'analysis_report': analysis_report,
                         'converted_file': converted_file,
-                        'info': info
+                        'info': info,
+                        'clips_dir': clips_dir
                     }
                     
                     # --- AUTO-RUN AI IF KEY PRESENT ---
@@ -425,9 +439,11 @@ if uploaded_file:
             
             # Display Stats
             # Palette: Use columns for metrics
-            m1, m2 = st.columns(2)
-            m1.metric("Total Distance Covered", f"{analysis_report['total_distance']:.2f} m")
-            m2.metric("Max Speed", f"{analysis_report['max_speed']:.2f} m/s")
+            c1, c2 = st.columns(2)
+            with c1:
+                st.metric("Total Distance Covered", f"{analysis_report['total_distance']:.2f} m")
+            with c2:
+                st.metric("Max Speed", f"{analysis_report['max_speed']:.2f} m/s")
             
             st.subheader("Rally Analysis")
             st.write(f"**Total Shots Detected:** {analysis_report.get('total_shots', 0)}")
@@ -453,7 +469,13 @@ if uploaded_file:
             # Rally Breakdown with Video Clips
             st.write("#### Detailed Rallies")
             if 'rallies' in analysis_report:
-                clips_dir = tempfile.mkdtemp(prefix="rally_clips_")
+                # Use persistent clips_dir to prevent resource exhaustion on reruns
+                clips_dir = results.get('clips_dir')
+                if not clips_dir or not os.path.exists(clips_dir):
+                    clips_dir = tempfile.mkdtemp(prefix="rally_clips_")
+                    # Update session state to persist the new dir
+                    if st.session_state.get('analysis_results'):
+                         st.session_state['analysis_results']['clips_dir'] = clips_dir
                 
                 for i, rally in enumerate(analysis_report['rallies']):
                     shot_count = rally.get('shot_count', len(rally.get('shots', [])))

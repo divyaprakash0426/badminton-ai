@@ -467,7 +467,13 @@ if uploaded_file:
             # Rally Breakdown with Video Clips
             st.write("#### Detailed Rallies")
             if 'rallies' in analysis_report:
-                clips_dir = tempfile.mkdtemp(prefix="rally_clips_")
+                # Use persistent clips_dir to prevent resource exhaustion on reruns
+                clips_dir = results.get('clips_dir')
+                if not clips_dir or not os.path.exists(clips_dir):
+                    clips_dir = tempfile.mkdtemp(prefix="rally_clips_")
+                    # Update session state to persist the new dir
+                    if st.session_state.get('analysis_results'):
+                         st.session_state['analysis_results']['clips_dir'] = clips_dir
                 
                 for i, rally in enumerate(analysis_report['rallies']):
                     shot_count = rally.get('shot_count', len(rally.get('shots', [])))

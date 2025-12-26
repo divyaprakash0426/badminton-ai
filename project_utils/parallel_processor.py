@@ -3,9 +3,9 @@ Parallel Video Processing Pipeline for concurrent TrackNet + YOLO inference.
 
 OPTIMIZED VERSION: Single-pass architecture that:
 1. Reads each frame ONCE (eliminates double video I/O)
-2. Runs TrackNet and YOLO in parallel using ThreadPoolExecutor
+2. Runs TrackNet and YOLO in parallel (TrackNet has its own executor)
 3. Uses larger batch sizes for better GPU utilization
-4. Parallelizes CPU-bound preprocessing
+4. Runs light-weight preprocessing (histogram) sequentially to avoid thread overhead
 """
 
 import cv2
@@ -13,7 +13,6 @@ import numpy as np
 import threading
 import queue
 import time
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from typing import List, Dict, Tuple, Optional, Callable
 
@@ -41,7 +40,7 @@ class ParallelVideoProcessor:
     
     Architecture:
     - Single frame read loop
-    - TrackNet Worker: Processes shuttle detection on GPU
+    - TrackNet Worker: Processes shuttle detection on GPU (internal parallelism)
     - YOLO Worker: Processes pose detection on GPU (in parallel)
     - Overlay and write in main thread
     """
@@ -65,8 +64,10 @@ class ParallelVideoProcessor:
 
     def _compute_hist(self, frame):
         """
-        Helper for parallel histogram computation.
+        Helper for histogram computation.
         Resize -> Grayscale -> CalcHist -> Normalize
+
+        Note: Run sequentially as overhead of threading outweighs benefit for this small task.
         """
         # Optimization 1: Downsample frame to fixed 64x64 for faster processing
         small_frame = cv2.resize(frame, (64, 64), interpolation=cv2.INTER_NEAREST)
@@ -120,118 +121,116 @@ class ParallelVideoProcessor:
         play_area_poly_list = self.geometry.get_play_area_polygon(margin=1.5)
         play_area_poly = np.array(play_area_poly_list, dtype=np.int32).reshape((-1, 1, 2))
         
-        # Create persistent executor for parallel preprocessing within scope
-        with ThreadPoolExecutor(max_workers=4) as executor:
-            try:
-                # Main processing loop - single pass through video
-                while cap.isOpened():
-                    # Read batch of frames ONCE
-                    batch_frames = []
-                    batch_indices = []
+        # Removed ThreadPoolExecutor here as overhead outweighed benefits for small histograms
+        # TrackNetTracker still uses its own internal executor for preprocessing
+        try:
+            # Main processing loop - single pass through video
+            while cap.isOpened():
+                # Read batch of frames ONCE
+                batch_frames = []
+                batch_indices = []
 
-                    for _ in range(self.batch_size):
-                        ret, frame = cap.read()
-                        if not ret:
-                            break
-                        batch_frames.append(frame)
-                        batch_indices.append(frame_idx)
-                        frame_idx += 1
-
-                    if not batch_frames:
+                for _ in range(self.batch_size):
+                    ret, frame = cap.read()
+                    if not ret:
                         break
+                    batch_frames.append(frame)
+                    batch_indices.append(frame_idx)
+                    frame_idx += 1
 
-                    # Camera Cut Detection: Parallelize histogram computation
-                    # Optimization: Run resize/cvtColor/calcHist in parallel for the batch
-                    batch_hists = list(executor.map(self._compute_hist, batch_frames))
+                if not batch_frames:
+                    break
 
-                    # Sequential comparison (N depends on N-1)
-                    for idx, hist_curr in zip(batch_indices, batch_hists):
-                        if prev_hist is not None:
-                            corr = cv2.compareHist(prev_hist, hist_curr, cv2.HISTCMP_CORREL)
-                            if corr < 0.7:
-                                camera_cut_frames.append(idx)
-                        prev_hist = hist_curr
-                    
-                    # ===== GPU INFERENCE (Sequential due to CUDA graph thread-local storage) =====
-                    # Note: torch.compile with 'reduce-overhead' uses CUDA graphs which are
-                    # thread-local. Running them in ThreadPoolExecutor causes AssertionError.
-                    # We still get speedup from single-pass frame reading (no double I/O).
-                    
-                    # TrackNet first (shuttle detection)
-                    tracknet_positions = self.shuttle_tracker.track_batch(batch_frames)
-                    
-                    # YOLO second (pose detection)
-                    batch_keypoints = self.tracker.detect_pose_batch(batch_frames)
+                # Camera Cut Detection: Histogram computation
+                # Optimization: Run sequentially (faster than parallel for small 64x64 ops)
+                batch_hists = [self._compute_hist(f) for f in batch_frames]
 
-                    # ===== PROCESS RESULTS AND DRAW OVERLAYS =====
-                    for i, (frame, f_idx, all_keypoints, shuttle_pos) in enumerate(
-                        zip(batch_frames, batch_indices, batch_keypoints, tracknet_positions)
-                    ):
-                        # --- SHUTTLE TRACKING ---
-                        if shuttle_pos is not None:
-                            shuttle_history.append({'frame': f_idx, 'pos': shuttle_pos})
-                            cv2.circle(frame, shuttle_pos, 8, (0, 0, 255), -1)
-                            cv2.circle(frame, shuttle_pos, 8, (255, 255, 255), 1)
-                        
-                        # --- PLAYER TRACKING ---
-                        sorted_players = []
-                        if len(all_keypoints) > 0:
-                            sorted_players = self.tracker.filter_and_sort_players(
-                                all_keypoints, play_area_poly, self.geometry
-                            )
+                # Sequential comparison (N depends on N-1)
+                for idx, hist_curr in zip(batch_indices, batch_hists):
+                    if prev_hist is not None:
+                        corr = cv2.compareHist(prev_hist, hist_curr, cv2.HISTCMP_CORREL)
+                        if corr < 0.7:
+                            camera_cut_frames.append(idx)
+                    prev_hist = hist_curr
 
-                        # Track player presence
-                        if len(sorted_players) > 0:
-                            player_present_frames.add(f_idx)
+                # ===== GPU INFERENCE =====
 
-                        # Visualize Players
-                        for idx_p, kp in enumerate(sorted_players):
-                            color = (255, 0, 0) if idx_p == 0 else (0, 255, 0)
+                # TrackNet first (shuttle detection)
+                # Note: TrackNetTracker handles its own parallel preprocessing
+                tracknet_positions = self.shuttle_tracker.track_batch(batch_frames)
 
-                            # Draw Skeleton
-                            for p_ind in range(len(kp)):
-                                x, y = int(kp[p_ind][0]), int(kp[p_ind][1])
-                                if x != 0 and y != 0:
-                                    cv2.circle(frame, (x, y), 5, color, -1)
+                # YOLO second (pose detection)
+                batch_keypoints = self.tracker.detect_pose_batch(batch_frames)
 
-                            # Process Player Data
-                            left_ankle = kp[15]
-                            right_ankle = kp[16]
-                            left_wrist = kp[9]
-                            right_wrist = kp[10]
+                # ===== PROCESS RESULTS AND DRAW OVERLAYS =====
+                for i, (frame, f_idx, all_keypoints, shuttle_pos) in enumerate(
+                    zip(batch_frames, batch_indices, batch_keypoints, tracknet_positions)
+                ):
+                    # --- SHUTTLE TRACKING ---
+                    if shuttle_pos is not None:
+                        shuttle_history.append({'frame': f_idx, 'pos': shuttle_pos})
+                        cv2.circle(frame, shuttle_pos, 8, (0, 0, 255), -1)
+                        cv2.circle(frame, shuttle_pos, 8, (255, 255, 255), 1)
 
-                            if left_ankle[0] != 0 and right_ankle[0] != 0:
-                                midpoint_x = (left_ankle[0] + right_ankle[0]) / 2
-                                midpoint_y = (left_ankle[1] + right_ankle[1]) / 2
+                    # --- PLAYER TRACKING ---
+                    sorted_players = []
+                    if len(all_keypoints) > 0:
+                        sorted_players = self.tracker.filter_and_sort_players(
+                            all_keypoints, play_area_poly, self.geometry
+                        )
 
-                                real_pos = self.geometry.transform_point((midpoint_x, midpoint_y))
-                                if real_pos is not None:
-                                    player_type = "Near" if idx_p == 0 else "Far"
-                                    player_history.append({
-                                        'frame': f_idx,
-                                        'pos': real_pos,
-                                        'left_wrist': tuple(left_wrist),
-                                        'right_wrist': tuple(right_wrist),
-                                        'player_type': player_type
-                                    })
-                                    cv2.putText(
-                                        frame,
-                                        f"{player_type}: {real_pos[0]:.2f}, {real_pos[1]:.2f}m",
-                                        (10, 50 + idx_p*30),
-                                        cv2.FONT_HERSHEY_SIMPLEX, 0.8, color, 2
-                                    )
+                    # Track player presence
+                    if len(sorted_players) > 0:
+                        player_present_frames.add(f_idx)
 
-                        # Write frame (async)
-                        output_writer.write(frame)
+                    # Visualize Players
+                    for idx_p, kp in enumerate(sorted_players):
+                        color = (255, 0, 0) if idx_p == 0 else (0, 255, 0)
 
-                    # Update progress
-                    if progress_callback and self.total_frames > 0:
-                        progress = (frame_idx - start_frame) / (self.total_frames - start_frame)
-                        progress_callback(progress)
-            
-            finally:
-                cap.release()
+                        # Draw Skeleton
+                        for p_ind in range(len(kp)):
+                            x, y = int(kp[p_ind][0]), int(kp[p_ind][1])
+                            if x != 0 and y != 0:
+                                cv2.circle(frame, (x, y), 5, color, -1)
+
+                        # Process Player Data
+                        left_ankle = kp[15]
+                        right_ankle = kp[16]
+                        left_wrist = kp[9]
+                        right_wrist = kp[10]
+
+                        if left_ankle[0] != 0 and right_ankle[0] != 0:
+                            midpoint_x = (left_ankle[0] + right_ankle[0]) / 2
+                            midpoint_y = (left_ankle[1] + right_ankle[1]) / 2
+
+                            real_pos = self.geometry.transform_point((midpoint_x, midpoint_y))
+                            if real_pos is not None:
+                                player_type = "Near" if idx_p == 0 else "Far"
+                                player_history.append({
+                                    'frame': f_idx,
+                                    'pos': real_pos,
+                                    'left_wrist': tuple(left_wrist),
+                                    'right_wrist': tuple(right_wrist),
+                                    'player_type': player_type
+                                })
+                                cv2.putText(
+                                    frame,
+                                    f"{player_type}: {real_pos[0]:.2f}, {real_pos[1]:.2f}m",
+                                    (10, 50 + idx_p*30),
+                                    cv2.FONT_HERSHEY_SIMPLEX, 0.8, color, 2
+                                )
+
+                    # Write frame (async)
+                    output_writer.write(frame)
+
+                # Update progress
+                if progress_callback and self.total_frames > 0:
+                    progress = (frame_idx - start_frame) / (self.total_frames - start_frame)
+                    progress_callback(progress)
         
+        finally:
+            cap.release()
+
         elapsed = time.time() - start_time
         fps_achieved = (frame_idx - start_frame) / elapsed if elapsed > 0 else 0
         print(f"Single-pass processing complete: {frame_idx - start_frame} frames in {elapsed:.1f}s ({fps_achieved:.1f} fps)")

@@ -412,173 +412,6 @@ if uploaded_file:
                     
                     st.rerun()
 
-                    # --- RESULTS (Rendered from Session State) ---
-                    if st.session_state.get('analysis_results'):
-                        results = st.session_state['analysis_results']
-                        analysis_report = results['analysis_report']
-                        converted_file = results['converted_file']
-                        # info = results['info']
-                        
-                        st.divider()
-                        st.subheader("2. Analysis Results")
-                        
-                        tab1, tab2, tab3 = st.tabs(["🎥 Video Overlay", "📊 Tactical Analysis", "🤖 AI Coach"])
-                        
-                        with tab1:
-                            st.video(converted_file)
-                            
-                        with tab2:
-                            st.markdown("### The Coach's Corner (Gemini 3)")
-                            
-                            # Display Stats
-                            st.metric("Total Distance Covered", f"{analysis_report['total_distance']:.2f} m")
-                            st.metric("Max Speed", f"{analysis_report['max_speed']:.2f} m/s")
-                            
-                            st.subheader("Rally Analysis")
-                            st.write(f"**Total Shots Detected:** {analysis_report.get('total_shots', 0)}")
-                            
-                            # Pre-calculate Feedback for UI
-                            # Use default focus player "Near" for initial display, user can toggle in Tab 3 but Tab 2 is general
-                            # Ideally, we should add a small toggle in Tab 2 or valid global state
-                            # For now, let's assume User is "Near" (Blue) for the tactical tips
-                            
-                            coach_verdict_ui = analysis.generate_ai_verdict(analysis_report, focus_player="Near")
-                            rally_feedback_map = {item['rally_index']: item for item in coach_verdict_ui['rally_feedback']}
-                            
-                            # Shot Distribution
-                            if 'shot_distribution' in analysis_report:
-                                st.write("#### Shot Distribution")
-                                # Palette: Use bar chart instead of JSON
-                                shot_counts = analysis_report['shot_distribution']
-                                if shot_counts:
-                                    # Convert to DataFrame for better chart labeling
-                                    df_shots = pd.DataFrame(list(shot_counts.items()), columns=['Shot Type', 'Count'])
-                                    df_shots = df_shots.set_index('Shot Type')
-                                    st.bar_chart(df_shots)
-                                else:
-                                    st.info("No shots detected.")
-                            
-                            # Rally Breakdown with Video Clips
-                            st.write("#### Detailed Rallies")
-                            if 'rallies' in analysis_report:
-                                # Use persistent clips_dir to prevent resource exhaustion on reruns
-                                clips_dir = results.get('clips_dir')
-                                if not clips_dir or not os.path.exists(clips_dir):
-                                    clips_dir = tempfile.mkdtemp(prefix="rally_clips_")
-                                    # We can't easily update st.session_state['analysis_results']['clips_dir'] here
-                                    # if 'results' is a copy, but 'results' points to the dict object in session_state.
-                                    # So modifying it should persist if results was retrieved directly.
-                                    if st.session_state.get('analysis_results'):
-                                         st.session_state['analysis_results']['clips_dir'] = clips_dir
-                                
-                                for i, rally in enumerate(analysis_report['rallies']):
-                                    shot_count = rally.get('shot_count', len(rally.get('shots', [])))
-                                    start_frame = rally.get('start_frame', 0)
-                                    end_frame = rally.get('end_frame', 0)
-                                    
-                                    # Calculate time range
-                                    start_time = start_frame / info['fps']
-                                    duration = (end_frame - start_frame) / info['fps']
-                                    
-                                    with st.expander(f"🏸 Rally {i+1} ({shot_count} shots) | Frames {start_frame}-{end_frame}"):
-                                        
-                                        # --- TACTICAL ADVICE (Updated UI) ---
-                                        # Show this AT THE TOP
-                                        
-                                        # 1. Check for LLM Insights (High Priority)
-                                        llm_critique = None
-                                        if st.session_state.coach_insights:
-                                            critiques = st.session_state.coach_insights.get('rally_critiques', {})
-                                            llm_critique = critiques.get(str(i))
-                                        
-                                        if llm_critique:
-                                            # LLM Feedback
-                                            st.info(f"🤖 **AI Coach**: {llm_critique}")
-                                        else:
-                                            # 2. Fallback to Rule-Based (Immediate)
-                                            feedback_item = rally_feedback_map.get(i)
-                                            if feedback_item:
-                                                comment = feedback_item['comment']
-                                                winner = feedback_item['winner']
-                                                
-                                                if winner == "Near":
-                                                    st.success(f"**Tactical Win**: {comment}")
-                                                elif winner == "Far":
-                                                    st.warning(f"**Tactical Tip**: {comment}")
-                                                else:
-                                                    st.info(f"**Insight**: {comment}")
-                                            
-                                            # Prompt user to generate AI insights if not present
-                                            if not st.session_state.coach_insights and i == 0:
-                                                st.caption("💡 Go to Tab 3 and click 'Generate Coach Analysis' for deeper AI insights on every rally!")
-                                        
-                                        # Extract clip using ffmpeg
-                                        clip_path = os.path.join(clips_dir, f"rally_{i+1}.mp4")
-                                        
-                                        # Only extract if not already done
-                                        if not os.path.exists(clip_path):
-                                            ffmpeg_extract = [
-                                                "ffmpeg", "-y", "-ss", f"{start_time:.2f}", "-i", converted_file,
-                                                "-t", f"{duration:.2f}", "-c", "copy", clip_path
-                                            ]
-                                            subprocess.run(ffmpeg_extract, stderr=subprocess.DEVNULL)
-                                        
-                                        # Display clip if it exists
-                                        if os.path.exists(clip_path) and os.path.getsize(clip_path) > 0:
-                                            st.video(clip_path)
-                                        else:
-                                            st.warning("Clip extraction failed for this rally.")
-                                            
-                                        # Show shots breakdown with direction and player
-                                        st.write("**Shot-by-Shot Breakdown:**")
-                                        shots = rally.get('shots', rally if isinstance(rally, list) else [])
-                                        for shot in shots:
-                                            hit_by = shot.get('hit_by', '?')
-                                            full_type = shot.get('full_type', shot['type'])
-                                            player_emoji = "🔵" if hit_by == "Near" else "🟢"
-                                            st.write(f"{player_emoji} **{hit_by}**: {full_type} (Frames: {shot['from_frame']}-{shot['to_frame']})")
-        
-                        with tab3:
-                            st.subheader("3. AI Coach Verdict 🤖 (Gemini 3.0)")
-                            
-                            if not gemini_api_key:
-                                st.warning("Please enter your Gemini API Key in the sidebar to unlock this feature.")
-                                st.info("The AI Coach analyzes your match statistics to derive high-level insights.")
-                            else:
-                                # Player Selection - Now safe to toggle!
-                                focus_player = st.radio("Who are you?", ["Near Player (Blue)", "Far Player (Green)"], index=0, horizontal=True)
-                                focus_id = "Near" if "Near" in focus_player else "Far"
-                                
-                                # Show current insights if they exist (even from auto-run)
-                                insights = st.session_state.coach_insights
-                                
-                                # Allow re-running manually if needed
-                                if st.button("Regenerate Coach Analysis"):
-                                    with st.spinner("Consulting the AI Coach..."):
-                                        coach = GeminiCoach(gemini_api_key)
-                                        insights = coach.analyze_match(analysis_report, focus_player=focus_id)
-                                        st.session_state.coach_insights = insights 
-                                        st.success("Analysis Updated!")
-                                
-                                if insights:
-                                    col_weak, col_imp = st.columns(2)
-                                    
-                                    with col_weak:
-                                        st.markdown("### 🎯 Opponent Weaknesses")
-                                        if insights.get('opponent_weakness'):
-                                            for item in insights['opponent_weakness']:
-                                                st.write(f"- {item}")
-                                        else:
-                                            st.write("No specific weaknesses detected.")
-                                            
-                                    with col_imp:
-                                        st.markdown("### 📈 My Improvements")
-                                        if insights.get('my_improvements'):
-                                            for item in insights['my_improvements']:
-                                                st.write(f"- {item}")
-                                        else:
-                                            st.write("Keep up the good work!")
-
     with col2:
         st.subheader("Video Info")
         st.markdown(f"**Resolution:** {info['width']}x{info['height']}")
@@ -631,7 +464,13 @@ if uploaded_file:
             # Rally Breakdown with Video Clips
             st.write("#### Detailed Rallies")
             if 'rallies' in analysis_report:
-                clips_dir = tempfile.mkdtemp(prefix="rally_clips_")
+                # Use persistent clips_dir to prevent resource exhaustion on reruns
+                clips_dir = results.get('clips_dir')
+                if not clips_dir or not os.path.exists(clips_dir):
+                    clips_dir = tempfile.mkdtemp(prefix="rally_clips_")
+                    # Update session state to persist the new dir
+                    if st.session_state.get('analysis_results'):
+                         st.session_state['analysis_results']['clips_dir'] = clips_dir
                 
                 for i, rally in enumerate(analysis_report['rallies']):
                     shot_count = rally.get('shot_count', len(rally.get('shots', [])))

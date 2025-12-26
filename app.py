@@ -414,9 +414,10 @@ if uploaded_file:
 
     with col2:
         st.subheader("Video Info")
-        st.markdown(f"**Resolution:** {info['width']}x{info['height']}")
-        st.markdown(f"**FPS:** {info['fps']:.2f}")
-        st.markdown(f"**Duration:** {info['frame_count']/info['fps']:.1f}s")
+        # Palette: Improved Data Display using Metrics
+        st.metric("Resolution", f"{info['width']}x{info['height']}")
+        st.metric("FPS", f"{info['fps']:.2f}")
+        st.metric("Duration", f"{info['frame_count']/info['fps']:.1f}s")
         
     # --- RESULTS (Rendered from Session State) ---
     if st.session_state.get('analysis_results'):
@@ -437,6 +438,7 @@ if uploaded_file:
             st.markdown("### The Coach's Corner (Gemini 3)")
             
             # Display Stats
+            # Palette: Use columns for metrics
             c1, c2 = st.columns(2)
             with c1:
                 st.metric("Total Distance Covered", f"{analysis_report['total_distance']:.2f} m")
@@ -529,12 +531,23 @@ if uploaded_file:
                             
                         # Breakdown
                         st.write("**Shot-by-Shot Breakdown:**")
+
+                        # Palette: Use DataFrame for cleaner view
+                        shot_data = []
                         shots = rally.get('shots', [])
                         for shot in shots:
                             hit_by = shot.get('hit_by', '?')
-                            full_type = shot.get('full_type', shot['type'])
-                            player_emoji = "🔵" if hit_by == "Near" else "🟢"
-                            st.write(f"{player_emoji} **{hit_by}**: {full_type} (Frames: {shot['from_frame']}-{shot['to_frame']})")
+                            emoji = "🔵" if hit_by == "Near" else "🟢"
+                            shot_data.append({
+                                "Player": f"{emoji} {hit_by}",
+                                "Type": shot.get('full_type', shot.get('type')),
+                                "Frames": f"{shot['from_frame']}-{shot['to_frame']}"
+                            })
+
+                        if shot_data:
+                            st.dataframe(shot_data, use_container_width=True, hide_index=True)
+                        else:
+                            st.info("No shots recorded for this rally.")
 
         with tab3:
             st.subheader("3. AI Coach Verdict 🤖 (Gemini 3.0)")

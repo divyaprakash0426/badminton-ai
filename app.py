@@ -40,6 +40,19 @@ if 'corners' not in st.session_state:
     st.session_state.corners = None
 if 'coach_insights' not in st.session_state:
     st.session_state.coach_insights = None
+if 'processing_complete' not in st.session_state:
+    st.session_state.processing_complete = False
+if 'processing_error' not in st.session_state:
+    st.session_state.processing_error = None
+
+# Palette: Toast notification for completed analysis or errors
+if st.session_state.get('processing_complete'):
+    st.toast("Analysis complete! Results are ready.", icon="✅")
+    st.session_state.processing_complete = False
+
+if st.session_state.get('processing_error'):
+    st.toast(f"AI Coach Warning: {st.session_state.processing_error}", icon="⚠️")
+    st.session_state.processing_error = None
 
 # --- sidebar ---
 st.sidebar.header("Configuration")
@@ -406,10 +419,17 @@ if uploaded_file:
                                 coach = GeminiCoach(gemini_api_key)
                                 insights = coach.analyze_match(analysis_report, focus_player="Near") # Default focus
                                 st.session_state.coach_insights = insights
-                                st.success("AI Analysis Ready!")
+                                # Palette: Flag completion for toast
+                                st.session_state.processing_complete = True
                             except Exception as e:
-                                st.error(f"Auto-AI failed: {e}")
-                    
+                                # Palette: Pass error to next run
+                                st.session_state.processing_error = str(e)
+                                # We still count processing as complete because the video part worked
+                                st.session_state.processing_complete = True
+                    else:
+                        # No AI key, but video processing is done
+                        st.session_state.processing_complete = True
+
                     st.rerun()
 
     with col2:

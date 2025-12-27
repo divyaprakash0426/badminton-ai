@@ -66,31 +66,81 @@ uploaded_file = st.sidebar.file_uploader(
 
 # --- main ---
 if uploaded_file:
-    # Save uploaded file to temp (Securely in chunks)
-    video_path = save_uploaded_file_securely(
-        uploaded_file,
-        allowed_extensions=["mp4", "mov", "avi", "webm", "mkv"]
-    )
-    if not video_path:
-        st.error("Error saving file. It might exceed the size limit or have an invalid extension.")
-        st.stop()
+    # Use name + size as a simple unique identifier for the session
+    file_id = f"{uploaded_file.name}-{uploaded_file.size}"
 
-    original_suffix = os.path.splitext(video_path)[1].lower()
+    # Initialize session state variables for file tracking if needed
+    if 'current_file_id' not in st.session_state:
+        st.session_state.current_file_id = None
+    if 'video_path' not in st.session_state:
+        st.session_state.video_path = None
+    if 'transcoded_path' not in st.session_state:
+        st.session_state.transcoded_path = None
 
-    # Pre-transcode WebM/MKV files (often use AV1 codec not supported by OpenCV)
-    if original_suffix in ['.webm', '.mkv']:
-        st.info("Transcoding WebM/MKV to H.264 for compatibility...")
-        transcoded_path = tempfile.NamedTemporaryFile(delete=False, suffix='.mp4').name
-        transcode_cmd = [
-            "ffmpeg", "-y", "-i", video_path, "-c:v", "libx264", "-preset", "fast",
-            "-crf", "23", "-c:a", "aac", transcoded_path
-        ]
-        result = subprocess.run(transcode_cmd, stderr=subprocess.DEVNULL).returncode
-        if result == 0 and os.path.exists(transcoded_path) and os.path.getsize(transcoded_path) > 0:
-            video_path = transcoded_path
-            st.success("Transcoding complete!")
-        else:
-            st.error("Transcoding failed. Please try a different video format.")
+    # Check if this is a new file or the same one
+    if file_id != st.session_state.current_file_id:
+        # Cleanup OLD artifacts if they exist
+        if st.session_state.video_path and os.path.exists(st.session_state.video_path):
+            try:
+                os.remove(st.session_state.video_path)
+            except Exception:
+                pass
+        if st.session_state.transcoded_path and os.path.exists(st.session_state.transcoded_path):
+            try:
+                os.remove(st.session_state.transcoded_path)
+            except Exception:
+                pass
+
+        # Also clean up previous analysis results if we switch videos
+        if st.session_state.get('analysis_results'):
+            old_results = st.session_state['analysis_results']
+            if 'clips_dir' in old_results and os.path.exists(old_results['clips_dir']):
+                try:
+                    shutil.rmtree(old_results['clips_dir'])
+                except Exception:
+                    pass
+            # Cleanup converted file from old analysis
+            if 'converted_file' in old_results and os.path.exists(old_results['converted_file']):
+                try:
+                    os.remove(old_results['converted_file'])
+                except Exception:
+                    pass
+            st.session_state.analysis_results = None
+            st.session_state.corners = None
+            st.session_state.coach_insights = None
+
+        # Save NEW file
+        video_path = save_uploaded_file_securely(
+            uploaded_file,
+            allowed_extensions=["mp4", "mov", "avi", "webm", "mkv"]
+        )
+        if not video_path:
+            st.error("Error saving file. It might exceed the size limit or have an invalid extension.")
+            st.stop()
+
+        st.session_state.video_path = video_path
+        st.session_state.current_file_id = file_id
+        st.session_state.transcoded_path = None # Reset
+
+        original_suffix = os.path.splitext(video_path)[1].lower()
+
+        # Pre-transcode WebM/MKV files (often use AV1 codec not supported by OpenCV)
+        if original_suffix in ['.webm', '.mkv']:
+            st.info("Transcoding WebM/MKV to H.264 for compatibility...")
+            t_path = tempfile.NamedTemporaryFile(delete=False, suffix='.mp4').name
+            transcode_cmd = [
+                "ffmpeg", "-y", "-i", video_path, "-c:v", "libx264", "-preset", "fast",
+                "-crf", "23", "-c:a", "aac", t_path
+            ]
+            result = subprocess.run(transcode_cmd, stderr=subprocess.DEVNULL).returncode
+            if result == 0 and os.path.exists(t_path) and os.path.getsize(t_path) > 0:
+                st.session_state.transcoded_path = t_path
+                st.success("Transcoding complete!")
+            else:
+                st.error("Transcoding failed. Please try a different video format.")
+
+    # Use cached paths
+    video_path = st.session_state.transcoded_path if st.session_state.transcoded_path else st.session_state.video_path
     
     vp = VideoProcessor()
     info = vp.get_video_info(video_path)
@@ -368,6 +418,13 @@ if uploaded_file:
                         result = subprocess.run(cmd_nvenc).returncode
                         if result != 0:
                             subprocess.run(cmd_cpu)
+
+                        # Cleanup intermediate file
+                        if os.path.exists(tfile_out.name):
+                            try:
+                                os.remove(tfile_out.name)
+                            except Exception as e:
+                                print(f"Warning: Failed to remove intermediate file: {e}")
                     
                     # Run Analysis Engine Here (Before saving state)
                     analysis_report = analysis.analyze_rally(
@@ -388,6 +445,13 @@ if uploaded_file:
                                 shutil.rmtree(old_results['clips_dir'])
                             except Exception as e:
                                 print(f"Warning: Failed to cleanup old clips dir: {e}")
+                        # Also clean up old converted file if it exists and is different from current?
+                        # No, we are creating a NEW one here, so the old one is garbage.
+                        if 'converted_file' in old_results and os.path.exists(old_results['converted_file']):
+                            try:
+                                os.remove(old_results['converted_file'])
+                            except Exception as e:
+                                print(f"Warning: Failed to cleanup old converted file: {e}")
 
                     # Create NEW persistent clips_dir for this analysis session
                     clips_dir = tempfile.mkdtemp(prefix="rally_clips_")

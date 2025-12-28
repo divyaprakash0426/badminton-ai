@@ -637,7 +637,21 @@ if uploaded_file:
             st.subheader("3. AI Coach Verdict 🤖 (Gemini 3.0)")
             
             if not gemini_api_key:
-                st.warning("Please enter your Gemini API Key in the sidebar.")
+                # 🎨 Palette: Enhanced Empty State for AI Feature
+                st.info("✨ **Unlock AI Coaching Insights**")
+                st.markdown(
+                    """
+                    The AI Coach (powered by **Gemini 3.0**) analyzes your rallies to provide personalized feedback:
+
+                    *   🎯 **Opponent Weakness Identification**
+                    *   📉 **Shot-by-Shot Tactical Critique**
+                    *   💡 **Improvement Recommendations**
+
+                    **How to enable:**
+                    1.  Get a free API Key from [Google AI Studio](https://aistudio.google.com/app/apikey).
+                    2.  Enter it in the **sidebar** to activate.
+                    """
+                )
             else:
                 # Player Selection - Now PERSISTENT
                 focus_player = st.radio("Who are you?", ["Near Player (Blue)", "Far Player (Green)"], index=0, horizontal=True)

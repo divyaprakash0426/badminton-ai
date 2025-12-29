@@ -210,7 +210,8 @@ class TrackNetTracker:
         if os.path.exists(weights_path):
             try:
                 print(f"Loading TrackNet from {weights_path}...")
-                checkpoint = torch.load(weights_path, map_location=self.device)
+                # Security: Use weights_only=True to prevent arbitrary code execution during deserialization
+                checkpoint = torch.load(weights_path, map_location=self.device, weights_only=True)
                 param_dict = checkpoint['param_dict']
                 self.seq_len = param_dict['seq_len']
                 self.bg_mode = param_dict['bg_mode']
@@ -244,7 +245,8 @@ class TrackNetTracker:
         if os.path.exists(inpaint_weights_path):
             try:
                 print(f"Loading InpaintNet from {inpaint_weights_path}...")
-                inpaint_ckpt = torch.load(inpaint_weights_path, map_location=self.device)
+                # Security: Use weights_only=True to prevent arbitrary code execution during deserialization
+                inpaint_ckpt = torch.load(inpaint_weights_path, map_location=self.device, weights_only=True)
                 self.inpaint_seq_len = inpaint_ckpt['param_dict']['seq_len']
                 self.inpaint_model = get_model('InpaintNet').to(self.device)
                 self.inpaint_model.load_state_dict(inpaint_ckpt['model'])

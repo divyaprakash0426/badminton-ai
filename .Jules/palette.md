@@ -7,3 +7,6 @@
 ## 2025-12-22 - Toast Notifications for Reruns
 **Learning:** When using `st.rerun()`, standard `st.success` messages are cleared immediately. Using a session state flag combined with `st.toast` at the top of the script provides a persistent, delightful confirmation message that survives the page reload.
 **Action:** Use the `processing_complete` flag pattern + `st.toast` for all long-running processes that trigger a rerun.
+## 2024-05-24 - Data Presentation
+**Learning:** Displaying raw frame numbers in tables is helpful for debugging but alienating for users. Converting frames to timestamps (MM:SS) makes the data instantly relatable and usable for analysis.
+**Action:** Always provide a "Time" column in data tables derived from video analysis, calculating `frame / fps`.

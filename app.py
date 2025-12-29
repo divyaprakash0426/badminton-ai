@@ -228,9 +228,9 @@ if uploaded_file:
             for i, (cx, cy) in enumerate(st.session_state['calibration_corners']):
                 initial_objects.append({
                     "type": "circle",
-                    "left": cx - 5, # Adjust for radius to center
-                    "top": cy - 5,
-                    "radius": 5,
+                    "left": cx - 8, # Adjust for radius to center
+                    "top": cy - 8,
+                    "radius": 8, # Increased from 5
                     "fill": "rgba(0, 255, 0, 0.5)",
                     "stroke": "#00FF00",
                     "strokeWidth": 1
@@ -622,9 +622,15 @@ if uploaded_file:
                         for shot in shots:
                             hit_by = shot.get('hit_by', '?')
                             emoji = "🔵" if hit_by == "Near" else "🟢"
+
+                            # Format time (MM:SS)
+                            shot_start_time = shot['from_frame'] / info['fps']
+                            timestamp = f"{int(shot_start_time // 60):02d}:{int(shot_start_time % 60):02d}"
+
                             shot_data.append({
                                 "Player": f"{emoji} {hit_by}",
                                 "Type": shot.get('full_type', shot.get('type')),
+                                "Time": timestamp,
                                 "Frames": f"{shot['from_frame']}-{shot['to_frame']}"
                             })
 

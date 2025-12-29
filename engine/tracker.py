@@ -427,10 +427,14 @@ class TrackNetTracker:
             # torch.compile with 'reduce-overhead' handles CUDA Graphs internally
             y_pred = self.model(batch_tensor)  # (B, seq_len, H, W)
             
+            # Optimization: Move entire batch to CPU at once to reduce synchronization overhead
+            # Select last heatmap for all items in batch: (B, H, W)
+            heatmaps = y_pred[:, -1, :, :].cpu().float().numpy()
+
             # Process each prediction
             for batch_idx, output_idx in enumerate(batch_indices):
                 # Convert to float32 for OpenCV compatibility (FP16 not supported by cv2.threshold)
-                last_map = y_pred[batch_idx, -1, :, :].cpu().float().numpy()
+                last_map = heatmaps[batch_idx]
                 ret, last_map_binary = cv2.threshold(last_map, 0.5, 1, cv2.THRESH_BINARY)
                 # Optimization: Pass binary image (0/1) directly to avoid 255 mult
                 last_map_int = last_map_binary.astype(np.uint8)

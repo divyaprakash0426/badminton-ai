@@ -43,7 +43,8 @@ class ShotClassifier:
         
         if model_path:
             try:
-                state_dict = torch.load(model_path, map_location=device)
+                # Security: Use weights_only=True to prevent arbitrary code execution during deserialization
+                state_dict = torch.load(model_path, map_location=device, weights_only=True)
                 self.model.load_state_dict(state_dict)
                 print(f"Loaded ShotClassifier weights from {model_path}")
             except Exception as e:

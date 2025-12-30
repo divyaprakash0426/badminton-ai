@@ -95,14 +95,14 @@ if __name__ == '__main__':
         os.makedirs(args.save_dir)
     
     # Load model
-    tracknet_ckpt = torch.load(args.tracknet_file)
+    tracknet_ckpt = torch.load(args.tracknet_file, weights_only=True)
     tracknet_seq_len = tracknet_ckpt['param_dict']['seq_len']
     bg_mode = tracknet_ckpt['param_dict']['bg_mode']
     tracknet = get_model('TrackNet', tracknet_seq_len, bg_mode).cuda()
     tracknet.load_state_dict(tracknet_ckpt['model'])
 
     if args.inpaintnet_file:
-        inpaintnet_ckpt = torch.load(args.inpaintnet_file)
+        inpaintnet_ckpt = torch.load(args.inpaintnet_file, weights_only=True)
         inpaintnet_seq_len = inpaintnet_ckpt['param_dict']['seq_len']
         inpaintnet = get_model('InpaintNet').cuda()
         inpaintnet.load_state_dict(inpaintnet_ckpt['model'])

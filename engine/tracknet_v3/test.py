@@ -933,7 +933,7 @@ if __name__ == '__main__':
     # Load parameter
     print(f'Loading checkpoint...')
     if args.tracknet_file:
-        tracknet_ckpt = torch.load(args.tracknet_file)
+        tracknet_ckpt = torch.load(args.tracknet_file, weights_only=True)
         param_dict['tracknet_seq_len'] = tracknet_ckpt['param_dict']['seq_len']
         param_dict['bg_mode'] = tracknet_ckpt['param_dict']['bg_mode']
         tracknet = get_model('TrackNet', seq_len=param_dict['tracknet_seq_len'], bg_mode=param_dict['bg_mode']).cuda()
@@ -943,7 +943,7 @@ if __name__ == '__main__':
         tracknet = None
     
     if args.inpaintnet_file:
-        inpaintnet_ckpt = torch.load(args.inpaintnet_file)
+        inpaintnet_ckpt = torch.load(args.inpaintnet_file, weights_only=True)
         param_dict['inpaintnet_seq_len'] = inpaintnet_ckpt['param_dict']['seq_len']
         inpaintnet = get_model('InpaintNet').cuda()
         inpaintnet.load_state_dict(inpaintnet_ckpt['model'])

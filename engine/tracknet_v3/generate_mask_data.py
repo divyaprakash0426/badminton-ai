@@ -17,7 +17,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # Load model
-    ckpt = torch.load(args.tracknet_file)
+    ckpt = torch.load(args.tracknet_file, weights_only=True)
 
     # Load and set parameters
     param_dict = ckpt['param_dict']

@@ -569,8 +569,12 @@ if uploaded_file:
                     # Calculate time range
                     start_time = start_frame / info['fps']
                     duration = (end_frame - start_frame) / info['fps']
+
+                    # Palette: Friendly time formatting for Expander Title
+                    start_min = int(start_time // 60)
+                    start_sec = int(start_time % 60)
                     
-                    with st.expander(f"🏸 Rally {i+1} ({shot_count} shots) | Frames {start_frame}-{end_frame}"):
+                    with st.expander(f"🏸 Rally {i+1} ({shot_count} shots) | ⏱️ {start_min:02d}:{start_sec:02d} ({duration:.1f}s)"):
                         
                         # --- TACTICAL ADVICE ---
                         # 1. Check for LLM Insights (High Priority)

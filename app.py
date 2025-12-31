@@ -135,6 +135,10 @@ if uploaded_file:
         st.session_state.current_file_id = file_id
         st.session_state.transcoded_path = None # Reset
 
+        # Reset calibration frame
+        if 'calibration_frame_idx' in st.session_state:
+            st.session_state.calibration_frame_idx = 0
+
         original_suffix = os.path.splitext(video_path)[1].lower()
 
         # Pre-transcode WebM/MKV files (often use AV1 codec not supported by OpenCV)
@@ -165,14 +169,38 @@ if uploaded_file:
         
         # Frame Selector for Calibration
         st.markdown("**Select Calibration Frame** (Skip intros)")
+
+        # Initialize session state for fine-tuning
+        if 'calibration_frame_idx' not in st.session_state:
+            st.session_state.calibration_frame_idx = 0
+
+        # Ensure value is within bounds
+        max_frames = info['frame_count'] - 1
+        if st.session_state.calibration_frame_idx > max_frames:
+            st.session_state.calibration_frame_idx = 0
+
         start_frame_idx = st.slider(
             "Frame Index",
             0,
-            info['frame_count']-1,
-            0,
+            max_frames,
+            key="calibration_frame_idx",
             help="Select a frame where the court boundaries are clearly visible for calibration."
         )
         
+        # Palette: Fine-tune controls (+/- 1 second)
+        c_prev, c_next, _ = st.columns([1, 1, 4])
+        step_size = int(info['fps']) # Jump 1 second
+
+        with c_prev:
+            if st.button("⏪ -1s", use_container_width=True, help="Go back 1 second"):
+                st.session_state.calibration_frame_idx = max(0, st.session_state.calibration_frame_idx - step_size)
+                st.rerun()
+
+        with c_next:
+            if st.button("⏩ +1s", use_container_width=True, help="Go forward 1 second"):
+                st.session_state.calibration_frame_idx = min(max_frames, st.session_state.calibration_frame_idx + step_size)
+                st.rerun()
+
         # Palette: Show timestamp for better UX
         timestamp = start_frame_idx / info['fps']
         minutes = int(timestamp // 60)

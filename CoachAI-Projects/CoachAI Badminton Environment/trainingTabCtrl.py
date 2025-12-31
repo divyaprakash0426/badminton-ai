@@ -1,6 +1,8 @@
 # This Python file uses the following encoding: utf-8
 import os
 import re
+import sys
+import subprocess
 
 from PySide6.QtWidgets import QLineEdit, QFileDialog
 from PySide6.QtCore import Qt, Signal, Slot, QThread
@@ -89,8 +91,22 @@ class TrainingThread(QThread):
 
 
     def run(self):
-        print(f'{self.code} --data {self.data} --learning_rate {self.learning_rate} --max_iter {self.max_iter} --output {self.save_path}')
-        os.system(f'{self.code} --data {self.data} --learning_rate {self.learning_rate} --max_iter {self.max_iter} --output {self.save_path}')
-        self.finished.emit()
+        # Security: Use subprocess.run with list arguments to prevent command injection
+        # Also explicitly use sys.executable to ensure proper python environment
+        cmd = [
+            sys.executable,
+            self.code,
+            '--data', self.data,
+            '--learning_rate', self.learning_rate,
+            '--max_iter', self.max_iter,
+            '--output', self.save_path
+        ]
+        print(f"Executing: {' '.join(cmd)}")
+        try:
+            subprocess.run(cmd, check=True)
+        except subprocess.CalledProcessError as e:
+            print(f"Training failed: {e}")
+        except Exception as e:
+            print(f"Error executing training script: {e}")
 
-    
+        self.finished.emit()

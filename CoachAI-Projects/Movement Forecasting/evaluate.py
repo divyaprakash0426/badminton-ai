@@ -143,7 +143,7 @@ location_MAE_criterion = nn.L1Loss(reduction='sum')
 shot_type_criterion = nn.CrossEntropyLoss()
 
 
-encoder.load_state_dict(torch.load(args['model_folder'] + '/encoder')), decoder.load_state_dict(torch.load(args['model_folder'] + '/decoder'))
+encoder.load_state_dict(torch.load(args['model_folder'] + '/encoder', weights_only=True)), decoder.load_state_dict(torch.load(args['model_folder'] + '/decoder', weights_only=True))
 
 encoder.to(device), decoder.to(device), location_MSE_criterion.to(device), location_MAE_criterion.to(device), shot_type_criterion.to(device)
 

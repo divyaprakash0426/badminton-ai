@@ -69,7 +69,7 @@ def main():
         current_model_path = f"{model_path}{k_fold_index}/"
         encoder_path = f"{current_model_path}encoder"
         decoder_path = f"{current_model_path}decoder"
-        encoder.load_state_dict(torch.load(encoder_path)), decoder.load_state_dict(torch.load(decoder_path))
+        encoder.load_state_dict(torch.load(encoder_path, weights_only=True)), decoder.load_state_dict(torch.load(decoder_path, weights_only=True))
 
         total_params = sum(p.numel() for p in encoder.parameters() if p.requires_grad) \
                      + sum(p.numel() for p in decoder.parameters() if p.requires_grad)

@@ -117,7 +117,13 @@ class GeminiCoach:
             return data
             
         except Exception as e:
-            print(f"Gemini Error: {e}")
+            # SECURITY: Sanitize error message to prevent leaking API key
+            error_msg = str(e)
+            if self.api_key and self.api_key in error_msg:
+                error_msg = error_msg.replace(self.api_key, "[REDACTED_API_KEY]")
+
+            print(f"Gemini Error: {error_msg}")
+
             return {
                 "opponent_weakness": ["Error generating insights. Please check console."],
                 "my_improvements": ["Error generating insights."],

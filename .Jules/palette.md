@@ -10,3 +10,6 @@
 ## 2024-05-24 - Data Presentation
 **Learning:** Displaying raw frame numbers in tables is helpful for debugging but alienating for users. Converting frames to timestamps (MM:SS) makes the data instantly relatable and usable for analysis.
 **Action:** Always provide a "Time" column in data tables derived from video analysis, calculating `frame / fps`.
+## 2024-05-24 - Navigation Precision
+**Learning:** For timeline-based tasks like selecting a specific frame, standard sliders and coarse increments (1s) are often insufficient. Users struggle to find the "perfect" frame. Adding "Fine" (+/- 1 frame) vs "Coarse" (+/- 1 second) controls dramatically reduces user frustration.
+**Action:** When implementing time/frame selectors, always provide a "Step" and a "Micro-Step" control option.

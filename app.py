@@ -187,18 +187,28 @@ if uploaded_file:
             help="Select a frame where the court boundaries are clearly visible for calibration."
         )
         
-        # Palette: Fine-tune controls (+/- 1 second)
-        c_prev, c_next, _ = st.columns([1, 1, 4])
-        step_size = int(info['fps']) # Jump 1 second
+        # Palette: Fine-tune controls (+/- 1 second & 1 frame)
+        c_fast_back, c_back, c_fwd, c_fast_fwd, _ = st.columns([1, 1, 1, 1, 3])
+        step_size_sec = int(info['fps']) # Jump 1 second
 
-        with c_prev:
+        with c_fast_back:
             if st.button("⏪ -1s", use_container_width=True, help="Go back 1 second"):
-                st.session_state.calibration_frame_idx = max(0, st.session_state.calibration_frame_idx - step_size)
+                st.session_state.calibration_frame_idx = max(0, st.session_state.calibration_frame_idx - step_size_sec)
                 st.rerun()
 
-        with c_next:
+        with c_back:
+            if st.button("◀ -1f", use_container_width=True, help="Go back 1 frame"):
+                st.session_state.calibration_frame_idx = max(0, st.session_state.calibration_frame_idx - 1)
+                st.rerun()
+
+        with c_fwd:
+            if st.button("▶ +1f", use_container_width=True, help="Go forward 1 frame"):
+                st.session_state.calibration_frame_idx = min(max_frames, st.session_state.calibration_frame_idx + 1)
+                st.rerun()
+
+        with c_fast_fwd:
             if st.button("⏩ +1s", use_container_width=True, help="Go forward 1 second"):
-                st.session_state.calibration_frame_idx = min(max_frames, st.session_state.calibration_frame_idx + step_size)
+                st.session_state.calibration_frame_idx = min(max_frames, st.session_state.calibration_frame_idx + step_size_sec)
                 st.rerun()
 
         # Palette: Show timestamp for better UX

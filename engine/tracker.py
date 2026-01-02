@@ -330,12 +330,11 @@ class TrackNetTracker:
             
             with torch.no_grad():
                 y_pred = self.model(input_tensor)
-                last_map = y_pred[0, -1, :, :].cpu().numpy()
-                ret, last_map_binary = cv2.threshold(last_map, 0.5, 1, cv2.THRESH_BINARY)
-                # Optimization: Pass binary image (0/1) directly to avoid 255 mult
-                last_map_int = last_map_binary.astype(np.uint8)
+                # Optimization: Perform thresholding on GPU/Device before transfer
+                # Reduces data transfer (float32 -> uint8) and avoids CPU thresholding
+                last_map_binary = (y_pred[0, -1, :, :] > 0.5).byte().cpu().numpy()
                 
-                x, y, w, h = predict_location(last_map_int)
+                x, y, w, h = predict_location(last_map_binary)
                 
                 if x == 0 and y == 0 and w == 0 and h == 0:
                      return None
@@ -431,17 +430,14 @@ class TrackNetTracker:
             # torch.compile with 'reduce-overhead' handles CUDA Graphs internally
             y_pred = self.model(batch_tensor)  # (B, seq_len, H, W)
             
-            # Optimization: Move entire batch to CPU at once to reduce synchronization overhead
+            # Optimization: Perform thresholding on Device before transfer
+            # Reduces data transfer by 4x (float32 -> uint8) and avoids CPU thresholding
             # Select last heatmap for all items in batch: (B, H, W)
-            heatmaps = y_pred[:, -1, :, :].cpu().float().numpy()
+            binary_maps = (y_pred[:, -1, :, :] > 0.5).byte().cpu().numpy()
 
             # Process each prediction
             for batch_idx, output_idx in enumerate(batch_indices):
-                # Convert to float32 for OpenCV compatibility (FP16 not supported by cv2.threshold)
-                last_map = heatmaps[batch_idx]
-                # Optimization: NumPy boolean comparison is ~60% faster than cv2.threshold + astype
-                # Creates uint8 mask (0 or 1) directly
-                last_map_int = (last_map > 0.5).astype(np.uint8)
+                last_map_int = binary_maps[batch_idx]
                 
                 x, y, w, h = predict_location(last_map_int)
                 

@@ -556,6 +556,18 @@ if uploaded_file:
         with tab1:
             st.video(converted_file)
             
+            # Palette: Download Analyzed Video
+            # We read the file to bytes to allow download.
+            # NOTE: For very large files, this loads into RAM. Streamlit doesn't support streaming downloads easily yet.
+            if os.path.exists(converted_file):
+                with open(converted_file, "rb") as file:
+                    btn = st.download_button(
+                        label="⬇️ Download Analyzed Video",
+                        data=file,
+                        file_name="badminton_analysis_video.mp4",
+                        mime="video/mp4"
+                    )
+
         with tab2:
             st.markdown("### The Coach's Corner (Gemini 3)")
             
@@ -568,8 +580,22 @@ if uploaded_file:
                 st.metric("Max Speed", f"{analysis_report['max_speed']:.2f} m/s")
             
             st.subheader("Rally Analysis")
-            st.write(f"**Total Shots Detected:** {analysis_report.get('total_shots', 0)}")
+            col_rally_stats, col_download = st.columns([3, 1])
+            with col_rally_stats:
+                st.write(f"**Total Shots Detected:** {analysis_report.get('total_shots', 0)}")
             
+            with col_download:
+                # Palette: Download Match Report (JSON)
+                import json
+                report_json = json.dumps(analysis_report, default=str, indent=2)
+                st.download_button(
+                    label="⬇️ Download Report (JSON)",
+                    data=report_json,
+                    file_name="match_report.json",
+                    mime="application/json",
+                    help="Download the raw analysis data for custom processing."
+                )
+
             # Pre-calculate Feedback for UI
             analysis = AnalysisEngine(fps=info['fps']) # Ensure instance is available during re-runs
             coach_verdict_ui = analysis.generate_ai_verdict(analysis_report, focus_player="Near")

@@ -1,25 +1,49 @@
+# --- Aider and Agent Artifacts ---
 .aider*
+AGENTS.md
+graphify-out/
+.graphifyignore
+
+# --- Local Tooling and Hooks ---
+.github/hooks/
 
 # --- Python Specific ---
 __pycache__/
 *.py[cod]
 *$py.class
+*.so
+.Python
 .venv/
 venv/
 ENV/
+env/
+
+# --- Secrets and Environment ---
+.env
+.env.*
+*.env
+*.pem
+*.key
+
+# --- Testing and Coverage ---
+.pytest_cache/
+.coverage
+htmlcov/
 
 # --- Large Dataset Files ---
-# Ignoring the large zip and potential local data extractions
 VideoBadminton_Dataset.zip
 *.zip
+*.tar
+*.tar.gz
 data/
 videos/
 
 # --- Model Checkpoints and Weights ---
-# These are large binary files that should be hosted elsewhere (e.g., HuggingFace or S3)
 *.pt
 *.onnx
 *.engine
+*.pth
+*.bin
 ckpts/
 
 # --- TrackNet V3 Specific ---
@@ -32,9 +56,13 @@ engine/tracknet_v3/__pycache__/
 .idea/
 .DS_Store
 Thumbs.db
+*.swp
+*.swo
 
 # --- Logs and Build Artifacts ---
 logs/
 build/
 dist/
 *.log
+streamlit_log.txt
+*log*.txt

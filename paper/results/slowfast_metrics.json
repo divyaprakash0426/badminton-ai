@@ -1,0 +1,162 @@
+{
+  "n_clips": 1558,
+  "n_classes": 18,
+  "top1_acc": 0.865211810012837,
+  "top1_acc_ci95": [
+    0.8472400513478819,
+    0.8818998716302953
+  ],
+  "top5_acc": 0.9826700898587933,
+  "macro_f1": 0.7993046797633108,
+  "macro_f1_ci95": [
+    0.768524289427983,
+    0.8245040320725778
+  ],
+  "weighted_f1": 0.8631847427598435,
+  "mean_class_acc": 0.7891685992283783,
+  "latency_ms_per_clip_bs1": 39.940335750579834,
+  "gpu": "NVIDIA GeForce RTX 4080 Laptop GPU",
+  "classes": [
+    "00_Short Serve",
+    "01_Cross Court Flight",
+    "02_Lift",
+    "03_Tap Smash",
+    "04_Block",
+    "05_Drop Shot",
+    "06_Push Shot",
+    "07_Transitional Slice",
+    "08_Cut",
+    "09_Rush Shot",
+    "10_Defensive Clear",
+    "11_Defensive Drive",
+    "12_Clear",
+    "13_Long Serve",
+    "14_Smash",
+    "15_Flat Shot",
+    "16_Rear Court Flat Drive",
+    "17_Short Flat Shot"
+  ],
+  "per_class": {
+    "00_Short Serve": {
+      "precision": 0.9666666666666667,
+      "recall": 0.9886363636363636,
+      "f1-score": 0.9775280898876404,
+      "support": 176.0
+    },
+    "01_Cross Court Flight": {
+      "precision": 0.7352941176470589,
+      "recall": 0.7575757575757576,
+      "f1-score": 0.746268656716418,
+      "support": 33.0
+    },
+    "02_Lift": {
+      "precision": 0.8258064516129032,
+      "recall": 0.847682119205298,
+      "f1-score": 0.8366013071895425,
+      "support": 151.0
+    },
+    "03_Tap Smash": {
+      "precision": 1.0,
+      "recall": 0.2857142857142857,
+      "f1-score": 0.4444444444444444,
+      "support": 21.0
+    },
+    "04_Block": {
+      "precision": 0.6842105263157895,
+      "recall": 0.8253968253968254,
+      "f1-score": 0.7482014388489209,
+      "support": 63.0
+    },
+    "05_Drop Shot": {
+      "precision": 0.9102564102564102,
+      "recall": 0.8765432098765432,
+      "f1-score": 0.8930817610062893,
+      "support": 162.0
+    },
+    "06_Push Shot": {
+      "precision": 0.6388888888888888,
+      "recall": 0.575,
+      "f1-score": 0.6052631578947368,
+      "support": 80.0
+    },
+    "07_Transitional Slice": {
+      "precision": 0.52,
+      "recall": 0.5416666666666666,
+      "f1-score": 0.5306122448979592,
+      "support": 24.0
+    },
+    "08_Cut": {
+      "precision": 0.8558558558558559,
+      "recall": 0.811965811965812,
+      "f1-score": 0.8333333333333334,
+      "support": 117.0
+    },
+    "09_Rush Shot": {
+      "precision": 0.7692307692307693,
+      "recall": 0.9090909090909091,
+      "f1-score": 0.8333333333333334,
+      "support": 22.0
+    },
+    "10_Defensive Clear": {
+      "precision": 0.7647058823529411,
+      "recall": 0.6190476190476191,
+      "f1-score": 0.6842105263157895,
+      "support": 21.0
+    },
+    "11_Defensive Drive": {
+      "precision": 0.95,
+      "recall": 0.8636363636363636,
+      "f1-score": 0.9047619047619048,
+      "support": 22.0
+    },
+    "12_Clear": {
+      "precision": 0.9555555555555556,
+      "recall": 0.91005291005291,
+      "f1-score": 0.9322493224932249,
+      "support": 189.0
+    },
+    "13_Long Serve": {
+      "precision": 0.9751243781094527,
+      "recall": 0.98989898989899,
+      "f1-score": 0.9824561403508771,
+      "support": 198.0
+    },
+    "14_Smash": {
+      "precision": 0.8369565217391305,
+      "recall": 0.9390243902439024,
+      "f1-score": 0.8850574712643678,
+      "support": 164.0
+    },
+    "15_Flat Shot": {
+      "precision": 0.7083333333333334,
+      "recall": 0.7846153846153846,
+      "f1-score": 0.7445255474452555,
+      "support": 65.0
+    },
+    "16_Rear Court Flat Drive": {
+      "precision": 0.9523809523809523,
+      "recall": 0.8333333333333334,
+      "f1-score": 0.8888888888888888,
+      "support": 24.0
+    },
+    "17_Short Flat Shot": {
+      "precision": 1.0,
+      "recall": 0.8461538461538461,
+      "f1-score": 0.9166666666666666,
+      "support": 26.0
+    },
+    "accuracy": 0.865211810012837,
+    "macro avg": {
+      "precision": 0.8360703505525393,
+      "recall": 0.7891685992283783,
+      "f1-score": 0.7993046797633108,
+      "support": 1558.0
+    },
+    "weighted avg": {
+      "precision": 0.8691296968434541,
+      "recall": 0.865211810012837,
+      "f1-score": 0.8631847427598435,
+      "support": 1558.0
+    }
+  }
+}

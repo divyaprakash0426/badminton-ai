@@ -1,0 +1,4001 @@
+{
+  "total_distance": 890.4146831030446,
+  "max_speed": 15.210126216100473,
+  "chunks": [],
+  "player_stats": {
+    "Near": {
+      "total_distance": 439.89810337217796,
+      "max_speed": 15.210126216100473,
+      "avg_speed": 2.4411999892154004
+    },
+    "Far": {
+      "total_distance": 450.5165797308666,
+      "max_speed": 13.706278955405118,
+      "avg_speed": 1.8496082667581069
+    }
+  },
+  "rallies": [
+    {
+      "shots": [
+        {
+          "from_frame": "246",
+          "to_frame": "266",
+          "type": "Short Serve",
+          "direction": "Cross-Court",
+          "full_type": "Short Serve",
+          "hit_by": "Far",
+          "from_zone": "B3",
+          "to_zone": "A3",
+          "to_pos_m": "[     1.3775     -5.9395]",
+          "to_pos": [
+            576,
+            259
+          ]
+        },
+        {
+          "from_frame": "266",
+          "to_frame": "285",
+          "type": "Rear Court Flat Drive",
+          "direction": "Mid",
+          "full_type": "Mid Rear Court Flat Drive",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "B3",
+          "to_pos_m": "[     2.5704     -25.867]",
+          "to_pos": [
+            645,
+            145
+          ]
+        },
+        {
+          "from_frame": "285",
+          "to_frame": "301",
+          "type": "Rear Court Flat Drive",
+          "direction": "Mid",
+          "full_type": "Mid Rear Court Flat Drive",
+          "hit_by": "Far",
+          "from_zone": "B3",
+          "to_zone": "A3",
+          "to_pos_m": "[     1.5027      1.4157]",
+          "to_pos": [
+            569,
+            344
+          ]
+        },
+        {
+          "from_frame": "301",
+          "to_frame": "317",
+          "type": "Unknown",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Unknown",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.7829     -46.793]",
+          "to_pos": [
+            733,
+            90
+          ]
+        },
+        {
+          "from_frame": "317",
+          "to_frame": "344",
+          "type": "Rear Court Flat Drive",
+          "direction": "Straight",
+          "full_type": "Straight Rear Court Flat Drive",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C2",
+          "to_pos_m": "[      4.984      4.1416]",
+          "to_pos": [
+            870,
+            387
+          ]
+        },
+        {
+          "from_frame": "344",
+          "to_frame": "368",
+          "type": "Unknown",
+          "direction": "Straight",
+          "full_type": "Straight Unknown",
+          "hit_by": "Near",
+          "from_zone": "C2",
+          "to_zone": "C3",
+          "to_pos_m": "[     4.6153     0.91942]",
+          "to_pos": [
+            813,
+            335
+          ]
+        },
+        {
+          "from_frame": "368",
+          "to_frame": "384",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     8.2277     -26.268]",
+          "to_pos": [
+            865,
+            141
+          ]
+        },
+        {
+          "from_frame": "384",
+          "to_frame": "399",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.0924     0.21956]",
+          "to_pos": [
+            845,
+            325
+          ]
+        },
+        {
+          "from_frame": "399",
+          "to_frame": "421",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "B3",
+          "to_pos_m": "[     3.6433     -0.7632]",
+          "to_pos": [
+            731,
+            313
+          ]
+        },
+        {
+          "from_frame": "421",
+          "to_frame": "446",
+          "type": "Defensive Drive",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Defensive Drive",
+          "hit_by": "Near",
+          "from_zone": "B3",
+          "to_zone": "A0",
+          "to_pos_m": "[     1.5415      6.4099]",
+          "to_pos": [
+            557,
+            435
+          ]
+        },
+        {
+          "from_frame": "446",
+          "to_frame": "468",
+          "type": "Lift",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Lift",
+          "hit_by": "Far",
+          "from_zone": "A0",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.2442     -148.62]",
+          "to_pos": [
+            671,
+            11
+          ]
+        },
+        {
+          "from_frame": "468",
+          "to_frame": "481",
+          "type": "Tap Smash",
+          "direction": "Straight",
+          "full_type": "Straight Tap Smash",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[      5.087     -37.008]",
+          "to_pos": [
+            725,
+            111
+          ]
+        },
+        {
+          "from_frame": "481",
+          "to_frame": "538",
+          "type": "Rear Court Flat Drive",
+          "direction": "Straight",
+          "full_type": "Straight Rear Court Flat Drive",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     4.6144      13.156]",
+          "to_pos": [
+            961,
+            656
+          ],
+          "landing_x": "1.5643594",
+          "landing_y": "6.455633"
+        }
+      ],
+      "start_frame": 246,
+      "end_frame": 563,
+      "shot_count": 13,
+      "score_after": "0-1",
+      "winner": "Far",
+      "last_landing_x": "1.5643594",
+      "last_landing_y": "6.455633"
+    },
+    {
+      "shots": [
+        {
+          "from_frame": "651",
+          "to_frame": "668",
+          "type": "Short Serve",
+          "direction": "Straight",
+          "full_type": "Short Serve",
+          "hit_by": "Far",
+          "from_zone": "B3",
+          "to_zone": "C3",
+          "to_pos_m": "[     4.4775     0.55821]",
+          "to_pos": [
+            800,
+            330
+          ]
+        },
+        {
+          "from_frame": "668",
+          "to_frame": "686",
+          "type": "Lift",
+          "direction": "Straight",
+          "full_type": "Straight Lift",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     9.0116     -47.248]",
+          "to_pos": [
+            823,
+            88
+          ]
+        },
+        {
+          "from_frame": "686",
+          "to_frame": "703",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     4.4278     -3.5988]",
+          "to_pos": [
+            775,
+            280
+          ]
+        },
+        {
+          "from_frame": "703",
+          "to_frame": "720",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     4.5679     -8.3324]",
+          "to_pos": [
+            765,
+            237
+          ]
+        },
+        {
+          "from_frame": "720",
+          "to_frame": "735",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "B2",
+          "to_pos_m": "[     3.5297      3.0733]",
+          "to_pos": [
+            736,
+            369
+          ]
+        },
+        {
+          "from_frame": "735",
+          "to_frame": "752",
+          "type": "Defensive Drive",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Drive",
+          "hit_by": "Near",
+          "from_zone": "B2",
+          "to_zone": "B3",
+          "to_pos_m": "[     2.9789     -2.9275]",
+          "to_pos": [
+            679,
+            288
+          ]
+        },
+        {
+          "from_frame": "752",
+          "to_frame": "771",
+          "type": "Lift",
+          "direction": "Straight",
+          "full_type": "Straight Lift",
+          "hit_by": "Far",
+          "from_zone": "B3",
+          "to_zone": "C3",
+          "to_pos_m": "[     4.5422    -0.10338]",
+          "to_pos": [
+            801,
+            321
+          ]
+        },
+        {
+          "from_frame": "771",
+          "to_frame": "805",
+          "type": "Lift",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Lift",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "A3",
+          "to_pos_m": "[   -0.62183     -6.7451]",
+          "to_pos": [
+            457,
+            253
+          ]
+        },
+        {
+          "from_frame": "805",
+          "to_frame": "820",
+          "type": "Rear Court Flat Drive",
+          "direction": "Straight",
+          "full_type": "Straight Rear Court Flat Drive",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[   -0.62522     0.77698]",
+          "to_pos": [
+            407,
+            336
+          ]
+        },
+        {
+          "from_frame": "820",
+          "to_frame": "838",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[   -0.16228    -0.62129]",
+          "to_pos": [
+            452,
+            317
+          ]
+        },
+        {
+          "from_frame": "838",
+          "to_frame": "859",
+          "type": "Unknown",
+          "direction": "Straight",
+          "full_type": "Straight Unknown",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "A1",
+          "to_pos_m": "[   -0.20084      4.4182]",
+          "to_pos": [
+            409,
+            395
+          ]
+        },
+        {
+          "from_frame": "859",
+          "to_frame": "877",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "A1",
+          "to_zone": "A3",
+          "to_pos_m": "[     -9.004     -86.673]",
+          "to_pos": [
+            430,
+            46
+          ]
+        },
+        {
+          "from_frame": "877",
+          "to_frame": "918",
+          "type": "Unknown",
+          "direction": "Straight",
+          "full_type": "Straight Unknown",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[    0.95675      14.222]",
+          "to_pos": [
+            422,
+            711
+          ]
+        },
+        {
+          "from_frame": "918",
+          "to_frame": "1017",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[   -0.98967    -0.42448]",
+          "to_pos": [
+            390,
+            320
+          ],
+          "landing_x": "-4.0396724",
+          "landing_y": "-7.1244755"
+        }
+      ],
+      "start_frame": 651,
+      "end_frame": 1035,
+      "shot_count": 14,
+      "score_after": "0-2",
+      "winner": "Far",
+      "last_landing_x": "-4.0396724",
+      "last_landing_y": "-7.1244755"
+    },
+    {
+      "shots": [
+        {
+          "from_frame": "1085",
+          "to_frame": "1110",
+          "type": "Short Serve",
+          "direction": "Cross-Court",
+          "full_type": "Short Serve",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "B3",
+          "to_pos_m": "[     3.9344     -4.8216]",
+          "to_pos": [
+            738,
+            268
+          ]
+        },
+        {
+          "from_frame": "1110",
+          "to_frame": "1136",
+          "type": "Tap Smash",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Tap Smash",
+          "hit_by": "Near",
+          "from_zone": "B3",
+          "to_zone": "A3",
+          "to_pos_m": "[   0.097843      0.3746]",
+          "to_pos": [
+            465,
+            330
+          ]
+        },
+        {
+          "from_frame": "1136",
+          "to_frame": "1203",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[    -6.6073     -65.704]",
+          "to_pos": [
+            437,
+            66
+          ],
+          "landing_x": "-9.657348",
+          "landing_y": "-72.40448"
+        }
+      ],
+      "start_frame": 1085,
+      "end_frame": 1212,
+      "shot_count": 3,
+      "score_after": "1-2",
+      "winner": "Near",
+      "last_landing_x": "-9.657348",
+      "last_landing_y": "-72.40448"
+    },
+    {
+      "shots": [
+        {
+          "from_frame": "1352",
+          "to_frame": "1374",
+          "type": "Short Serve",
+          "direction": "Cross-Court",
+          "full_type": "Short Serve",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.0124     -33.166]",
+          "to_pos": [
+            728,
+            121
+          ]
+        },
+        {
+          "from_frame": "1374",
+          "to_frame": "1392",
+          "type": "Unknown",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Unknown",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "A3",
+          "to_pos_m": "[    -4.5102     -147.72]",
+          "to_pos": [
+            555,
+            13
+          ]
+        },
+        {
+          "from_frame": "1392",
+          "to_frame": "1408",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[   -0.25113     -2.1118]",
+          "to_pos": [
+            455,
+            299
+          ]
+        },
+        {
+          "from_frame": "1408",
+          "to_frame": "1424",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[    0.16413     0.37738]",
+          "to_pos": [
+            470,
+            330
+          ]
+        },
+        {
+          "from_frame": "1424",
+          "to_frame": "1444",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[    0.42084      2.0357]",
+          "to_pos": [
+            480,
+            354
+          ]
+        },
+        {
+          "from_frame": "1444",
+          "to_frame": "1465",
+          "type": "Unknown",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Unknown",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "C3",
+          "to_pos_m": "[     4.3873     0.55442]",
+          "to_pos": [
+            793,
+            330
+          ]
+        },
+        {
+          "from_frame": "1465",
+          "to_frame": "1484",
+          "type": "Unknown",
+          "direction": "Straight",
+          "full_type": "Straight Unknown",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     4.6456      1.7368]",
+          "to_pos": [
+            821,
+            347
+          ]
+        },
+        {
+          "from_frame": "1484",
+          "to_frame": "1498",
+          "type": "Unknown",
+          "direction": "Straight",
+          "full_type": "Straight Unknown",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.0707     -1.6766]",
+          "to_pos": [
+            830,
+            301
+          ]
+        },
+        {
+          "from_frame": "1498",
+          "to_frame": "1524",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     25.444      -146.9]",
+          "to_pos": [
+            915,
+            8
+          ]
+        },
+        {
+          "from_frame": "1524",
+          "to_frame": "1542",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.7217     -2.5117]",
+          "to_pos": [
+            870,
+            291
+          ]
+        },
+        {
+          "from_frame": "1542",
+          "to_frame": "1564",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     6.0966     -8.8669]",
+          "to_pos": [
+            851,
+            232
+          ]
+        },
+        {
+          "from_frame": "1564",
+          "to_frame": "1579",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.1376      1.7556]",
+          "to_pos": [
+            861,
+            347
+          ]
+        },
+        {
+          "from_frame": "1579",
+          "to_frame": "1601",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.1293    -0.15316]",
+          "to_pos": [
+            845,
+            320
+          ]
+        },
+        {
+          "from_frame": "1601",
+          "to_frame": "1634",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.0788     -3.3726]",
+          "to_pos": [
+            820,
+            282
+          ]
+        },
+        {
+          "from_frame": "1634",
+          "to_frame": "1649",
+          "type": "Defensive Clear",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "A3",
+          "to_pos_m": "[    0.53916    -0.35669]",
+          "to_pos": [
+            502,
+            320
+          ]
+        },
+        {
+          "from_frame": "1649",
+          "to_frame": "1678",
+          "type": "Block",
+          "direction": "Straight",
+          "full_type": "Straight Block",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[     1.8617     -2.0929]",
+          "to_pos": [
+            602,
+            298
+          ]
+        },
+        {
+          "from_frame": "1678",
+          "to_frame": "1694",
+          "type": "Unknown",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Unknown",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "B3",
+          "to_pos_m": "[     3.8496     -3.0653]",
+          "to_pos": [
+            738,
+            286
+          ]
+        },
+        {
+          "from_frame": "1694",
+          "to_frame": "1713",
+          "type": "Drop Shot",
+          "direction": "Straight",
+          "full_type": "Straight Drop Shot",
+          "hit_by": "Near",
+          "from_zone": "B3",
+          "to_zone": "B2",
+          "to_pos_m": "[     2.8915      3.6894]",
+          "to_pos": [
+            683,
+            380
+          ],
+          "landing_x": "-0.15851617",
+          "landing_y": "-3.0106442"
+        }
+      ],
+      "start_frame": 1352,
+      "end_frame": 1738,
+      "shot_count": 18,
+      "score_after": "2-2",
+      "winner": "Near",
+      "last_landing_x": "-0.15851617",
+      "last_landing_y": "-3.0106442"
+    },
+    {
+      "shots": [
+        {
+          "from_frame": "1766",
+          "to_frame": "1784",
+          "type": "Short Serve",
+          "direction": "Straight",
+          "full_type": "Short Serve",
+          "hit_by": "Near",
+          "from_zone": "C1",
+          "to_zone": "C3",
+          "to_pos_m": "[      4.825     -9.6291]",
+          "to_pos": [
+            775,
+            227
+          ]
+        },
+        {
+          "from_frame": "1784",
+          "to_frame": "1803",
+          "type": "Defensive Clear",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "A3",
+          "to_pos_m": "[    0.49834      11.998]",
+          "to_pos": [
+            392,
+            605
+          ]
+        },
+        {
+          "from_frame": "1803",
+          "to_frame": "1823",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[  -0.082055      13.929]",
+          "to_pos": [
+            272,
+            695
+          ]
+        },
+        {
+          "from_frame": "1823",
+          "to_frame": "1837",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[   -0.22617       14.06]",
+          "to_pos": [
+            247,
+            702
+          ]
+        },
+        {
+          "from_frame": "1837",
+          "to_frame": "1940",
+          "type": "Block",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Block",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "B3",
+          "to_pos_m": "[     3.7792      11.793]",
+          "to_pos": [
+            823,
+            596
+          ]
+        },
+        {
+          "from_frame": "1940",
+          "to_frame": "1966",
+          "type": "Tap Smash",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Tap Smash",
+          "hit_by": "Far",
+          "from_zone": "B3",
+          "to_zone": "A1",
+          "to_pos_m": "[     1.8791      4.8937]",
+          "to_pos": [
+            593,
+            403
+          ],
+          "landing_x": "-1.170943",
+          "landing_y": "-1.8062606"
+        }
+      ],
+      "start_frame": 1766,
+      "end_frame": 1971,
+      "shot_count": 6,
+      "score_after": "2-3",
+      "winner": "Far",
+      "last_landing_x": "-1.170943",
+      "last_landing_y": "-1.8062606"
+    },
+    {
+      "shots": [
+        {
+          "from_frame": "2185",
+          "to_frame": "2204",
+          "type": "Short Serve",
+          "direction": "Straight",
+          "full_type": "Short Serve",
+          "hit_by": "Far",
+          "from_zone": "B3",
+          "to_zone": "C0",
+          "to_pos_m": "[     4.3076      7.1554]",
+          "to_pos": [
+            835,
+            451
+          ]
+        },
+        {
+          "from_frame": "2204",
+          "to_frame": "2219",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "C0",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.5196     -3.3484]",
+          "to_pos": [
+            850,
+            282
+          ]
+        },
+        {
+          "from_frame": "2219",
+          "to_frame": "2233",
+          "type": "Unknown",
+          "direction": "Straight",
+          "full_type": "Straight Unknown",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C1",
+          "to_pos_m": "[     4.8384      4.4586]",
+          "to_pos": [
+            860,
+            393
+          ],
+          "landing_x": "1.7883909",
+          "landing_y": "-2.2414203"
+        }
+      ],
+      "start_frame": 2185,
+      "end_frame": 2258,
+      "shot_count": 3,
+      "score_after": "2-4",
+      "winner": "Far",
+      "last_landing_x": "1.7883909",
+      "last_landing_y": "-2.2414203"
+    },
+    {
+      "shots": [
+        {
+          "from_frame": "2405",
+          "to_frame": "2427",
+          "type": "Short Serve",
+          "direction": "Straight",
+          "full_type": "Short Serve",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[     1.9951     -7.1592]",
+          "to_pos": [
+            615,
+            248
+          ]
+        },
+        {
+          "from_frame": "2427",
+          "to_frame": "2449",
+          "type": "Unknown",
+          "direction": "Straight",
+          "full_type": "Straight Unknown",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "A2",
+          "to_pos_m": "[    0.38081      3.0868]",
+          "to_pos": [
+            470,
+            371
+          ]
+        },
+        {
+          "from_frame": "2449",
+          "to_frame": "2466",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "A2",
+          "to_zone": "A3",
+          "to_pos_m": "[    -5.5133      -68.87]",
+          "to_pos": [
+            467,
+            62
+          ]
+        },
+        {
+          "from_frame": "2466",
+          "to_frame": "2500",
+          "type": "Unknown",
+          "direction": "Straight",
+          "full_type": "Straight Unknown",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "A1",
+          "to_pos_m": "[    0.38331      8.8377]",
+          "to_pos": [
+            420,
+            497
+          ]
+        },
+        {
+          "from_frame": "2500",
+          "to_frame": "2519",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "A1",
+          "to_zone": "A3",
+          "to_pos_m": "[    -2.7015     -33.607]",
+          "to_pos": [
+            465,
+            123
+          ]
+        },
+        {
+          "from_frame": "2519",
+          "to_frame": "2544",
+          "type": "Unknown",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Unknown",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "C3",
+          "to_pos_m": "[     4.8885      11.573]",
+          "to_pos": [
+            965,
+            587
+          ]
+        },
+        {
+          "from_frame": "2544",
+          "to_frame": "2563",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[      5.355      12.687]",
+          "to_pos": [
+            1055,
+            634
+          ]
+        },
+        {
+          "from_frame": "2563",
+          "to_frame": "2592",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.2784      12.753]",
+          "to_pos": [
+            1046,
+            637
+          ]
+        },
+        {
+          "from_frame": "2592",
+          "to_frame": "2676",
+          "type": "Unknown",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Unknown",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "B3",
+          "to_pos_m": "[     2.3316     -4.7101]",
+          "to_pos": [
+            635,
+            270
+          ],
+          "landing_x": "-0.7184093",
+          "landing_y": "-11.410137"
+        }
+      ],
+      "start_frame": 2405,
+      "end_frame": 2681,
+      "shot_count": 9,
+      "score_after": "3-4",
+      "winner": "Near",
+      "last_landing_x": "-0.7184093",
+      "last_landing_y": "-11.410137"
+    },
+    {
+      "shots": [
+        {
+          "from_frame": "2691",
+          "to_frame": "2716",
+          "type": "Short Serve",
+          "direction": "Straight",
+          "full_type": "Short Serve",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[    -13.461     -172.41]",
+          "to_pos": [
+            472,
+            7
+          ]
+        },
+        {
+          "from_frame": "2716",
+          "to_frame": "2731",
+          "type": "Smash",
+          "direction": "Straight",
+          "full_type": "Straight Smash",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[   -0.22763     -22.297]",
+          "to_pos": [
+            529,
+            160
+          ]
+        },
+        {
+          "from_frame": "2731",
+          "to_frame": "2746",
+          "type": "Smash",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Smash",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "C0",
+          "to_pos_m": "[     4.1478      6.7303]",
+          "to_pos": [
+            815,
+            441
+          ]
+        },
+        {
+          "from_frame": "2746",
+          "to_frame": "2764",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "C0",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.0648     -8.5525]",
+          "to_pos": [
+            793,
+            235
+          ]
+        },
+        {
+          "from_frame": "2764",
+          "to_frame": "2784",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.0832     -6.6047]",
+          "to_pos": [
+            803,
+            251
+          ]
+        },
+        {
+          "from_frame": "2784",
+          "to_frame": "2822",
+          "type": "Defensive Clear",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "A3",
+          "to_pos_m": "[    -5.8169     -139.97]",
+          "to_pos": [
+            535,
+            16
+          ]
+        },
+        {
+          "from_frame": "2822",
+          "to_frame": "2837",
+          "type": "Rear Court Flat Drive",
+          "direction": "Straight",
+          "full_type": "Straight Rear Court Flat Drive",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[   -0.80332     -19.388]",
+          "to_pos": [
+            497,
+            173
+          ],
+          "landing_x": "-3.853322",
+          "landing_y": "-26.088043"
+        }
+      ],
+      "start_frame": 2691,
+      "end_frame": 2846,
+      "shot_count": 7,
+      "score_after": "4-4",
+      "winner": "Near",
+      "last_landing_x": "-3.853322",
+      "last_landing_y": "-26.088043"
+    },
+    {
+      "shots": [
+        {
+          "from_frame": "2861",
+          "to_frame": "2898",
+          "type": "Short Serve",
+          "direction": "Cross-Court",
+          "full_type": "Short Serve",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "B3",
+          "to_pos_m": "[     3.5104     -17.494]",
+          "to_pos": [
+            690,
+            180
+          ]
+        },
+        {
+          "from_frame": "2898",
+          "to_frame": "2911",
+          "type": "Unknown",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Unknown",
+          "hit_by": "Near",
+          "from_zone": "B3",
+          "to_zone": "A0",
+          "to_pos_m": "[    0.63414      6.2546]",
+          "to_pos": [
+            470,
+            432
+          ]
+        },
+        {
+          "from_frame": "2911",
+          "to_frame": "2925",
+          "type": "Tap Smash",
+          "direction": "Straight",
+          "full_type": "Straight Tap Smash",
+          "hit_by": "Far",
+          "from_zone": "A0",
+          "to_zone": "A3",
+          "to_pos_m": "[   0.086448     -2.8056]",
+          "to_pos": [
+            482,
+            291
+          ]
+        },
+        {
+          "from_frame": "2925",
+          "to_frame": "2947",
+          "type": "Unknown",
+          "direction": "Straight",
+          "full_type": "Straight Unknown",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[   -0.18071      -3.188]",
+          "to_pos": [
+            466,
+            287
+          ]
+        },
+        {
+          "from_frame": "2947",
+          "to_frame": "2970",
+          "type": "Unknown",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Unknown",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "B3",
+          "to_pos_m": "[      2.779       2.122]",
+          "to_pos": [
+            671,
+            354
+          ]
+        },
+        {
+          "from_frame": "2970",
+          "to_frame": "2984",
+          "type": "Defensive Drive",
+          "direction": "Mid",
+          "full_type": "Mid Defensive Drive",
+          "hit_by": "Near",
+          "from_zone": "B3",
+          "to_zone": "B3",
+          "to_pos_m": "[     3.2801     -38.141]",
+          "to_pos": [
+            666,
+            109
+          ]
+        },
+        {
+          "from_frame": "2984",
+          "to_frame": "3004",
+          "type": "Unknown",
+          "direction": "Straight",
+          "full_type": "Straight Unknown",
+          "hit_by": "Far",
+          "from_zone": "B3",
+          "to_zone": "C2",
+          "to_pos_m": "[      4.512      10.336]",
+          "to_pos": [
+            896,
+            542
+          ]
+        },
+        {
+          "from_frame": "3004",
+          "to_frame": "3071",
+          "type": "Defensive Clear",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "C2",
+          "to_zone": "A3",
+          "to_pos_m": "[    -14.007     -65.061]",
+          "to_pos": [
+            271,
+            69
+          ]
+        },
+        {
+          "from_frame": "3071",
+          "to_frame": "3085",
+          "type": "Defensive Clear",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "B3",
+          "to_pos_m": "[      2.348     -2.3308]",
+          "to_pos": [
+            636,
+            295
+          ],
+          "landing_x": "-0.7020161",
+          "landing_y": "-9.030783"
+        }
+      ],
+      "start_frame": 2861,
+      "end_frame": 3110,
+      "shot_count": 9,
+      "score_after": "5-4",
+      "winner": "Near",
+      "last_landing_x": "-0.7020161",
+      "last_landing_y": "-9.030783"
+    },
+    {
+      "shots": [
+        {
+          "from_frame": "3120",
+          "to_frame": "3142",
+          "type": "Short Serve",
+          "direction": "Cross-Court",
+          "full_type": "Short Serve",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "B2",
+          "to_pos_m": "[     3.7203      2.5958]",
+          "to_pos": [
+            750,
+            361
+          ]
+        },
+        {
+          "from_frame": "3142",
+          "to_frame": "3163",
+          "type": "Unknown",
+          "direction": "Straight",
+          "full_type": "Straight Unknown",
+          "hit_by": "Near",
+          "from_zone": "B2",
+          "to_zone": "C3",
+          "to_pos_m": "[     4.4321    -0.96595]",
+          "to_pos": [
+            788,
+            310
+          ]
+        },
+        {
+          "from_frame": "3163",
+          "to_frame": "3184",
+          "type": "Unknown",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Unknown",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "A3",
+          "to_pos_m": "[     0.6372    -0.98205]",
+          "to_pos": [
+            512,
+            312
+          ]
+        },
+        {
+          "from_frame": "3184",
+          "to_frame": "3205",
+          "type": "Short Flat Shot",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Short Flat Shot",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "B3",
+          "to_pos_m": "[     2.5291     0.90484]",
+          "to_pos": [
+            650,
+            336
+          ]
+        },
+        {
+          "from_frame": "3205",
+          "to_frame": "3233",
+          "type": "Flat Shot",
+          "direction": "Mid",
+          "full_type": "Mid Flat Shot",
+          "hit_by": "Far",
+          "from_zone": "B3",
+          "to_zone": "B1",
+          "to_pos_m": "[     3.4815      7.8968]",
+          "to_pos": [
+            755,
+            470
+          ]
+        },
+        {
+          "from_frame": "3233",
+          "to_frame": "3247",
+          "type": "Defensive Drive",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Drive",
+          "hit_by": "Near",
+          "from_zone": "B1",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.0766     -0.1555]",
+          "to_pos": [
+            841,
+            320
+          ]
+        },
+        {
+          "from_frame": "3247",
+          "to_frame": "3269",
+          "type": "Defensive Clear",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "A3",
+          "to_pos_m": "[      1.738     -3.2721]",
+          "to_pos": [
+            595,
+            285
+          ]
+        },
+        {
+          "from_frame": "3269",
+          "to_frame": "3286",
+          "type": "Unknown",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Unknown",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "C1",
+          "to_pos_m": "[     4.4061      4.9633]",
+          "to_pos": [
+            825,
+            403
+          ]
+        },
+        {
+          "from_frame": "3286",
+          "to_frame": "3305",
+          "type": "Flat Shot",
+          "direction": "Straight",
+          "full_type": "Straight Flat Shot",
+          "hit_by": "Far",
+          "from_zone": "C1",
+          "to_zone": "C3",
+          "to_pos_m": "[     4.1384     -1.3052]",
+          "to_pos": [
+            765,
+            306
+          ]
+        },
+        {
+          "from_frame": "3305",
+          "to_frame": "3327",
+          "type": "Unknown",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Unknown",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "A3",
+          "to_pos_m": "[    0.51418     -1.3959]",
+          "to_pos": [
+            505,
+            307
+          ]
+        },
+        {
+          "from_frame": "3327",
+          "to_frame": "3346",
+          "type": "Short Flat Shot",
+          "direction": "Straight",
+          "full_type": "Straight Short Flat Shot",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "B3",
+          "to_pos_m": "[     2.0852     -2.7014]",
+          "to_pos": [
+            618,
+            291
+          ]
+        },
+        {
+          "from_frame": "3346",
+          "to_frame": "3368",
+          "type": "Short Flat Shot",
+          "direction": "Mid",
+          "full_type": "Mid Short Flat Shot",
+          "hit_by": "Near",
+          "from_zone": "B3",
+          "to_zone": "B3",
+          "to_pos_m": "[     2.8777     0.12407]",
+          "to_pos": [
+            676,
+            325
+          ]
+        },
+        {
+          "from_frame": "3368",
+          "to_frame": "3386",
+          "type": "Flat Shot",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Flat Shot",
+          "hit_by": "Far",
+          "from_zone": "B3",
+          "to_zone": "A3",
+          "to_pos_m": "[    -1.3827     -64.402]",
+          "to_pos": [
+            552,
+            66
+          ]
+        },
+        {
+          "from_frame": "3386",
+          "to_frame": "3410",
+          "type": "Smash",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Smash",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "C3",
+          "to_pos_m": "[      4.392      11.311]",
+          "to_pos": [
+            896,
+            577
+          ]
+        },
+        {
+          "from_frame": "3410",
+          "to_frame": "3435",
+          "type": "Defensive Drive",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Drive",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.2557       13.36]",
+          "to_pos": [
+            1060,
+            666
+          ]
+        },
+        {
+          "from_frame": "3435",
+          "to_frame": "3466",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "C2",
+          "to_pos_m": "[     5.5537      3.2001]",
+          "to_pos": [
+            910,
+            370
+          ]
+        },
+        {
+          "from_frame": "3466",
+          "to_frame": "3495",
+          "type": "Unknown",
+          "direction": "Straight",
+          "full_type": "Straight Unknown",
+          "hit_by": "Far",
+          "from_zone": "C2",
+          "to_zone": "B3",
+          "to_pos_m": "[      3.267      -61.66]",
+          "to_pos": [
+            658,
+            68
+          ],
+          "landing_x": "0.21697164",
+          "landing_y": "-68.359634"
+        }
+      ],
+      "start_frame": 3120,
+      "end_frame": 3495,
+      "shot_count": 17,
+      "score_after": "6-4",
+      "winner": "Near",
+      "last_landing_x": "0.21697164",
+      "last_landing_y": "-68.359634"
+    },
+    {
+      "shots": [
+        {
+          "from_frame": "3511",
+          "to_frame": "3529",
+          "type": "Short Serve",
+          "direction": "Straight",
+          "full_type": "Short Serve",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C1",
+          "to_pos_m": "[     4.2473      7.7948]",
+          "to_pos": [
+            835,
+            467
+          ]
+        },
+        {
+          "from_frame": "3529",
+          "to_frame": "3545",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "C1",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.5101     -3.2549]",
+          "to_pos": [
+            850,
+            283
+          ]
+        },
+        {
+          "from_frame": "3545",
+          "to_frame": "3559",
+          "type": "Short Flat Shot",
+          "direction": "Straight",
+          "full_type": "Straight Short Flat Shot",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C1",
+          "to_pos_m": "[     4.8553      4.2995]",
+          "to_pos": [
+            860,
+            390
+          ]
+        },
+        {
+          "from_frame": "3559",
+          "to_frame": "3606",
+          "type": "Short Flat Shot",
+          "direction": "Straight",
+          "full_type": "Straight Short Flat Shot",
+          "hit_by": "Near",
+          "from_zone": "C1",
+          "to_zone": "B2",
+          "to_pos_m": "[     3.0186      4.0821]",
+          "to_pos": [
+            695,
+            387
+          ]
+        },
+        {
+          "from_frame": "3606",
+          "to_frame": "3666",
+          "type": "Defensive Clear",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "B2",
+          "to_zone": "A3",
+          "to_pos_m": "[    -2.8456     0.47081]",
+          "to_pos": [
+            242,
+            333
+          ]
+        },
+        {
+          "from_frame": "3666",
+          "to_frame": "3685",
+          "type": "Rear Court Flat Drive",
+          "direction": "Straight",
+          "full_type": "Straight Rear Court Flat Drive",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[     1.5889     -3.2801]",
+          "to_pos": [
+            585,
+            285
+          ],
+          "landing_x": "-1.4610994",
+          "landing_y": "-9.980096"
+        }
+      ],
+      "start_frame": 3511,
+      "end_frame": 3710,
+      "shot_count": 6,
+      "score_after": "6-5",
+      "winner": "Far",
+      "last_landing_x": "-1.4610994",
+      "last_landing_y": "-9.980096"
+    },
+    {
+      "shots": [
+        {
+          "from_frame": "3746",
+          "to_frame": "3780",
+          "type": "Long Serve",
+          "direction": "Straight",
+          "full_type": "Long Serve",
+          "hit_by": "Far",
+          "from_zone": "B3",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.0861       13.36]",
+          "to_pos": [
+            1035,
+            666
+          ]
+        },
+        {
+          "from_frame": "3780",
+          "to_frame": "3815",
+          "type": "Defensive Clear",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "A3",
+          "to_pos_m": "[    -9.5765     -47.605]",
+          "to_pos": [
+            308,
+            94
+          ]
+        },
+        {
+          "from_frame": "3815",
+          "to_frame": "3865",
+          "type": "Transitional Slice",
+          "direction": "Straight",
+          "full_type": "Straight Transitional Slice",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "B3",
+          "to_pos_m": "[     2.2861     -4.2075]",
+          "to_pos": [
+            632,
+            275
+          ]
+        },
+        {
+          "from_frame": "3865",
+          "to_frame": "3882",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "B3",
+          "to_zone": "A2",
+          "to_pos_m": "[     1.7374       3.653]",
+          "to_pos": [
+            583,
+            380
+          ],
+          "landing_x": "-1.3126281",
+          "landing_y": "-3.047042"
+        }
+      ],
+      "start_frame": 3746,
+      "end_frame": 3893,
+      "shot_count": 4,
+      "score_after": "7-5",
+      "winner": "Near",
+      "last_landing_x": "-1.3126281",
+      "last_landing_y": "-3.047042"
+    },
+    {
+      "shots": [
+        {
+          "from_frame": "3915",
+          "to_frame": "3933",
+          "type": "Long Serve",
+          "direction": "Straight",
+          "full_type": "Long Serve",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "A2",
+          "to_pos_m": "[    -1.2418      11.083]",
+          "to_pos": [
+            191,
+            570
+          ]
+        },
+        {
+          "from_frame": "3933",
+          "to_frame": "3955",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "A2",
+          "to_zone": "A3",
+          "to_pos_m": "[    -1.0959      11.614]",
+          "to_pos": [
+            195,
+            590
+          ]
+        },
+        {
+          "from_frame": "3955",
+          "to_frame": "4003",
+          "type": "Defensive Clear",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "C3",
+          "to_pos_m": "[     38.329     -149.24]",
+          "to_pos": [
+            1066,
+            5
+          ],
+          "landing_x": "35.278812",
+          "landing_y": "-155.93839"
+        }
+      ],
+      "start_frame": 3915,
+      "end_frame": 4028,
+      "shot_count": 3,
+      "score_after": "8-5",
+      "winner": "Near",
+      "last_landing_x": "35.278812",
+      "last_landing_y": "-155.93839"
+    },
+    {
+      "shots": [
+        {
+          "from_frame": "4130",
+          "to_frame": "4143",
+          "type": "Short Serve",
+          "direction": "Cross-Court",
+          "full_type": "Short Serve",
+          "hit_by": "Far",
+          "from_zone": "B3",
+          "to_zone": "A3",
+          "to_pos_m": "[     1.6985    0.073229]",
+          "to_pos": [
+            587,
+            325
+          ]
+        },
+        {
+          "from_frame": "4143",
+          "to_frame": "4160",
+          "type": "Flat Shot",
+          "direction": "Straight",
+          "full_type": "Straight Flat Shot",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[  -0.025667     -139.83]",
+          "to_pos": [
+            607,
+            15
+          ]
+        },
+        {
+          "from_frame": "4160",
+          "to_frame": "4177",
+          "type": "Smash",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Smash",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "B3",
+          "to_pos_m": "[     2.3797     -7.1336]",
+          "to_pos": [
+            638,
+            248
+          ]
+        },
+        {
+          "from_frame": "4177",
+          "to_frame": "4199",
+          "type": "Smash",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Smash",
+          "hit_by": "Near",
+          "from_zone": "B3",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.2543     -4.3365]",
+          "to_pos": [
+            826,
+            272
+          ]
+        },
+        {
+          "from_frame": "4199",
+          "to_frame": "4213",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C2",
+          "to_pos_m": "[     4.6692      2.6905]",
+          "to_pos": [
+            830,
+            362
+          ]
+        },
+        {
+          "from_frame": "4213",
+          "to_frame": "4235",
+          "type": "Unknown",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Unknown",
+          "hit_by": "Near",
+          "from_zone": "C2",
+          "to_zone": "B3",
+          "to_pos_m": "[     2.7332     -2.0492]",
+          "to_pos": [
+            663,
+            298
+          ]
+        },
+        {
+          "from_frame": "4235",
+          "to_frame": "4255",
+          "type": "Tap Smash",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Tap Smash",
+          "hit_by": "Far",
+          "from_zone": "B3",
+          "to_zone": "A3",
+          "to_pos_m": "[    0.90622     0.18802]",
+          "to_pos": [
+            527,
+            327
+          ]
+        },
+        {
+          "from_frame": "4255",
+          "to_frame": "4271",
+          "type": "Rear Court Flat Drive",
+          "direction": "Straight",
+          "full_type": "Straight Rear Court Flat Drive",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "A0",
+          "to_pos_m": "[     1.3688      6.4504]",
+          "to_pos": [
+            540,
+            436
+          ],
+          "landing_x": "-1.6812336",
+          "landing_y": "-0.24957418"
+        }
+      ],
+      "start_frame": 4130,
+      "end_frame": 4296,
+      "shot_count": 8,
+      "score_after": "9-5",
+      "winner": "Near",
+      "last_landing_x": "-1.6812336",
+      "last_landing_y": "-0.24957418"
+    }
+  ],
+  "total_shots": 120,
+  "shot_distribution": {
+    "Serve": 14,
+    "Rear Court Flat Drive": 8,
+    "Unknown": 24,
+    "Defensive Clear": 42,
+    "Defensive Drive": 5,
+    "Lift": 4,
+    "Tap Smash": 5,
+    "Block": 2,
+    "Drop Shot": 1,
+    "Smash": 5,
+    "Short Flat Shot": 5,
+    "Flat Shot": 4,
+    "Transitional Slice": 1
+  },
+  "match_story": [
+    {
+      "shots": [
+        {
+          "from_frame": "246",
+          "to_frame": "266",
+          "type": "Short Serve",
+          "direction": "Cross-Court",
+          "full_type": "Short Serve",
+          "hit_by": "Far",
+          "from_zone": "B3",
+          "to_zone": "A3",
+          "to_pos_m": "[     1.3775     -5.9395]",
+          "to_pos": [
+            576,
+            259
+          ]
+        },
+        {
+          "from_frame": "266",
+          "to_frame": "285",
+          "type": "Rear Court Flat Drive",
+          "direction": "Mid",
+          "full_type": "Mid Rear Court Flat Drive",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "B3",
+          "to_pos_m": "[     2.5704     -25.867]",
+          "to_pos": [
+            645,
+            145
+          ]
+        },
+        {
+          "from_frame": "285",
+          "to_frame": "301",
+          "type": "Rear Court Flat Drive",
+          "direction": "Mid",
+          "full_type": "Mid Rear Court Flat Drive",
+          "hit_by": "Far",
+          "from_zone": "B3",
+          "to_zone": "A3",
+          "to_pos_m": "[     1.5027      1.4157]",
+          "to_pos": [
+            569,
+            344
+          ]
+        },
+        {
+          "from_frame": "301",
+          "to_frame": "317",
+          "type": "Unknown",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Unknown",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.7829     -46.793]",
+          "to_pos": [
+            733,
+            90
+          ]
+        },
+        {
+          "from_frame": "317",
+          "to_frame": "344",
+          "type": "Rear Court Flat Drive",
+          "direction": "Straight",
+          "full_type": "Straight Rear Court Flat Drive",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C2",
+          "to_pos_m": "[      4.984      4.1416]",
+          "to_pos": [
+            870,
+            387
+          ]
+        },
+        {
+          "from_frame": "344",
+          "to_frame": "368",
+          "type": "Unknown",
+          "direction": "Straight",
+          "full_type": "Straight Unknown",
+          "hit_by": "Near",
+          "from_zone": "C2",
+          "to_zone": "C3",
+          "to_pos_m": "[     4.6153     0.91942]",
+          "to_pos": [
+            813,
+            335
+          ]
+        },
+        {
+          "from_frame": "368",
+          "to_frame": "384",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     8.2277     -26.268]",
+          "to_pos": [
+            865,
+            141
+          ]
+        },
+        {
+          "from_frame": "384",
+          "to_frame": "399",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.0924     0.21956]",
+          "to_pos": [
+            845,
+            325
+          ]
+        },
+        {
+          "from_frame": "399",
+          "to_frame": "421",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "B3",
+          "to_pos_m": "[     3.6433     -0.7632]",
+          "to_pos": [
+            731,
+            313
+          ]
+        },
+        {
+          "from_frame": "421",
+          "to_frame": "446",
+          "type": "Defensive Drive",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Defensive Drive",
+          "hit_by": "Near",
+          "from_zone": "B3",
+          "to_zone": "A0",
+          "to_pos_m": "[     1.5415      6.4099]",
+          "to_pos": [
+            557,
+            435
+          ]
+        },
+        {
+          "from_frame": "446",
+          "to_frame": "468",
+          "type": "Lift",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Lift",
+          "hit_by": "Far",
+          "from_zone": "A0",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.2442     -148.62]",
+          "to_pos": [
+            671,
+            11
+          ]
+        },
+        {
+          "from_frame": "468",
+          "to_frame": "481",
+          "type": "Tap Smash",
+          "direction": "Straight",
+          "full_type": "Straight Tap Smash",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[      5.087     -37.008]",
+          "to_pos": [
+            725,
+            111
+          ]
+        },
+        {
+          "from_frame": "481",
+          "to_frame": "538",
+          "type": "Rear Court Flat Drive",
+          "direction": "Straight",
+          "full_type": "Straight Rear Court Flat Drive",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     4.6144      13.156]",
+          "to_pos": [
+            961,
+            656
+          ],
+          "landing_x": "1.5643594",
+          "landing_y": "6.455633"
+        }
+      ],
+      "start_frame": 246,
+      "end_frame": 563,
+      "shot_count": 13,
+      "score_after": "0-1",
+      "winner": "Far",
+      "last_landing_x": "1.5643594",
+      "last_landing_y": "6.455633"
+    },
+    {
+      "shots": [
+        {
+          "from_frame": "651",
+          "to_frame": "668",
+          "type": "Short Serve",
+          "direction": "Straight",
+          "full_type": "Short Serve",
+          "hit_by": "Far",
+          "from_zone": "B3",
+          "to_zone": "C3",
+          "to_pos_m": "[     4.4775     0.55821]",
+          "to_pos": [
+            800,
+            330
+          ]
+        },
+        {
+          "from_frame": "668",
+          "to_frame": "686",
+          "type": "Lift",
+          "direction": "Straight",
+          "full_type": "Straight Lift",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     9.0116     -47.248]",
+          "to_pos": [
+            823,
+            88
+          ]
+        },
+        {
+          "from_frame": "686",
+          "to_frame": "703",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     4.4278     -3.5988]",
+          "to_pos": [
+            775,
+            280
+          ]
+        },
+        {
+          "from_frame": "703",
+          "to_frame": "720",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     4.5679     -8.3324]",
+          "to_pos": [
+            765,
+            237
+          ]
+        },
+        {
+          "from_frame": "720",
+          "to_frame": "735",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "B2",
+          "to_pos_m": "[     3.5297      3.0733]",
+          "to_pos": [
+            736,
+            369
+          ]
+        },
+        {
+          "from_frame": "735",
+          "to_frame": "752",
+          "type": "Defensive Drive",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Drive",
+          "hit_by": "Near",
+          "from_zone": "B2",
+          "to_zone": "B3",
+          "to_pos_m": "[     2.9789     -2.9275]",
+          "to_pos": [
+            679,
+            288
+          ]
+        },
+        {
+          "from_frame": "752",
+          "to_frame": "771",
+          "type": "Lift",
+          "direction": "Straight",
+          "full_type": "Straight Lift",
+          "hit_by": "Far",
+          "from_zone": "B3",
+          "to_zone": "C3",
+          "to_pos_m": "[     4.5422    -0.10338]",
+          "to_pos": [
+            801,
+            321
+          ]
+        },
+        {
+          "from_frame": "771",
+          "to_frame": "805",
+          "type": "Lift",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Lift",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "A3",
+          "to_pos_m": "[   -0.62183     -6.7451]",
+          "to_pos": [
+            457,
+            253
+          ]
+        },
+        {
+          "from_frame": "805",
+          "to_frame": "820",
+          "type": "Rear Court Flat Drive",
+          "direction": "Straight",
+          "full_type": "Straight Rear Court Flat Drive",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[   -0.62522     0.77698]",
+          "to_pos": [
+            407,
+            336
+          ]
+        },
+        {
+          "from_frame": "820",
+          "to_frame": "838",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[   -0.16228    -0.62129]",
+          "to_pos": [
+            452,
+            317
+          ]
+        },
+        {
+          "from_frame": "838",
+          "to_frame": "859",
+          "type": "Unknown",
+          "direction": "Straight",
+          "full_type": "Straight Unknown",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "A1",
+          "to_pos_m": "[   -0.20084      4.4182]",
+          "to_pos": [
+            409,
+            395
+          ]
+        },
+        {
+          "from_frame": "859",
+          "to_frame": "877",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "A1",
+          "to_zone": "A3",
+          "to_pos_m": "[     -9.004     -86.673]",
+          "to_pos": [
+            430,
+            46
+          ]
+        },
+        {
+          "from_frame": "877",
+          "to_frame": "918",
+          "type": "Unknown",
+          "direction": "Straight",
+          "full_type": "Straight Unknown",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[    0.95675      14.222]",
+          "to_pos": [
+            422,
+            711
+          ]
+        },
+        {
+          "from_frame": "918",
+          "to_frame": "1017",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[   -0.98967    -0.42448]",
+          "to_pos": [
+            390,
+            320
+          ],
+          "landing_x": "-4.0396724",
+          "landing_y": "-7.1244755"
+        }
+      ],
+      "start_frame": 651,
+      "end_frame": 1035,
+      "shot_count": 14,
+      "score_after": "0-2",
+      "winner": "Far",
+      "last_landing_x": "-4.0396724",
+      "last_landing_y": "-7.1244755"
+    },
+    {
+      "shots": [
+        {
+          "from_frame": "1085",
+          "to_frame": "1110",
+          "type": "Short Serve",
+          "direction": "Cross-Court",
+          "full_type": "Short Serve",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "B3",
+          "to_pos_m": "[     3.9344     -4.8216]",
+          "to_pos": [
+            738,
+            268
+          ]
+        },
+        {
+          "from_frame": "1110",
+          "to_frame": "1136",
+          "type": "Tap Smash",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Tap Smash",
+          "hit_by": "Near",
+          "from_zone": "B3",
+          "to_zone": "A3",
+          "to_pos_m": "[   0.097843      0.3746]",
+          "to_pos": [
+            465,
+            330
+          ]
+        },
+        {
+          "from_frame": "1136",
+          "to_frame": "1203",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[    -6.6073     -65.704]",
+          "to_pos": [
+            437,
+            66
+          ],
+          "landing_x": "-9.657348",
+          "landing_y": "-72.40448"
+        }
+      ],
+      "start_frame": 1085,
+      "end_frame": 1212,
+      "shot_count": 3,
+      "score_after": "1-2",
+      "winner": "Near",
+      "last_landing_x": "-9.657348",
+      "last_landing_y": "-72.40448"
+    },
+    {
+      "shots": [
+        {
+          "from_frame": "1352",
+          "to_frame": "1374",
+          "type": "Short Serve",
+          "direction": "Cross-Court",
+          "full_type": "Short Serve",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.0124     -33.166]",
+          "to_pos": [
+            728,
+            121
+          ]
+        },
+        {
+          "from_frame": "1374",
+          "to_frame": "1392",
+          "type": "Unknown",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Unknown",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "A3",
+          "to_pos_m": "[    -4.5102     -147.72]",
+          "to_pos": [
+            555,
+            13
+          ]
+        },
+        {
+          "from_frame": "1392",
+          "to_frame": "1408",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[   -0.25113     -2.1118]",
+          "to_pos": [
+            455,
+            299
+          ]
+        },
+        {
+          "from_frame": "1408",
+          "to_frame": "1424",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[    0.16413     0.37738]",
+          "to_pos": [
+            470,
+            330
+          ]
+        },
+        {
+          "from_frame": "1424",
+          "to_frame": "1444",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[    0.42084      2.0357]",
+          "to_pos": [
+            480,
+            354
+          ]
+        },
+        {
+          "from_frame": "1444",
+          "to_frame": "1465",
+          "type": "Unknown",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Unknown",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "C3",
+          "to_pos_m": "[     4.3873     0.55442]",
+          "to_pos": [
+            793,
+            330
+          ]
+        },
+        {
+          "from_frame": "1465",
+          "to_frame": "1484",
+          "type": "Unknown",
+          "direction": "Straight",
+          "full_type": "Straight Unknown",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     4.6456      1.7368]",
+          "to_pos": [
+            821,
+            347
+          ]
+        },
+        {
+          "from_frame": "1484",
+          "to_frame": "1498",
+          "type": "Unknown",
+          "direction": "Straight",
+          "full_type": "Straight Unknown",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.0707     -1.6766]",
+          "to_pos": [
+            830,
+            301
+          ]
+        },
+        {
+          "from_frame": "1498",
+          "to_frame": "1524",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     25.444      -146.9]",
+          "to_pos": [
+            915,
+            8
+          ]
+        },
+        {
+          "from_frame": "1524",
+          "to_frame": "1542",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.7217     -2.5117]",
+          "to_pos": [
+            870,
+            291
+          ]
+        },
+        {
+          "from_frame": "1542",
+          "to_frame": "1564",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     6.0966     -8.8669]",
+          "to_pos": [
+            851,
+            232
+          ]
+        },
+        {
+          "from_frame": "1564",
+          "to_frame": "1579",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.1376      1.7556]",
+          "to_pos": [
+            861,
+            347
+          ]
+        },
+        {
+          "from_frame": "1579",
+          "to_frame": "1601",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.1293    -0.15316]",
+          "to_pos": [
+            845,
+            320
+          ]
+        },
+        {
+          "from_frame": "1601",
+          "to_frame": "1634",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.0788     -3.3726]",
+          "to_pos": [
+            820,
+            282
+          ]
+        },
+        {
+          "from_frame": "1634",
+          "to_frame": "1649",
+          "type": "Defensive Clear",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "A3",
+          "to_pos_m": "[    0.53916    -0.35669]",
+          "to_pos": [
+            502,
+            320
+          ]
+        },
+        {
+          "from_frame": "1649",
+          "to_frame": "1678",
+          "type": "Block",
+          "direction": "Straight",
+          "full_type": "Straight Block",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[     1.8617     -2.0929]",
+          "to_pos": [
+            602,
+            298
+          ]
+        },
+        {
+          "from_frame": "1678",
+          "to_frame": "1694",
+          "type": "Unknown",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Unknown",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "B3",
+          "to_pos_m": "[     3.8496     -3.0653]",
+          "to_pos": [
+            738,
+            286
+          ]
+        },
+        {
+          "from_frame": "1694",
+          "to_frame": "1713",
+          "type": "Drop Shot",
+          "direction": "Straight",
+          "full_type": "Straight Drop Shot",
+          "hit_by": "Near",
+          "from_zone": "B3",
+          "to_zone": "B2",
+          "to_pos_m": "[     2.8915      3.6894]",
+          "to_pos": [
+            683,
+            380
+          ],
+          "landing_x": "-0.15851617",
+          "landing_y": "-3.0106442"
+        }
+      ],
+      "start_frame": 1352,
+      "end_frame": 1738,
+      "shot_count": 18,
+      "score_after": "2-2",
+      "winner": "Near",
+      "last_landing_x": "-0.15851617",
+      "last_landing_y": "-3.0106442"
+    },
+    {
+      "shots": [
+        {
+          "from_frame": "1766",
+          "to_frame": "1784",
+          "type": "Short Serve",
+          "direction": "Straight",
+          "full_type": "Short Serve",
+          "hit_by": "Near",
+          "from_zone": "C1",
+          "to_zone": "C3",
+          "to_pos_m": "[      4.825     -9.6291]",
+          "to_pos": [
+            775,
+            227
+          ]
+        },
+        {
+          "from_frame": "1784",
+          "to_frame": "1803",
+          "type": "Defensive Clear",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "A3",
+          "to_pos_m": "[    0.49834      11.998]",
+          "to_pos": [
+            392,
+            605
+          ]
+        },
+        {
+          "from_frame": "1803",
+          "to_frame": "1823",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[  -0.082055      13.929]",
+          "to_pos": [
+            272,
+            695
+          ]
+        },
+        {
+          "from_frame": "1823",
+          "to_frame": "1837",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[   -0.22617       14.06]",
+          "to_pos": [
+            247,
+            702
+          ]
+        },
+        {
+          "from_frame": "1837",
+          "to_frame": "1940",
+          "type": "Block",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Block",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "B3",
+          "to_pos_m": "[     3.7792      11.793]",
+          "to_pos": [
+            823,
+            596
+          ]
+        },
+        {
+          "from_frame": "1940",
+          "to_frame": "1966",
+          "type": "Tap Smash",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Tap Smash",
+          "hit_by": "Far",
+          "from_zone": "B3",
+          "to_zone": "A1",
+          "to_pos_m": "[     1.8791      4.8937]",
+          "to_pos": [
+            593,
+            403
+          ],
+          "landing_x": "-1.170943",
+          "landing_y": "-1.8062606"
+        }
+      ],
+      "start_frame": 1766,
+      "end_frame": 1971,
+      "shot_count": 6,
+      "score_after": "2-3",
+      "winner": "Far",
+      "last_landing_x": "-1.170943",
+      "last_landing_y": "-1.8062606"
+    },
+    {
+      "shots": [
+        {
+          "from_frame": "2185",
+          "to_frame": "2204",
+          "type": "Short Serve",
+          "direction": "Straight",
+          "full_type": "Short Serve",
+          "hit_by": "Far",
+          "from_zone": "B3",
+          "to_zone": "C0",
+          "to_pos_m": "[     4.3076      7.1554]",
+          "to_pos": [
+            835,
+            451
+          ]
+        },
+        {
+          "from_frame": "2204",
+          "to_frame": "2219",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "C0",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.5196     -3.3484]",
+          "to_pos": [
+            850,
+            282
+          ]
+        },
+        {
+          "from_frame": "2219",
+          "to_frame": "2233",
+          "type": "Unknown",
+          "direction": "Straight",
+          "full_type": "Straight Unknown",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C1",
+          "to_pos_m": "[     4.8384      4.4586]",
+          "to_pos": [
+            860,
+            393
+          ],
+          "landing_x": "1.7883909",
+          "landing_y": "-2.2414203"
+        }
+      ],
+      "start_frame": 2185,
+      "end_frame": 2258,
+      "shot_count": 3,
+      "score_after": "2-4",
+      "winner": "Far",
+      "last_landing_x": "1.7883909",
+      "last_landing_y": "-2.2414203"
+    },
+    {
+      "shots": [
+        {
+          "from_frame": "2405",
+          "to_frame": "2427",
+          "type": "Short Serve",
+          "direction": "Straight",
+          "full_type": "Short Serve",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[     1.9951     -7.1592]",
+          "to_pos": [
+            615,
+            248
+          ]
+        },
+        {
+          "from_frame": "2427",
+          "to_frame": "2449",
+          "type": "Unknown",
+          "direction": "Straight",
+          "full_type": "Straight Unknown",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "A2",
+          "to_pos_m": "[    0.38081      3.0868]",
+          "to_pos": [
+            470,
+            371
+          ]
+        },
+        {
+          "from_frame": "2449",
+          "to_frame": "2466",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "A2",
+          "to_zone": "A3",
+          "to_pos_m": "[    -5.5133      -68.87]",
+          "to_pos": [
+            467,
+            62
+          ]
+        },
+        {
+          "from_frame": "2466",
+          "to_frame": "2500",
+          "type": "Unknown",
+          "direction": "Straight",
+          "full_type": "Straight Unknown",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "A1",
+          "to_pos_m": "[    0.38331      8.8377]",
+          "to_pos": [
+            420,
+            497
+          ]
+        },
+        {
+          "from_frame": "2500",
+          "to_frame": "2519",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "A1",
+          "to_zone": "A3",
+          "to_pos_m": "[    -2.7015     -33.607]",
+          "to_pos": [
+            465,
+            123
+          ]
+        },
+        {
+          "from_frame": "2519",
+          "to_frame": "2544",
+          "type": "Unknown",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Unknown",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "C3",
+          "to_pos_m": "[     4.8885      11.573]",
+          "to_pos": [
+            965,
+            587
+          ]
+        },
+        {
+          "from_frame": "2544",
+          "to_frame": "2563",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[      5.355      12.687]",
+          "to_pos": [
+            1055,
+            634
+          ]
+        },
+        {
+          "from_frame": "2563",
+          "to_frame": "2592",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.2784      12.753]",
+          "to_pos": [
+            1046,
+            637
+          ]
+        },
+        {
+          "from_frame": "2592",
+          "to_frame": "2676",
+          "type": "Unknown",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Unknown",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "B3",
+          "to_pos_m": "[     2.3316     -4.7101]",
+          "to_pos": [
+            635,
+            270
+          ],
+          "landing_x": "-0.7184093",
+          "landing_y": "-11.410137"
+        }
+      ],
+      "start_frame": 2405,
+      "end_frame": 2681,
+      "shot_count": 9,
+      "score_after": "3-4",
+      "winner": "Near",
+      "last_landing_x": "-0.7184093",
+      "last_landing_y": "-11.410137"
+    },
+    {
+      "shots": [
+        {
+          "from_frame": "2691",
+          "to_frame": "2716",
+          "type": "Short Serve",
+          "direction": "Straight",
+          "full_type": "Short Serve",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[    -13.461     -172.41]",
+          "to_pos": [
+            472,
+            7
+          ]
+        },
+        {
+          "from_frame": "2716",
+          "to_frame": "2731",
+          "type": "Smash",
+          "direction": "Straight",
+          "full_type": "Straight Smash",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[   -0.22763     -22.297]",
+          "to_pos": [
+            529,
+            160
+          ]
+        },
+        {
+          "from_frame": "2731",
+          "to_frame": "2746",
+          "type": "Smash",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Smash",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "C0",
+          "to_pos_m": "[     4.1478      6.7303]",
+          "to_pos": [
+            815,
+            441
+          ]
+        },
+        {
+          "from_frame": "2746",
+          "to_frame": "2764",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "C0",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.0648     -8.5525]",
+          "to_pos": [
+            793,
+            235
+          ]
+        },
+        {
+          "from_frame": "2764",
+          "to_frame": "2784",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.0832     -6.6047]",
+          "to_pos": [
+            803,
+            251
+          ]
+        },
+        {
+          "from_frame": "2784",
+          "to_frame": "2822",
+          "type": "Defensive Clear",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "A3",
+          "to_pos_m": "[    -5.8169     -139.97]",
+          "to_pos": [
+            535,
+            16
+          ]
+        },
+        {
+          "from_frame": "2822",
+          "to_frame": "2837",
+          "type": "Rear Court Flat Drive",
+          "direction": "Straight",
+          "full_type": "Straight Rear Court Flat Drive",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[   -0.80332     -19.388]",
+          "to_pos": [
+            497,
+            173
+          ],
+          "landing_x": "-3.853322",
+          "landing_y": "-26.088043"
+        }
+      ],
+      "start_frame": 2691,
+      "end_frame": 2846,
+      "shot_count": 7,
+      "score_after": "4-4",
+      "winner": "Near",
+      "last_landing_x": "-3.853322",
+      "last_landing_y": "-26.088043"
+    },
+    {
+      "shots": [
+        {
+          "from_frame": "2861",
+          "to_frame": "2898",
+          "type": "Short Serve",
+          "direction": "Cross-Court",
+          "full_type": "Short Serve",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "B3",
+          "to_pos_m": "[     3.5104     -17.494]",
+          "to_pos": [
+            690,
+            180
+          ]
+        },
+        {
+          "from_frame": "2898",
+          "to_frame": "2911",
+          "type": "Unknown",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Unknown",
+          "hit_by": "Near",
+          "from_zone": "B3",
+          "to_zone": "A0",
+          "to_pos_m": "[    0.63414      6.2546]",
+          "to_pos": [
+            470,
+            432
+          ]
+        },
+        {
+          "from_frame": "2911",
+          "to_frame": "2925",
+          "type": "Tap Smash",
+          "direction": "Straight",
+          "full_type": "Straight Tap Smash",
+          "hit_by": "Far",
+          "from_zone": "A0",
+          "to_zone": "A3",
+          "to_pos_m": "[   0.086448     -2.8056]",
+          "to_pos": [
+            482,
+            291
+          ]
+        },
+        {
+          "from_frame": "2925",
+          "to_frame": "2947",
+          "type": "Unknown",
+          "direction": "Straight",
+          "full_type": "Straight Unknown",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[   -0.18071      -3.188]",
+          "to_pos": [
+            466,
+            287
+          ]
+        },
+        {
+          "from_frame": "2947",
+          "to_frame": "2970",
+          "type": "Unknown",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Unknown",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "B3",
+          "to_pos_m": "[      2.779       2.122]",
+          "to_pos": [
+            671,
+            354
+          ]
+        },
+        {
+          "from_frame": "2970",
+          "to_frame": "2984",
+          "type": "Defensive Drive",
+          "direction": "Mid",
+          "full_type": "Mid Defensive Drive",
+          "hit_by": "Near",
+          "from_zone": "B3",
+          "to_zone": "B3",
+          "to_pos_m": "[     3.2801     -38.141]",
+          "to_pos": [
+            666,
+            109
+          ]
+        },
+        {
+          "from_frame": "2984",
+          "to_frame": "3004",
+          "type": "Unknown",
+          "direction": "Straight",
+          "full_type": "Straight Unknown",
+          "hit_by": "Far",
+          "from_zone": "B3",
+          "to_zone": "C2",
+          "to_pos_m": "[      4.512      10.336]",
+          "to_pos": [
+            896,
+            542
+          ]
+        },
+        {
+          "from_frame": "3004",
+          "to_frame": "3071",
+          "type": "Defensive Clear",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "C2",
+          "to_zone": "A3",
+          "to_pos_m": "[    -14.007     -65.061]",
+          "to_pos": [
+            271,
+            69
+          ]
+        },
+        {
+          "from_frame": "3071",
+          "to_frame": "3085",
+          "type": "Defensive Clear",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "B3",
+          "to_pos_m": "[      2.348     -2.3308]",
+          "to_pos": [
+            636,
+            295
+          ],
+          "landing_x": "-0.7020161",
+          "landing_y": "-9.030783"
+        }
+      ],
+      "start_frame": 2861,
+      "end_frame": 3110,
+      "shot_count": 9,
+      "score_after": "5-4",
+      "winner": "Near",
+      "last_landing_x": "-0.7020161",
+      "last_landing_y": "-9.030783"
+    },
+    {
+      "shots": [
+        {
+          "from_frame": "3120",
+          "to_frame": "3142",
+          "type": "Short Serve",
+          "direction": "Cross-Court",
+          "full_type": "Short Serve",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "B2",
+          "to_pos_m": "[     3.7203      2.5958]",
+          "to_pos": [
+            750,
+            361
+          ]
+        },
+        {
+          "from_frame": "3142",
+          "to_frame": "3163",
+          "type": "Unknown",
+          "direction": "Straight",
+          "full_type": "Straight Unknown",
+          "hit_by": "Near",
+          "from_zone": "B2",
+          "to_zone": "C3",
+          "to_pos_m": "[     4.4321    -0.96595]",
+          "to_pos": [
+            788,
+            310
+          ]
+        },
+        {
+          "from_frame": "3163",
+          "to_frame": "3184",
+          "type": "Unknown",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Unknown",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "A3",
+          "to_pos_m": "[     0.6372    -0.98205]",
+          "to_pos": [
+            512,
+            312
+          ]
+        },
+        {
+          "from_frame": "3184",
+          "to_frame": "3205",
+          "type": "Short Flat Shot",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Short Flat Shot",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "B3",
+          "to_pos_m": "[     2.5291     0.90484]",
+          "to_pos": [
+            650,
+            336
+          ]
+        },
+        {
+          "from_frame": "3205",
+          "to_frame": "3233",
+          "type": "Flat Shot",
+          "direction": "Mid",
+          "full_type": "Mid Flat Shot",
+          "hit_by": "Far",
+          "from_zone": "B3",
+          "to_zone": "B1",
+          "to_pos_m": "[     3.4815      7.8968]",
+          "to_pos": [
+            755,
+            470
+          ]
+        },
+        {
+          "from_frame": "3233",
+          "to_frame": "3247",
+          "type": "Defensive Drive",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Drive",
+          "hit_by": "Near",
+          "from_zone": "B1",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.0766     -0.1555]",
+          "to_pos": [
+            841,
+            320
+          ]
+        },
+        {
+          "from_frame": "3247",
+          "to_frame": "3269",
+          "type": "Defensive Clear",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "A3",
+          "to_pos_m": "[      1.738     -3.2721]",
+          "to_pos": [
+            595,
+            285
+          ]
+        },
+        {
+          "from_frame": "3269",
+          "to_frame": "3286",
+          "type": "Unknown",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Unknown",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "C1",
+          "to_pos_m": "[     4.4061      4.9633]",
+          "to_pos": [
+            825,
+            403
+          ]
+        },
+        {
+          "from_frame": "3286",
+          "to_frame": "3305",
+          "type": "Flat Shot",
+          "direction": "Straight",
+          "full_type": "Straight Flat Shot",
+          "hit_by": "Far",
+          "from_zone": "C1",
+          "to_zone": "C3",
+          "to_pos_m": "[     4.1384     -1.3052]",
+          "to_pos": [
+            765,
+            306
+          ]
+        },
+        {
+          "from_frame": "3305",
+          "to_frame": "3327",
+          "type": "Unknown",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Unknown",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "A3",
+          "to_pos_m": "[    0.51418     -1.3959]",
+          "to_pos": [
+            505,
+            307
+          ]
+        },
+        {
+          "from_frame": "3327",
+          "to_frame": "3346",
+          "type": "Short Flat Shot",
+          "direction": "Straight",
+          "full_type": "Straight Short Flat Shot",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "B3",
+          "to_pos_m": "[     2.0852     -2.7014]",
+          "to_pos": [
+            618,
+            291
+          ]
+        },
+        {
+          "from_frame": "3346",
+          "to_frame": "3368",
+          "type": "Short Flat Shot",
+          "direction": "Mid",
+          "full_type": "Mid Short Flat Shot",
+          "hit_by": "Near",
+          "from_zone": "B3",
+          "to_zone": "B3",
+          "to_pos_m": "[     2.8777     0.12407]",
+          "to_pos": [
+            676,
+            325
+          ]
+        },
+        {
+          "from_frame": "3368",
+          "to_frame": "3386",
+          "type": "Flat Shot",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Flat Shot",
+          "hit_by": "Far",
+          "from_zone": "B3",
+          "to_zone": "A3",
+          "to_pos_m": "[    -1.3827     -64.402]",
+          "to_pos": [
+            552,
+            66
+          ]
+        },
+        {
+          "from_frame": "3386",
+          "to_frame": "3410",
+          "type": "Smash",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Smash",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "C3",
+          "to_pos_m": "[      4.392      11.311]",
+          "to_pos": [
+            896,
+            577
+          ]
+        },
+        {
+          "from_frame": "3410",
+          "to_frame": "3435",
+          "type": "Defensive Drive",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Drive",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.2557       13.36]",
+          "to_pos": [
+            1060,
+            666
+          ]
+        },
+        {
+          "from_frame": "3435",
+          "to_frame": "3466",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "C2",
+          "to_pos_m": "[     5.5537      3.2001]",
+          "to_pos": [
+            910,
+            370
+          ]
+        },
+        {
+          "from_frame": "3466",
+          "to_frame": "3495",
+          "type": "Unknown",
+          "direction": "Straight",
+          "full_type": "Straight Unknown",
+          "hit_by": "Far",
+          "from_zone": "C2",
+          "to_zone": "B3",
+          "to_pos_m": "[      3.267      -61.66]",
+          "to_pos": [
+            658,
+            68
+          ],
+          "landing_x": "0.21697164",
+          "landing_y": "-68.359634"
+        }
+      ],
+      "start_frame": 3120,
+      "end_frame": 3495,
+      "shot_count": 17,
+      "score_after": "6-4",
+      "winner": "Near",
+      "last_landing_x": "0.21697164",
+      "last_landing_y": "-68.359634"
+    },
+    {
+      "shots": [
+        {
+          "from_frame": "3511",
+          "to_frame": "3529",
+          "type": "Short Serve",
+          "direction": "Straight",
+          "full_type": "Short Serve",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C1",
+          "to_pos_m": "[     4.2473      7.7948]",
+          "to_pos": [
+            835,
+            467
+          ]
+        },
+        {
+          "from_frame": "3529",
+          "to_frame": "3545",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "C1",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.5101     -3.2549]",
+          "to_pos": [
+            850,
+            283
+          ]
+        },
+        {
+          "from_frame": "3545",
+          "to_frame": "3559",
+          "type": "Short Flat Shot",
+          "direction": "Straight",
+          "full_type": "Straight Short Flat Shot",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C1",
+          "to_pos_m": "[     4.8553      4.2995]",
+          "to_pos": [
+            860,
+            390
+          ]
+        },
+        {
+          "from_frame": "3559",
+          "to_frame": "3606",
+          "type": "Short Flat Shot",
+          "direction": "Straight",
+          "full_type": "Straight Short Flat Shot",
+          "hit_by": "Near",
+          "from_zone": "C1",
+          "to_zone": "B2",
+          "to_pos_m": "[     3.0186      4.0821]",
+          "to_pos": [
+            695,
+            387
+          ]
+        },
+        {
+          "from_frame": "3606",
+          "to_frame": "3666",
+          "type": "Defensive Clear",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "B2",
+          "to_zone": "A3",
+          "to_pos_m": "[    -2.8456     0.47081]",
+          "to_pos": [
+            242,
+            333
+          ]
+        },
+        {
+          "from_frame": "3666",
+          "to_frame": "3685",
+          "type": "Rear Court Flat Drive",
+          "direction": "Straight",
+          "full_type": "Straight Rear Court Flat Drive",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[     1.5889     -3.2801]",
+          "to_pos": [
+            585,
+            285
+          ],
+          "landing_x": "-1.4610994",
+          "landing_y": "-9.980096"
+        }
+      ],
+      "start_frame": 3511,
+      "end_frame": 3710,
+      "shot_count": 6,
+      "score_after": "6-5",
+      "winner": "Far",
+      "last_landing_x": "-1.4610994",
+      "last_landing_y": "-9.980096"
+    },
+    {
+      "shots": [
+        {
+          "from_frame": "3746",
+          "to_frame": "3780",
+          "type": "Long Serve",
+          "direction": "Straight",
+          "full_type": "Long Serve",
+          "hit_by": "Far",
+          "from_zone": "B3",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.0861       13.36]",
+          "to_pos": [
+            1035,
+            666
+          ]
+        },
+        {
+          "from_frame": "3780",
+          "to_frame": "3815",
+          "type": "Defensive Clear",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "C3",
+          "to_zone": "A3",
+          "to_pos_m": "[    -9.5765     -47.605]",
+          "to_pos": [
+            308,
+            94
+          ]
+        },
+        {
+          "from_frame": "3815",
+          "to_frame": "3865",
+          "type": "Transitional Slice",
+          "direction": "Straight",
+          "full_type": "Straight Transitional Slice",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "B3",
+          "to_pos_m": "[     2.2861     -4.2075]",
+          "to_pos": [
+            632,
+            275
+          ]
+        },
+        {
+          "from_frame": "3865",
+          "to_frame": "3882",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "B3",
+          "to_zone": "A2",
+          "to_pos_m": "[     1.7374       3.653]",
+          "to_pos": [
+            583,
+            380
+          ],
+          "landing_x": "-1.3126281",
+          "landing_y": "-3.047042"
+        }
+      ],
+      "start_frame": 3746,
+      "end_frame": 3893,
+      "shot_count": 4,
+      "score_after": "7-5",
+      "winner": "Near",
+      "last_landing_x": "-1.3126281",
+      "last_landing_y": "-3.047042"
+    },
+    {
+      "shots": [
+        {
+          "from_frame": "3915",
+          "to_frame": "3933",
+          "type": "Long Serve",
+          "direction": "Straight",
+          "full_type": "Long Serve",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "A2",
+          "to_pos_m": "[    -1.2418      11.083]",
+          "to_pos": [
+            191,
+            570
+          ]
+        },
+        {
+          "from_frame": "3933",
+          "to_frame": "3955",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Near",
+          "from_zone": "A2",
+          "to_zone": "A3",
+          "to_pos_m": "[    -1.0959      11.614]",
+          "to_pos": [
+            195,
+            590
+          ]
+        },
+        {
+          "from_frame": "3955",
+          "to_frame": "4003",
+          "type": "Defensive Clear",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "C3",
+          "to_pos_m": "[     38.329     -149.24]",
+          "to_pos": [
+            1066,
+            5
+          ],
+          "landing_x": "35.278812",
+          "landing_y": "-155.93839"
+        }
+      ],
+      "start_frame": 3915,
+      "end_frame": 4028,
+      "shot_count": 3,
+      "score_after": "8-5",
+      "winner": "Near",
+      "last_landing_x": "35.278812",
+      "last_landing_y": "-155.93839"
+    },
+    {
+      "shots": [
+        {
+          "from_frame": "4130",
+          "to_frame": "4143",
+          "type": "Short Serve",
+          "direction": "Cross-Court",
+          "full_type": "Short Serve",
+          "hit_by": "Far",
+          "from_zone": "B3",
+          "to_zone": "A3",
+          "to_pos_m": "[     1.6985    0.073229]",
+          "to_pos": [
+            587,
+            325
+          ]
+        },
+        {
+          "from_frame": "4143",
+          "to_frame": "4160",
+          "type": "Flat Shot",
+          "direction": "Straight",
+          "full_type": "Straight Flat Shot",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "A3",
+          "to_pos_m": "[  -0.025667     -139.83]",
+          "to_pos": [
+            607,
+            15
+          ]
+        },
+        {
+          "from_frame": "4160",
+          "to_frame": "4177",
+          "type": "Smash",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Smash",
+          "hit_by": "Far",
+          "from_zone": "A3",
+          "to_zone": "B3",
+          "to_pos_m": "[     2.3797     -7.1336]",
+          "to_pos": [
+            638,
+            248
+          ]
+        },
+        {
+          "from_frame": "4177",
+          "to_frame": "4199",
+          "type": "Smash",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Smash",
+          "hit_by": "Near",
+          "from_zone": "B3",
+          "to_zone": "C3",
+          "to_pos_m": "[     5.2543     -4.3365]",
+          "to_pos": [
+            826,
+            272
+          ]
+        },
+        {
+          "from_frame": "4199",
+          "to_frame": "4213",
+          "type": "Defensive Clear",
+          "direction": "Straight",
+          "full_type": "Straight Defensive Clear",
+          "hit_by": "Far",
+          "from_zone": "C3",
+          "to_zone": "C2",
+          "to_pos_m": "[     4.6692      2.6905]",
+          "to_pos": [
+            830,
+            362
+          ]
+        },
+        {
+          "from_frame": "4213",
+          "to_frame": "4235",
+          "type": "Unknown",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Unknown",
+          "hit_by": "Near",
+          "from_zone": "C2",
+          "to_zone": "B3",
+          "to_pos_m": "[     2.7332     -2.0492]",
+          "to_pos": [
+            663,
+            298
+          ]
+        },
+        {
+          "from_frame": "4235",
+          "to_frame": "4255",
+          "type": "Tap Smash",
+          "direction": "Cross-Court",
+          "full_type": "Cross-Court Tap Smash",
+          "hit_by": "Far",
+          "from_zone": "B3",
+          "to_zone": "A3",
+          "to_pos_m": "[    0.90622     0.18802]",
+          "to_pos": [
+            527,
+            327
+          ]
+        },
+        {
+          "from_frame": "4255",
+          "to_frame": "4271",
+          "type": "Rear Court Flat Drive",
+          "direction": "Straight",
+          "full_type": "Straight Rear Court Flat Drive",
+          "hit_by": "Near",
+          "from_zone": "A3",
+          "to_zone": "A0",
+          "to_pos_m": "[     1.3688      6.4504]",
+          "to_pos": [
+            540,
+            436
+          ],
+          "landing_x": "-1.6812336",
+          "landing_y": "-0.24957418"
+        }
+      ],
+      "start_frame": 4130,
+      "end_frame": 4296,
+      "shot_count": 8,
+      "score_after": "9-5",
+      "winner": "Near",
+      "last_landing_x": "-1.6812336",
+      "last_landing_y": "-0.24957418"
+    }
+  ]
+}

@@ -1,0 +1,157 @@
+{
+ "rallies": 14,
+ "terms_cited": 27,
+ "terms_grounded": 26,
+ "precision": 0.9629629629629629,
+ "per_rally": [
+  {
+   "rally": 0,
+   "cited": [
+    "smash",
+    "clear"
+   ],
+   "grounded": [
+    "smash",
+    "clear"
+   ]
+  },
+  {
+   "rally": 1,
+   "cited": [
+    "lift",
+    "clear"
+   ],
+   "grounded": [
+    "lift",
+    "clear"
+   ]
+  },
+  {
+   "rally": 2,
+   "cited": [
+    "smash",
+    "serve"
+   ],
+   "grounded": [
+    "smash",
+    "serve"
+   ]
+  },
+  {
+   "rally": 3,
+   "cited": [
+    "drop"
+   ],
+   "grounded": [
+    "drop"
+   ]
+  },
+  {
+   "rally": 4,
+   "cited": [
+    "smash",
+    "block"
+   ],
+   "grounded": [
+    "smash",
+    "block"
+   ]
+  },
+  {
+   "rally": 5,
+   "cited": [
+    "clear",
+    "serve"
+   ],
+   "grounded": [
+    "clear",
+    "serve"
+   ]
+  },
+  {
+   "rally": 6,
+   "cited": [],
+   "grounded": []
+  },
+  {
+   "rally": 7,
+   "cited": [
+    "smash",
+    "serve"
+   ],
+   "grounded": [
+    "smash",
+    "serve"
+   ]
+  },
+  {
+   "rally": 8,
+   "cited": [
+    "drive"
+   ],
+   "grounded": [
+    "drive"
+   ]
+  },
+  {
+   "rally": 9,
+   "cited": [
+    "smash",
+    "flat"
+   ],
+   "grounded": [
+    "smash",
+    "flat"
+   ]
+  },
+  {
+   "rally": 10,
+   "cited": [
+    "flat",
+    "drive",
+    "rush"
+   ],
+   "grounded": [
+    "flat",
+    "drive"
+   ]
+  },
+  {
+   "rally": 11,
+   "cited": [
+    "clear",
+    "slice",
+    "serve"
+   ],
+   "grounded": [
+    "clear",
+    "slice",
+    "serve"
+   ]
+  },
+  {
+   "rally": 12,
+   "cited": [
+    "clear",
+    "serve"
+   ],
+   "grounded": [
+    "clear",
+    "serve"
+   ]
+  },
+  {
+   "rally": 13,
+   "cited": [
+    "smash",
+    "flat",
+    "drive"
+   ],
+   "grounded": [
+    "smash",
+    "flat",
+    "drive"
+   ]
+  }
+ ]
+}

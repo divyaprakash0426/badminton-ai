@@ -1,0 +1,14 @@
+digraph G {
+  rankdir=LR; node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11, fillcolor="#eef3fb"]; edge [fontname="Helvetica", fontsize=9];
+  V [label="Broadcast / fixed-camera\nsingles video", fillcolor="#fff6d6"];
+  C [label="Court calibration\n(4 corners, homography H)"];
+  Y [label="YOLO11x-pose\n(players, keypoints)"];
+  T [label="TrackNetV3 + InpaintNet\n(shuttle trajectory)"];
+  F [label="Single-pass concurrent\nframe decoder"];
+  E [label="Hit / rally\nsegmentation"];
+  S [label="SlowFast R50\n18-class shot classifier"];
+  M [label="Metric-space analytics\n(zones, distance, speed,\nlanding, rule-based score)"];
+  L [label="Gemini coach\n(structured JSON, Q&A)"];
+  U [label="Streamlit dashboard\n(Overview, Rallies, Video, Coach)", fillcolor="#e3f6d8"];
+  V -> F; V -> C; F -> Y; F -> T; Y -> E; T -> E; C -> M [label="H"]; E -> S [label="clips"]; S -> M [label="shot types"]; E -> M; M -> L [label="compact\nmatch summary"]; M -> U; L -> U;
+}

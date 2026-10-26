@@ -1,0 +1,36 @@
+{
+  "ok": true,
+  "model": "gemini-3.8-flash",
+  "match_summary": "Near had a slow start falling behind 0-2, but quickly seized control of the tempo with aggressive shot-making and superior court coverage to take a commanding 9-5 lead. Near's high average movement speed and decisive attacks off Far's predictable returns forced frequent defensive errors from the opponent. To maintain dominance, Near must avoid slipping into passive, repetitive clearing exchanges that surrender initiative.",
+  "opponent_weakness": [
+    "Vulnerable to aggressive serve returns, often yielding direct winners or weak lifts.",
+    "Low movement speed and poor court recovery under sustained high-pace drives.",
+    "Ineffective long serves that immediately hand attacking advantage to the receiver."
+  ],
+  "my_improvements": [
+    "Reduce reliance on routine straight defensive clears and incorporate more deceptive drops and fast slices.",
+    "Be tighter with defensive net blocks to avoid popping the shuttle up for opponent tap smashes.",
+    "Maintain forward pressure on mid-court flat exchanges rather than resetting defensively."
+  ],
+  "drills": [
+    "Serve Return Attack Drill: Practice sharp cross-court tap smashes and punch clears directly off short serves.",
+    "Defensive Block to Counter-Drop Drill: Work on absorbing smash pace with soft, tight net tumbling blocks instead of loose mid-court blocks.",
+    "Rear-Court Transition Drill: Alternating between high clears, steep cross-court smashes, and fast straight drops to keep opponents moving."
+  ],
+  "rally_critiques": {
+    "0": "Near engaged in a long clearing exchange but left the final tap smash too central, allowing Far to counter effectively.",
+    "1": "Near became overly passive with consecutive defensive clears and lifts, eventually conceding control and making an unforced error.",
+    "2": "Near executed an outstanding aggressive cross-court tap smash directly off Far's short serve to force an immediate error.",
+    "3": "Near showed superb patience through a grueling baseline duel before finishing cleanly with a straight drop shot.",
+    "4": "Near hit a loose cross-court block that sat up mid-court, giving Far an easy tap smash winner.",
+    "5": "Near's defensive clear off the serve lacked depth, giving Far a straightforward attacking winner.",
+    "6": "Near applied persistent pressure with varied directional changes to force a cross-court unforced error from Far.",
+    "7": "Near attacked decisively right off the serve with a straight smash and maintained baseline pressure until Far cracked.",
+    "8": "Near absorbed Far's initial attack well and turned defense into offense with a sharp mid defensive drive.",
+    "9": "Near dominated a high-speed flat exchange across 17 shots, capping it with a decisive cross-court smash.",
+    "10": "Near mistimed the final straight rear court flat drive into the net after getting rushed in the mid-court exchange.",
+    "11": "Near punished Far's long serve with deep baseline clears, quickly forcing an error on Far's transitional slice.",
+    "12": "Near immediately pushed Far deep off the long serve, forcing Far to hit a defensive clear wide.",
+    "13": "Near effectively countered Far's cross-court smash with quick hands, finishing the exchange with a crisp flat drive winner."
+  }
+}

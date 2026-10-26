@@ -1,3 +1,4 @@
+import os
 import torch
 # --- Compatibility Patch for torchvision > 0.18 ---
 import sys
@@ -21,7 +22,7 @@ from pytorchvideo.models.hub import slowfast_r50
 import numpy as np
 
 class ShotClassifier:
-    def __init__(self, model_path='/home/modernyogi/Projects/badminton-ai/ckpts/best_shot_classifier.pth', num_classes=18, device='cuda' if torch.cuda.is_available() else 'cpu'):
+    def __init__(self, model_path=os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'ckpts', 'best_shot_classifier.pth'), num_classes=18, device='cuda' if torch.cuda.is_available() else 'cpu'):
         """
         Initialize the ShotClassifier with a SlowFast model.
         

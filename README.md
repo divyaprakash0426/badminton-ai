@@ -101,7 +101,7 @@ Open your browser at `http://localhost:8501`.
 ## 📖 Usage Guide
 
 1. **Upload Video**: In the sidebar, upload an MP4, MOV, or AVI singles match video.
-2. **AI Coach Setup (Optional)**: Provide a Google Gemini API Key in the sidebar to enable automated tactical coaching feedback.
+2. **AI Coach Setup (Optional)**: Paste a Google Gemini API key in the sidebar, or export `GEMINI_API_KEY` (optionally `GEMINI_MODEL`; defaults to `gemini-3.8-flash` with automatic fallback). Enables match summary, weaknesses, drills, per-rally critiques and a coach chat.
 3. **Calibrate Court**:
    - Use the slider to find a frame with clear court view.
    - Adjust the 4 green pins to align with the 4 corners of the singles court boundary lines.

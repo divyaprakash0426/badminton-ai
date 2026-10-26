@@ -126,36 +126,39 @@ class AnalysisEngine:
         }
 
     def _analyze_player_movement(self, history):
+        """Per-player distance/speed in metres (history is interleaved Near/Far)."""
+        empty = {"total_distance": 0, "max_speed": 0, "chunks": [], "player_stats": {}}
         if not history:
-             return {"total_distance": 0, "max_speed": 0, "chunks": []}
-             
-        # Vectorized NumPy approach (faster than pandas apply)
-        positions = np.array([h['pos'] for h in history])
-        
-        if len(positions) < 2:
-            return {"total_distance": 0, "max_speed": 0, "chunks": []}
-        
-        # Calculate step distances using vectorized operations
-        diffs = np.diff(positions, axis=0)
-        step_distances = np.sqrt(np.sum(diffs**2, axis=1))
-        
-        # Calculate speeds
-        speeds = step_distances * self.fps
-        
-        # Smoothed speed using convolution (faster than rolling)
-        if len(speeds) >= 5:
-            kernel = np.ones(5) / 5
-            speed_smooth = np.convolve(speeds, kernel, mode='valid')
-            max_speed = float(np.max(speed_smooth)) if len(speed_smooth) > 0 else 0
-        else:
-            max_speed = float(np.max(speeds)) if len(speeds) > 0 else 0
-        
-        total_dist = float(np.sum(step_distances))
-        
+            return empty
+
+        MAX_STEP_M = 1.0  # ~25 m/s at 25fps; larger jumps are tracking glitches
+        player_stats = {}
+        for ptype in ("Near", "Far"):
+            rows = [h for h in history if h.get('player_type') == ptype]
+            rows.sort(key=lambda h: h['frame'])
+            if len(rows) < 2:
+                continue
+            pos = np.array([h['pos'] for h in rows], dtype=float)
+            frames = np.array([h['frame'] for h in rows], dtype=float)
+            steps = np.linalg.norm(np.diff(pos, axis=0), axis=1)
+            gaps = np.diff(frames)
+            valid = (gaps > 0) & (gaps <= 5) & (steps / np.maximum(gaps, 1) <= MAX_STEP_M)
+            speeds = np.where(valid, steps / np.maximum(gaps, 1) * self.fps, 0.0)
+            if len(speeds) >= 5:
+                speeds = np.convolve(speeds, np.ones(5) / 5, mode='valid')
+            player_stats[ptype] = {
+                "total_distance": float(steps[valid].sum()),
+                "max_speed": float(speeds.max()) if len(speeds) else 0.0,
+                "avg_speed": float(speeds.mean()) if len(speeds) else 0.0,
+            }
+
+        if not player_stats:
+            return empty
         return {
-            "total_distance": total_dist,
-            "max_speed": max_speed,
-            "chunks": [] 
+            "total_distance": sum(p["total_distance"] for p in player_stats.values()),
+            "max_speed": max(p["max_speed"] for p in player_stats.values()),
+            "chunks": [],
+            "player_stats": player_stats,
         }
 
     def _detect_swings(self, player_history):
@@ -685,61 +688,61 @@ class AnalysisEngine:
                     "to_pos": end['pos']
                 })
             
-                if rally_shots:
-                    # Add rally with frame range for clip extraction
-                    # Use LAST HIT as end (not last shuttle detection) to avoid including next serve
-                    first_hit_frame = int(events[0]['frame'])
-                    last_hit_frame = int(events[-1]['frame'])
+            if rally_shots:
+                # Add rally with frame range for clip extraction
+                # Use LAST HIT as end (not last shuttle detection) to avoid including next serve
+                first_hit_frame = int(events[0]['frame'])
+                last_hit_frame = int(events[-1]['frame'])
+                
+                # Add small buffer after last hit (1 second = 25 frames) to see point finish
+                BUFFER_FRAMES = 25
+                rally_end_with_buffer = min(last_hit_frame + BUFFER_FRAMES, int(rally_df['frame'].max()))
+                
+                # --- SCORING LOGIC ---
+                last_shot = rally_shots[-1]
+                last_hitter = last_shot['hit_by']
+                landing_pos = last_shot['to_pos'] if 'to_pos' in last_shot else None
+                
+                # Determine In/Out
+                is_in = True
+                is_net = False # TODO: Detect hitting net based on trajectory stop?
+                
+                # Simple geometry check for OUT
+                if geometry and last_shot['to_pos_m'] is not None:
+                    lx_m, ly_m = last_shot['to_pos_m']
                     
-                    # Add small buffer after last hit (1 second = 25 frames) to see point finish
-                    BUFFER_FRAMES = 25
-                    rally_end_with_buffer = min(last_hit_frame + BUFFER_FRAMES, int(rally_df['frame'].max()))
+                    # --- NEW: Get Relative Coordinates for AI Forecasting ---
+                    if hasattr(geometry, 'get_relative_coordinates'):
+                         rel_coords = geometry.get_relative_coordinates((lx_m, ly_m))
+                         if rel_coords:
+                             last_shot['landing_x'], last_shot['landing_y'] = rel_coords
+                         else:
+                             last_shot['landing_x'], last_shot['landing_y'] = None, None
                     
-                    # --- SCORING LOGIC ---
-                    last_shot = rally_shots[-1]
-                    last_hitter = last_shot['hit_by']
-                    landing_pos = last_shot['to_pos'] if 'to_pos' in last_shot else None
-                    
-                    # Determine In/Out
-                    is_in = True
-                    is_net = False # TODO: Detect hitting net based on trajectory stop?
-                    
-                    # Simple geometry check for OUT
-                    if geometry and last_shot['to_pos_m'] is not None:
-                        lx_m, ly_m = last_shot['to_pos_m']
-                        
-                        # --- NEW: Get Relative Coordinates for AI Forecasting ---
-                        if hasattr(geometry, 'get_relative_coordinates'):
-                             rel_coords = geometry.get_relative_coordinates((lx_m, ly_m))
-                             if rel_coords:
-                                 last_shot['landing_x'], last_shot['landing_y'] = rel_coords
-                             else:
-                                 last_shot['landing_x'], last_shot['landing_y'] = None, None
-                        
-                        # Singles lines: x in [0.46, 5.64], y in [0, 13.4]
-                        if lx_m < 0.46 or lx_m > 5.64 or ly_m < 0 or ly_m > 13.4:
-                            is_in = False
-                    
-                    current_score_a, current_score_b, winner = self.scoreboard.update(
-                        "Land" if not is_net else "Net", 
-                        last_hitter, 
-                        is_in
-                    )
-                    
-                    rally_data = {
-                        "shots": rally_shots,
-                        "start_frame": first_hit_frame,
-                        "end_frame": rally_end_with_buffer,
-                        "shot_count": len(rally_shots),
-                        "score_after": f"{current_score_a}-{current_score_b}",
-                        "winner": winner,
-                        # Add simple summary for CSV export if needed
-                        "last_landing_x": last_shot.get('landing_x'),
-                        "last_landing_y": last_shot.get('landing_y')
-                    }
-                    
-                    classified_rallies.append(rally_data)
-                    match_story.append(rally_data) # Add to story for LLM
+                    # Singles lines: x in [0.46, 5.64], y in [0, 13.4]
+                    if lx_m < 0.46 or lx_m > 5.64 or ly_m < 0 or ly_m > 13.4:
+                        is_in = False
+                
+                current_score_a, current_score_b, winner = self.scoreboard.update(
+                    "Land" if not is_net else "Net", 
+                    last_hitter, 
+                    is_in
+                )
+                
+                rally_data = {
+                    "shots": rally_shots,
+                    "start_frame": first_hit_frame,
+                    "end_frame": rally_end_with_buffer,
+                    "shot_count": len(rally_shots),
+                    "score_after": f"{current_score_a}-{current_score_b}",
+                    "winner": winner,
+                    # Add simple summary for CSV export if needed
+                    "last_landing_x": last_shot.get('landing_x'),
+                    "last_landing_y": last_shot.get('landing_y')
+                }
+                
+                classified_rallies.append(rally_data)
+                match_story.append(rally_data) # Add to story for LLM
         
         return {
             "rallies": classified_rallies,
@@ -799,7 +802,8 @@ class AnalysisEngine:
         return "Unknown"
                 
 
-    def generate_ai_verdict(self, rally_report, focus_player="Near"):
+    @staticmethod
+    def generate_ai_verdict(rally_report, focus_player="Near"):
         """
         Generates tactical insights based on the rally analysis.
         focus_player: "Near" (Blue) or "Far" (Green) - The player we are coaching.
@@ -845,16 +849,20 @@ class AnalysisEngine:
             # If (Last Shot = Lift/Clear) and (No Return Detected) -> Hitter probably hit OUT -> Receiver Won.
             
             last_hitter = last_shot['hit_by']
-            shot_type = last_shot['type']
-            
-            winner = "?"
-            # Aggressive shot that wasn't returned -> Hitter won
-            if shot_type in ['Smash', 'Drive', 'Net', 'Drop']: 
-                winner = last_hitter
-            # Defensive/High shot that wasn't returned -> Likely Receiver won (Out)
-            elif shot_type in ['Clear', 'Serve', 'Lift']: 
-                winner = opponent if last_hitter == focus_player else focus_player
-            
+            raw_type = str(last_shot['type']).lower()
+            # Collapse classifier labels ("Tap Smash", "Defensive Clear", ...) to coarse families
+            shot_type = next((fam for key, fam in (
+                ('smash', 'Smash'), ('drive', 'Drive'), ('net', 'Net'), ('drop', 'Drop'),
+                ('clear', 'Clear'), ('serve', 'Serve'), ('lift', 'Lift')) if key in raw_type), last_shot['type'])
+
+            # Prefer the scoreboard winner computed during analysis when it is available
+            winner = rally.get('winner') if rally.get('winner') in ('Near', 'Far') else "?"
+            if winner == "?":
+                if shot_type in ['Smash', 'Drive', 'Net', 'Drop']:
+                    winner = last_hitter
+                elif shot_type in ['Clear', 'Serve', 'Lift']:
+                    winner = opponent if last_hitter == focus_player else focus_player
+
             # --- Per Rally Feedback ---
             comment = ""
             if winner == focus_player:

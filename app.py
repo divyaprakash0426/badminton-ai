@@ -17,6 +17,8 @@ from engine.analysis import AnalysisEngine
 from engine.gemini_coach import GeminiCoach
 from streamlit_drawable_canvas import st_canvas
 from project_utils.security import save_uploaded_file_securely
+from project_utils import ui_theme as ui
+from project_utils.results_view import render_results
 
 # --- MONKEYPATCH REMOVED (Downgraded Streamlit) ---
 
@@ -31,9 +33,9 @@ def load_tracknet_tracker():
     """Load TrackNet + InpaintNet (cached across reruns)."""
     return TrackNetTracker()
 
-st.set_page_config(page_title="Badminton Singles Analytics", page_icon="🏸", layout="wide")
-
-st.title("🏸 Badminton Singles Analytics Engine")
+st.set_page_config(page_title="Badminton AI", page_icon="🏸", layout="wide")
+ui.inject_theme()
+ui.header()
 
 # --- session state ---
 if 'corners' not in st.session_state:
@@ -60,7 +62,6 @@ st.sidebar.header("Configuration")
 # Check Device
 import torch
 device_name = "🟢 GPU (CUDA)" if torch.cuda.is_available() else "🟠 CPU"
-st.sidebar.image("https://img.icons8.com/color/48/000000/processor.png", width=30)
 st.sidebar.markdown(f"**Processor:** {device_name}")
 if not torch.cuda.is_available():
     st.sidebar.caption("Use `supergfxctl` to enable RTX 4080 if available.")
@@ -69,15 +70,21 @@ if not torch.cuda.is_available():
 # API Keys
 st.sidebar.divider()
 st.sidebar.markdown("### 🤖 AI Coach")
-gemini_api_key = st.sidebar.text_input("Gemini API Key", type="password", help="Required for Tab 3 AI features. Get yours at https://aistudio.google.com/app/apikey")
+_typed_key = st.sidebar.text_input("Gemini API Key", type="password", help="Needed for the AI Coach tab. Get one at https://aistudio.google.com/app/apikey")
+_env_key = os.environ.get("GEMINI_API_KEY", "")
+gemini_api_key = _typed_key or _env_key
+if _env_key and not _typed_key:
+    st.sidebar.caption("✅ Using GEMINI_API_KEY from the environment")
 
 uploaded_file = st.sidebar.file_uploader(
     "Upload Video",
     type=["mp4", "mov", "avi", "webm", "mkv"],
-    help="Limit 200MB. Supported formats: MP4, MOV, AVI, WebM, MKV"
+    help="Limit 1GB. Supported formats: MP4, MOV, AVI, WebM, MKV"
 )
 
 # --- main ---
+if uploaded_file:
+    ui.stepper(3 if st.session_state.get('analysis_results') else 1)
 if uploaded_file:
     # Use name + size as a simple unique identifier for the session
     file_id = f"{uploaded_file.name}-{uploaded_file.size}"
@@ -125,7 +132,8 @@ if uploaded_file:
         # Save NEW file
         video_path = save_uploaded_file_securely(
             uploaded_file,
-            allowed_extensions=["mp4", "mov", "avi", "webm", "mkv"]
+            allowed_extensions=["mp4", "mov", "avi", "webm", "mkv"],
+            max_size_mb=1024
         )
         if not video_path:
             st.error("Error saving file. It might exceed the size limit or have an invalid extension.")
@@ -521,6 +529,8 @@ if uploaded_file:
                                 coach = GeminiCoach(gemini_api_key)
                                 insights = coach.analyze_match(analysis_report, focus_player="Near") # Default focus
                                 st.session_state.coach_insights = insights
+                                st.session_state.coach_focus = "Near"
+                                st.session_state.coach_chat = []
                                 # Palette: Flag completion for toast
                                 st.session_state.processing_complete = True
                             except Exception as e:
@@ -543,240 +553,18 @@ if uploaded_file:
         
     # --- RESULTS (Rendered from Session State) ---
     if st.session_state.get('analysis_results'):
-        results = st.session_state['analysis_results']
-        analysis_report = results['analysis_report']
-        converted_file = results['converted_file']
-        # info = results['info']
-        
         st.divider()
-        st.subheader("2. Analysis Results")
-        
-        tab1, tab2, tab3 = st.tabs(["🎥 Video Overlay", "📊 Tactical Analysis", "🤖 AI Coach"])
-        
-        with tab1:
-            st.video(converted_file)
-            
-            # Palette: Download Analyzed Video
-            # We read the file to bytes to allow download.
-            # NOTE: For very large files, this loads into RAM. Streamlit doesn't support streaming downloads easily yet.
-            if os.path.exists(converted_file):
-                with open(converted_file, "rb") as file:
-                    btn = st.download_button(
-                        label="⬇️ Download Analyzed Video",
-                        data=file,
-                        file_name="badminton_analysis_video.mp4",
-                        mime="video/mp4"
-                    )
-
-        with tab2:
-            st.markdown("### The Coach's Corner (Gemini 3)")
-            
-            # Display Stats
-            # Palette: Use columns for metrics
-            c1, c2 = st.columns(2)
-            with c1:
-                st.metric("Total Distance Covered", f"{analysis_report['total_distance']:.2f} m")
-            with c2:
-                st.metric("Max Speed", f"{analysis_report['max_speed']:.2f} m/s")
-            
-            st.subheader("Rally Analysis")
-            col_rally_stats, col_download = st.columns([3, 1])
-            with col_rally_stats:
-                st.write(f"**Total Shots Detected:** {analysis_report.get('total_shots', 0)}")
-            
-            with col_download:
-                # Palette: Download Match Report (JSON)
-                import json
-                report_json = json.dumps(analysis_report, default=str, indent=2)
-                st.download_button(
-                    label="⬇️ Download Report (JSON)",
-                    data=report_json,
-                    file_name="match_report.json",
-                    mime="application/json",
-                    help="Download the raw analysis data for custom processing."
-                )
-
-            # Pre-calculate Feedback for UI
-            analysis = AnalysisEngine(fps=info['fps']) # Ensure instance is available during re-runs
-            coach_verdict_ui = analysis.generate_ai_verdict(analysis_report, focus_player="Near")
-            rally_feedback_map = {item['rally_index']: item for item in coach_verdict_ui['rally_feedback']}
-            
-            # Shot Distribution
-            if 'shot_distribution' in analysis_report:
-                st.write("#### Shot Distribution")
-                # Palette: Use bar chart instead of JSON
-                shot_counts = analysis_report['shot_distribution']
-                if shot_counts:
-                    # Convert to DataFrame for better chart labeling
-                    df_shots = pd.DataFrame(list(shot_counts.items()), columns=['Shot Type', 'Count'])
-                    df_shots = df_shots.set_index('Shot Type')
-                    st.bar_chart(df_shots)
-                else:
-                    st.info("No shots detected.")
-            
-            # Rally Breakdown with Video Clips
-            st.write("#### Detailed Rallies")
-            if 'rallies' in analysis_report:
-                # Use persistent clips_dir to prevent resource exhaustion on reruns
-                clips_dir = results.get('clips_dir')
-                if not clips_dir or not os.path.exists(clips_dir):
-                    clips_dir = tempfile.mkdtemp(prefix="rally_clips_")
-                    # Update session state to persist the new dir
-                    if st.session_state.get('analysis_results'):
-                         st.session_state['analysis_results']['clips_dir'] = clips_dir
-                
-                for i, rally in enumerate(analysis_report['rallies']):
-                    shot_count = rally.get('shot_count', len(rally.get('shots', [])))
-                    start_frame = rally.get('start_frame', 0)
-                    end_frame = rally.get('end_frame', 0)
-                    
-                    # Calculate time range
-                    start_time = start_frame / info['fps']
-                    duration = (end_frame - start_frame) / info['fps']
-
-                    # Palette: Friendly time formatting for Expander Title
-                    start_min = int(start_time // 60)
-                    start_sec = int(start_time % 60)
-                    
-                    with st.expander(f"🏸 Rally {i+1} ({shot_count} shots) | ⏱️ {start_min:02d}:{start_sec:02d} ({duration:.1f}s)"):
-                        
-                        # --- TACTICAL ADVICE ---
-                        # 1. Check for LLM Insights (High Priority)
-                        llm_critique = None
-                        if st.session_state.coach_insights:
-                            critiques = st.session_state.coach_insights.get('rally_critiques', {})
-                            llm_critique = critiques.get(str(i))
-                        
-                        if llm_critique:
-                            st.info(f"🤖 **AI Coach**: {llm_critique}")
-                        else:
-                            # 2. Fallback to Rule-Based
-                            feedback_item = rally_feedback_map.get(i)
-                            if feedback_item:
-                                comment = feedback_item['comment']
-                                winner = feedback_item['winner']
-                                
-                                if winner == "Near":
-                                    st.success(f"**Tactical Win**: {comment}")
-                                elif winner == "Far":
-                                    st.warning(f"**Tactical Tip**: {comment}")
-                                else:
-                                    st.info(f"**Insight**: {comment}")
-                            
-                            # Prompt if missing
-                            if not st.session_state.coach_insights and i == 0:
-                                st.caption("💡 Go to Tab 3 to auto-generate deeper AI insights!")
-                        
-                        # Clip extraction (Lazy)
-                        clip_path = os.path.join(clips_dir, f"rally_{i+1}.mp4")
-                        if not os.path.exists(clip_path):
-                            ffmpeg_extract = [
-                                "ffmpeg", "-y", "-ss", f"{start_time:.2f}", "-i", converted_file,
-                                "-t", f"{duration:.2f}", "-c", "copy", clip_path
-                            ]
-                            subprocess.run(ffmpeg_extract, stderr=subprocess.DEVNULL)
-                        
-                        if os.path.exists(clip_path) and os.path.getsize(clip_path) > 0:
-                            st.video(clip_path)
-                        else:
-                            st.warning("Clip extraction failed for this rally.")
-                            
-                        # Breakdown
-                        st.write("**Shot-by-Shot Breakdown:**")
-
-                        # Palette: Use DataFrame for cleaner view
-                        shot_data = []
-                        shots = rally.get('shots', [])
-                        for shot in shots:
-                            hit_by = shot.get('hit_by', '?')
-                            emoji = "🔵" if hit_by == "Near" else "🟢"
-
-                            # Format time (MM:SS)
-                            shot_start_time = shot['from_frame'] / info['fps']
-                            timestamp = f"{int(shot_start_time // 60):02d}:{int(shot_start_time % 60):02d}"
-
-                            shot_data.append({
-                                "Player": f"{emoji} {hit_by}",
-                                "Type": shot.get('full_type', shot.get('type')),
-                                "Time": timestamp,
-                                "Frames": f"{shot['from_frame']}-{shot['to_frame']}"
-                            })
-
-                        if shot_data:
-                            st.dataframe(shot_data, use_container_width=True, hide_index=True)
-                        else:
-                            st.info("No shots recorded for this rally.")
-
-        with tab3:
-            st.subheader("3. AI Coach Verdict 🤖 (Gemini 3.0)")
-            
-            if not gemini_api_key:
-                # 🎨 Palette: Enhanced Empty State for AI Feature
-                st.info("✨ **Unlock AI Coaching Insights**")
-                st.markdown(
-                    """
-                    The AI Coach (powered by **Gemini 3.0**) analyzes your rallies to provide personalized feedback:
-
-                    *   🎯 **Opponent Weakness Identification**
-                    *   📉 **Shot-by-Shot Tactical Critique**
-                    *   💡 **Improvement Recommendations**
-
-                    **How to enable:**
-                    1.  Get a free API Key from [Google AI Studio](https://aistudio.google.com/app/apikey).
-                    2.  Enter it in the **sidebar** to activate.
-                    """
-                )
-            else:
-                # Player Selection - Now PERSISTENT
-                focus_player = st.radio("Who are you?", ["Near Player (Blue)", "Far Player (Green)"], index=0, horizontal=True)
-                focus_id = "Near" if "Near" in focus_player else "Far"
-                
-                curr_insights = st.session_state.coach_insights
-                
-                # Regenerate Button
-                if st.button("Regenerate Coach Analysis"):
-                    with st.spinner("Consulting the AI Coach..."):
-                        coach = GeminiCoach(gemini_api_key)
-                        curr_insights = coach.analyze_match(analysis_report, focus_player=focus_id)
-                        st.session_state.coach_insights = curr_insights
-                        st.success("Analysis Updated!")
-                
-                if curr_insights:
-                    col_weak, col_imp = st.columns(2)
-                    with col_weak:
-                        st.markdown("### 🎯 Opponent Weaknesses")
-                        for item in curr_insights.get('opponent_weakness', []):
-                            st.write(f"- {item}")
-                    with col_imp:
-                        st.markdown("### 📈 My Improvements")
-                        for item in curr_insights.get('my_improvements', []):
-                            st.write(f"- {item}")
+        render_results(st.session_state['analysis_results'], info, gemini_api_key)
 
 else:
-    # 🎨 Palette: Empty State / Welcome Guide
-    st.markdown("## 👋 Welcome to your AI Badminton Coach")
-
-    st.markdown(
-        """
-        This tool analyzes your badminton singles matches to provide
-        tactical insights and performance metrics using computer vision.
-        """
-    )
-
-    with st.container(border=True):
-        st.subheader("🚀 How to get started")
-
-        c1, c2, c3 = st.columns(3)
-        with c1:
-            st.markdown("### 1. Upload 📂")
-            st.write("Use the sidebar to upload a match video (MP4, MOV, etc.).")
-
-        with c2:
-            st.markdown("### 2. Calibrate 📐")
-            st.write("Drag the 4 green corners to match the singles court lines.")
-
-        with c3:
-            st.markdown("### 3. Analyze 🧠")
-            st.write("Let the AI track players & shuttle to generate tactical advice.")
-
-    st.info("💡 **Pro Tip:** For best results, use a video with a fixed camera angle from the back of the court.")
+    ui.stepper(0)
+    st.markdown("### Turn match footage into coaching")
+    c1, c2, c3 = st.columns(3)
+    for col, (icon, title, body) in zip((c1, c2, c3), (
+        ("📂", "Upload", "Add a singles match video (MP4, MOV, WebM, MKV) from the sidebar."),
+        ("📐", "Calibrate", "Drag the 4 green points onto the inner singles court lines."),
+        ("🧠", "Analyze", "YOLO pose + TrackNet shuttle + SlowFast shots, then Gemini coaching."),
+    )):
+        with col:
+            ui.card(f"{icon} {title}: {body}")
+    st.info("💡 Best results: fixed camera, behind the baseline or high rear angle.")

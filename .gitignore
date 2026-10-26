@@ -36,6 +36,7 @@ VideoBadminton_Dataset.zip
 *.tar
 *.tar.gz
 data/
+data
 videos/
 
 # --- Model Checkpoints and Weights ---

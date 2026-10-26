@@ -1,6 +1,10 @@
 ultralytics
 streamlit==1.40.0
+streamlit-drawable-canvas==0.9.3
 opencv-python
+numpy
+scipy
+pillow
 pandas
 shapely
 google-generativeai
@@ -15,3 +19,7 @@ av
 einops
 scikit-learn
 tqdm
+# Optional: TensorRT acceleration for YOLO (falls back to .pt otherwise)
+# tensorrt-cu12
+# onnx
+# onnxruntime-gpu
